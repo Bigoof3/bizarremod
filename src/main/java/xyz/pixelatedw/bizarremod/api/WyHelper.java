@@ -1,5 +1,6 @@
 package xyz.pixelatedw.bizarremod.api;
 
+import java.awt.Color;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
@@ -9,6 +10,14 @@ import java.util.Map;
 
 public class WyHelper
 {
+	
+	public static Color hexToRGB(String hexColor)
+	{
+		if (hexColor.startsWith("#"))
+			return Color.decode(hexColor);
+		else
+			return Color.decode("#" + hexColor);
+	}
 
 	public static <K extends Comparable, V extends Comparable> Map<K, V> sortAlphabetically(Map<K, V> map)
 	{

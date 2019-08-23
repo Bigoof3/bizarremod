@@ -49,8 +49,8 @@ public class StandLogicHelper
 			case 1: return 'D';
 			case 0: return 'E';
 			
-			case 5: return 'I';
-			case 6: return 'N';
+			case 5: return '∞';
+			case 6: return 'Ø';
 			case 7: return '?';
 			
 			default: return 'E';

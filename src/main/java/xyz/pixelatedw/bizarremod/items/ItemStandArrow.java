@@ -26,7 +26,13 @@ public class ItemStandArrow extends Item
 		{
 			if(player.isCreative())
 				ModMain.proxy.openGUI(ModValues.GUI_CREATIVE_STAND_SELECT, player);
+			else
+			{
+				System.out.println("Random Stand here");
+				player.getHeldItem(hand).setCount(0);
+			}
 		}
-		return new ActionResult<>(ActionResultType.SUCCESS, player.getHeldItem(hand));
+		
+		return new ActionResult<>(ActionResultType.FAIL, player.getHeldItem(hand));
 	}
 }

@@ -10,6 +10,7 @@ import xyz.pixelatedw.bizarremod.ModValues;
 import xyz.pixelatedw.bizarremod.api.json.WyJSONHelper;
 import xyz.pixelatedw.bizarremod.init.ModKeybindings;
 import xyz.pixelatedw.bizarremod.init.ModRenderers;
+import xyz.pixelatedw.bizarremod.screens.StandSelectScreen;
 
 public class ClientProxy implements IProxy
 {
@@ -49,6 +50,7 @@ public class ClientProxy implements IProxy
 		switch(guiId)
 		{
 			case ModValues.GUI_CREATIVE_STAND_SELECT:
+				Minecraft.getInstance().displayGuiScreen(new StandSelectScreen(player));
 				break;
 		}
 	}
