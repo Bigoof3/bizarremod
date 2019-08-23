@@ -1,10 +1,10 @@
 package xyz.pixelatedw.bizarremod.models;
 
-import net.minecraft.client.renderer.entity.model.BipedModel;
+import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
-import net.minecraft.entity.LivingEntity;
+import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
 
-public class GreenDayModel extends BipedModel
+public class GreenDayModel extends EntityModel<GenericStandEntity>
 {
 	public RendererModel right_arm;
 	public RendererModel right_leg;
@@ -173,7 +173,7 @@ public class GreenDayModel extends BipedModel
 	}
 
 	@Override
-	public void render(LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
+	public void render(GenericStandEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
 	{
 		super.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 		this.right_leg.render(scale);

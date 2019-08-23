@@ -10,6 +10,11 @@ import xyz.pixelatedw.bizarremod.init.ModEntities;
 public class GreenDayEntity extends GenericStandEntity
 {
 
+	public GreenDayEntity(World world, PlayerEntity owner)
+	{
+		super(ModEntities.GREEN_DAY, world, owner);
+	}
+	
 	public GreenDayEntity(World world)
 	{
 		super(ModEntities.GREEN_DAY, world);
@@ -25,6 +30,14 @@ public class GreenDayEntity extends GenericStandEntity
 		this.setPersistance('A');
 		this.setPrecision('E');
 		this.setDevelopmentPotential('A');
+	}
+	
+	@Override
+	public void tick()
+	{
+		super.tick();
+		
+		
 	}
 	
 	@Override
