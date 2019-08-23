@@ -8,4 +8,6 @@ public interface IProxy
 	PlayerEntity getClientPlayer();
 
 	World getClientWorld();
+	
+	void openGUI(int guiId, PlayerEntity player);
 }

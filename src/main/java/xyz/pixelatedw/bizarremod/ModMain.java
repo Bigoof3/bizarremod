@@ -6,6 +6,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import xyz.pixelatedw.bizarremod.api.WyDebug;
 import xyz.pixelatedw.bizarremod.config.CommonConfig;
 import xyz.pixelatedw.bizarremod.init.ModCapabilities;
 import xyz.pixelatedw.bizarremod.init.ModNetwork;
@@ -22,6 +23,12 @@ public class ModMain
 	
 	public ModMain()
 	{
+		if(WyDebug.isDebug())
+		{
+			String basicPath = System.getProperty("java.class.path");
+			ModValues.PROJECT_RESOURCES_FOLDER = basicPath.substring(0, basicPath.indexOf("\\bin")).replace("file:/", "").replace("%20", " ") + "/src/main/resources";
+		}
+		
 		instance = this;
 		proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
 		

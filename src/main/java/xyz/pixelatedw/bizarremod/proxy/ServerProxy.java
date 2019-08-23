@@ -18,4 +18,7 @@ public class ServerProxy implements IProxy
 		return null;
 	}
 
+	@Override
+	public void openGUI(int guiId, PlayerEntity player) {}
+
 }
