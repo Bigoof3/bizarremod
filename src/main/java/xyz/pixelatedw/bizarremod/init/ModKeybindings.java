@@ -37,25 +37,4 @@ public class ModKeybindings
 			System.out.println("@@@@@@");
 		}
 	}
-	
-	/*@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-	public static class Events
-	{
-
-		@SuppressWarnings("resource")
-		@SubscribeEvent
-		public void onKeyInput(KeyInputEvent event)
-		{
-			PlayerEntity player = ModMain.proxy.getClientPlayer();
-			World world = ModMain.proxy.getClientWorld();
-
-			if (player == null)
-				return;
-
-			if (standControl.isPressed())
-			{
-				System.out.println("@@@@@@");
-			}
-		}
-	}*/
 }

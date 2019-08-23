@@ -4,8 +4,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.server.SSpawnObjectPacket;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
 
@@ -20,13 +18,19 @@ public class GreenDayEntity extends GenericStandEntity
 	@Override
 	protected void registerData()
 	{
-		
+		super.registerData();
+		this.setDestructivePower('A');
+		this.setSpeed('C');
+		this.setRange('A');
+		this.setPersistance('A');
+		this.setPrecision('E');
+		this.setDevelopmentPotential('A');
 	}
 	
 	@Override
-	public ITextComponent getName()
+	public String getStandName()
 	{
-		return new StringTextComponent("Green Day");
+		return "Green Day";
 	}
 	
 	@Override
