@@ -1,12 +1,19 @@
 package xyz.pixelatedw.bizarremod.entities.stands.info;
 
 import net.minecraft.entity.player.PlayerEntity;
+import xyz.pixelatedw.bizarremod.ModValues;
 import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
 import xyz.pixelatedw.bizarremod.entities.stands.GreenDayEntity;
 
 public class GreenDayStandInfo extends StandInfo
 {
 
+	@Override
+	public String getStandId()
+	{
+		return ModValues.STAND_ID_GREEN_DAY;
+	}
+	
 	@Override
 	public GenericStandEntity summonStand(PlayerEntity owner)
 	{

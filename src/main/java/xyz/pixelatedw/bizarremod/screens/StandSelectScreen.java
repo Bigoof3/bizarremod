@@ -10,9 +10,11 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.config.GuiUtils;
-import xyz.pixelatedw.bizarremod.ModValues;
 import xyz.pixelatedw.bizarremod.api.WyHelper;
+import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
+import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
+import xyz.pixelatedw.bizarremod.entities.stands.info.StandInfo;
 import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
 
 @OnlyIn(Dist.CLIENT)
@@ -27,7 +29,7 @@ public class StandSelectScreen extends Screen
 	{
 		super(new StringTextComponent(""));
 		this.player = player;
-		this.maxStandsInList = StandLogicHelper.getRegisteredStands().size();
+		this.maxStandsInList = StandLogicHelper.getRegisteredStands().size();		
 	}
 
 	@Override
@@ -44,7 +46,8 @@ public class StandSelectScreen extends Screen
 		// #TODO Rotate the model right/left
 		// #TODO Filter by part origin / stats / ?
 		
-		GenericStandEntity stand = StandLogicHelper.getRegisteredStands().get(ModValues.STAND_ID_GREEN_DAY).summonStand(this.player);
+		StandInfo info = (StandInfo) StandLogicHelper.getRegisteredStands().values().toArray()[this.currentStand - 1];
+		GenericStandEntity stand = info.summonStand(this.player);
 		InventoryScreen.drawEntityOnScreen(posX + 0, posY + 190, 50, 0.0F, 0.0F, stand);
 
 		// Stats section		
@@ -101,6 +104,7 @@ public class StandSelectScreen extends Screen
 	{
 		int posX = (this.width - 256) / 2;
 		int posY = (this.height - 256) / 2;
+		IStandData props = StandDataCapability.get(this.player);
 		
 		Button previousButton = new Button(posX - 20, posY + 200, 90, 20, "Previous", b -> 
 		{
@@ -109,7 +113,8 @@ public class StandSelectScreen extends Screen
 	
 		Button chooseButton = new Button(posX + 90, posY + 200, 90, 20, "Choose", b -> 
 		{
-			
+			StandInfo info = (StandInfo) StandLogicHelper.getRegisteredStands().values().toArray()[this.currentStand - 1];
+			props.setStand(info.getStandId());
 		});
 				
 		Button nextButton = new Button(posX + 200, posY + 200, 90, 20, "Next", b -> 

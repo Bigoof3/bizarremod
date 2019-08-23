@@ -6,6 +6,7 @@ import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
 public abstract class StandInfo
 {
 
+	public abstract String getStandId();
 	public abstract GenericStandEntity summonStand(PlayerEntity owner);
 	
 }
