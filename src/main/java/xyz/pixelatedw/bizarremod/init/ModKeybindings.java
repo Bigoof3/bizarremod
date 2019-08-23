@@ -10,6 +10,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import xyz.pixelatedw.bizarremod.ModMain;
 import xyz.pixelatedw.bizarremod.ModValues;
+import xyz.pixelatedw.bizarremod.api.WyHelper;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.packets.client.CStandControlPacket;
@@ -36,9 +37,7 @@ public class ModKeybindings
 		if (player == null)
 			return;
 
-		if (standControl.isPressed())
-		{
+		if (standControl.isPressed() && WyHelper.isNullOrEmpty(props.getStand()))
 			ModNetwork.sendToServer(new CStandControlPacket(props.getStand()));
-		}
 	}
 }
