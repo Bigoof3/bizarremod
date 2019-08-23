@@ -95,6 +95,9 @@ public abstract class GenericStandEntity extends CreatureEntity
 			if(this.getHealth() <= 0)
 				this.owner.attackEntityFrom(DamageSource.MAGIC, Float.MAX_VALUE);
 			
+			if(this.getHealth() != this.owner.getHealth())
+				this.setHealth(this.owner.getHealth());
+			
 			double distance = this.getDistanceSq(this.owner);
 			if(distance > 1)
 				this.moveStand(distance, this.owner);
@@ -136,12 +139,13 @@ public abstract class GenericStandEntity extends CreatureEntity
     @Override
 	public boolean attackEntityFrom(DamageSource damageSource, float damageValue)
     {
-    	if(damageSource.getTrueSource() != null && damageSource.getTrueSource() instanceof PlayerEntity && damageSource.getTrueSource() == this.owner)
+    	if(this.world.isRemote)
     		return false;
     	
-    	System.out.println(this.owner);
-    	
-        //this.owner.attackEntityFrom(DamageSource.MAGIC, damageValue);
+    	if(damageSource.getTrueSource() != null && damageSource.getTrueSource() instanceof PlayerEntity && damageSource.getTrueSource() == this.owner)
+    		return false;
+
+        this.owner.attackEntityFrom(damageSource, damageValue);
     	return super.attackEntityFrom(damageSource, damageValue);
     }	
 	
@@ -150,7 +154,7 @@ public abstract class GenericStandEntity extends CreatureEntity
 		owner.sendMessage(this.getName());
 	}
 
-	abstract void onCancel(PlayerEntity owner);
+	public abstract void onCancel(PlayerEntity owner);
 
 	abstract String getStandName();
 

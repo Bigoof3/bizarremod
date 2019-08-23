@@ -25,6 +25,8 @@ public class StandDataCapability
 				CompoundNBT props = new CompoundNBT();
 
 				props.putString("stand", instance.getStand());
+				
+				props.putBoolean("hasStandSummoned", instance.hasStandSummoned());
 
 				return props;
 			}
@@ -35,6 +37,8 @@ public class StandDataCapability
 				CompoundNBT props = (CompoundNBT) nbt;
 
 				instance.setStand(props.getString("stand"));
+				
+				instance.setStandSummoned(props.getBoolean("hasStandSummoned"));
 			}
 
 		}, StandDataBase::new);

@@ -38,7 +38,7 @@ public class ModKeybindings
 
 		if (standControl.isPressed())
 		{
-			ModNetwork.sendToServer(new CStandControlPacket(ModValues.STAND_ID_GREEN_DAY));
+			ModNetwork.sendToServer(new CStandControlPacket(props.getStand()));
 		}
 	}
 }
