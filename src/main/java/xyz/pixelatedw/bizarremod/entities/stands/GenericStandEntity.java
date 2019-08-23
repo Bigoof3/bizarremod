@@ -27,8 +27,21 @@ public abstract class GenericStandEntity extends Entity
 	protected static final DataParameter<Byte> DEVELOPMENT_POTENTIAL = EntityDataManager.createKey(GenericStandEntity.class, DataSerializers.BYTE);
 
 	private PlayerEntity owner;
+
+	public GenericStandEntity(EntityType type, World world)
+	{
+		super(type, world);
+		
+		//this.remove();
+		
+		this.setPosition(260, 63, 0);
+		this.setMotion(Vec3d.ZERO);
+		this.prevPosX = 260;
+		this.prevPosY = 63;
+		this.prevPosZ = 0;
+	}
 	
-	protected GenericStandEntity(EntityType<? extends GenericStandEntity> type, World world, PlayerEntity owner)
+	public GenericStandEntity(EntityType<? extends GenericStandEntity> type, World world, PlayerEntity owner)
 	{
 		super(type, world);
 		
@@ -42,15 +55,6 @@ public abstract class GenericStandEntity extends Entity
 		this.prevPosZ = owner.getPosition().getZ();
 	}
 
-	public GenericStandEntity(EntityType type, World world)
-	{
-		super(type, world);
-		
-		//this.remove();
-		
-		this.setPosition(260, 63, 0);
-		this.setMotion(Vec3d.ZERO);
-	}
 
 	@Override
 	protected void registerData()
@@ -73,10 +77,8 @@ public abstract class GenericStandEntity extends Entity
 	@Override
 	public void tick()
 	{
-		//if(owner == null)
-		//	this.remove();
-	
-		//System.out.println(this.getPosition());
+		if(owner == null)
+			this.remove();
 	}
 
 	public void onSummon(PlayerEntity owner)

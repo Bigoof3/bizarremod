@@ -3,8 +3,8 @@ package xyz.pixelatedw.bizarremod.entities.stands;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
-import net.minecraft.network.play.server.SSpawnObjectPacket;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
 
 public class GreenDayEntity extends GenericStandEntity
@@ -35,9 +35,7 @@ public class GreenDayEntity extends GenericStandEntity
 	@Override
 	public void tick()
 	{
-		super.tick();
-		
-		
+		super.tick();	
 	}
 	
 	@Override
@@ -67,7 +65,7 @@ public class GreenDayEntity extends GenericStandEntity
 	@Override
 	public IPacket<?> createSpawnPacket()
 	{
-		return new SSpawnObjectPacket(this);
+		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
 }

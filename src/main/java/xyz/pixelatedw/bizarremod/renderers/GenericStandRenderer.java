@@ -25,22 +25,24 @@ public class GenericStandRenderer extends EntityRenderer<GenericStandEntity>
 		super(renderManager);
 		this.model = model;
 		this.scale = scale;
-		this.texture = new ResourceLocation(ModValues.PROJECT_ID, "textures/models/" + texture + ".png");
+		this.texture = new ResourceLocation(ModValues.PROJECT_ID, "textures/models/stands/" + texture + ".png");
 	}
 
 	@Override
 	public void doRender(GenericStandEntity entity, double x, double y, double z, float entityYaw, float partialTicks)
 	{
 		GlStateManager.pushMatrix();
-		GlStateManager.translatef((float)x, (float)y + 0.375F, (float)z);
+		GlStateManager.translatef((float)x, (float)y + 1.7F, (float)z);
 		this.bindEntityTexture(entity);
 		if (this.renderOutlines)
 		{
 			GlStateManager.enableColorMaterial();
 			GlStateManager.setupSolidRenderingTextureCombine(this.getTeamColor(entity));
 		}
-		System.out.println("@@@");
-
+		
+		GlStateManager.rotatef(180, 0, 0, 1);
+		GlStateManager.scaled(this.scale, this.scale, this.scale);
+		
 		this.model.render(entity, partialTicks, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
 		if (this.renderOutlines)
 		{
@@ -58,7 +60,7 @@ public class GenericStandRenderer extends EntityRenderer<GenericStandEntity>
 		return this.texture;
 	}
 
-	public static class Factory implements IRenderFactory
+	public static class Factory implements IRenderFactory<GenericStandEntity>
 	{
 		private EntityModel model;
 		private float scale;
@@ -75,7 +77,7 @@ public class GenericStandRenderer extends EntityRenderer<GenericStandEntity>
 		}
 
 		@Override
-		public EntityRenderer createRenderFor(EntityRendererManager manager)
+		public EntityRenderer<? super GenericStandEntity> createRenderFor(EntityRendererManager manager)
 		{
 			return new GenericStandRenderer(manager, this.model, this.scale, this.texture);
 		}
