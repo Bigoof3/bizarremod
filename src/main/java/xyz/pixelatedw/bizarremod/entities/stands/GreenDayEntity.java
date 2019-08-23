@@ -26,7 +26,7 @@ public class GreenDayEntity extends GenericStandEntity
 	@Override
 	public ITextComponent getName()
 	{
-		return new StringTextComponent("Green Day".toUpperCase());
+		return new StringTextComponent("Green Day");
 	}
 	
 	@Override
