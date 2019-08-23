@@ -37,7 +37,7 @@ public class ModKeybindings
 		if (player == null)
 			return;
 
-		if (standControl.isPressed() && WyHelper.isNullOrEmpty(props.getStand()))
+		if (standControl.isPressed() && !WyHelper.isNullOrEmpty(props.getStand()))
 			ModNetwork.sendToServer(new CStandControlPacket(props.getStand()));
 	}
 }
