@@ -9,5 +9,5 @@ public interface IProxy
 
 	World getClientWorld();
 	
-	void openGUI(int guiId, PlayerEntity player);
+	void openScreen(int guiId, PlayerEntity player);
 }

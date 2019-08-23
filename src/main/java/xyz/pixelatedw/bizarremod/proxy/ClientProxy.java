@@ -45,7 +45,7 @@ public class ClientProxy implements IProxy
 	}
 	
 	@Override
-	public void openGUI(int guiId, PlayerEntity player)
+	public void openScreen(int guiId, PlayerEntity player)
 	{
 		switch(guiId)
 		{

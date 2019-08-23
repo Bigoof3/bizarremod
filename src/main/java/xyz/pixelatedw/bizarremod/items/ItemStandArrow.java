@@ -25,7 +25,7 @@ public class ItemStandArrow extends Item
 		if(!world.isRemote)
 		{
 			if(player.isCreative())
-				ModMain.proxy.openGUI(ModValues.GUI_CREATIVE_STAND_SELECT, player);
+				ModMain.proxy.openScreen(ModValues.GUI_CREATIVE_STAND_SELECT, player);
 			else
 			{
 				System.out.println("Random Stand here");
