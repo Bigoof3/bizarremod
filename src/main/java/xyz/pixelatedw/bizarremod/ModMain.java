@@ -8,6 +8,7 @@ import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import xyz.pixelatedw.bizarremod.config.CommonConfig;
 import xyz.pixelatedw.bizarremod.init.ModCapabilities;
+import xyz.pixelatedw.bizarremod.init.ModNetwork;
 import xyz.pixelatedw.bizarremod.proxy.ClientProxy;
 import xyz.pixelatedw.bizarremod.proxy.IProxy;
 import xyz.pixelatedw.bizarremod.proxy.ServerProxy;
@@ -25,6 +26,7 @@ public class ModMain
 		proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
 		
 		CommonConfig.init();
+		ModNetwork.init();
 		
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(ModMain::commonSetup);	
 		MinecraftForge.EVENT_BUS.addListener(this::serverAboutToStart);

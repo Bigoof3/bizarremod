@@ -10,6 +10,9 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import xyz.pixelatedw.bizarremod.ModMain;
 import xyz.pixelatedw.bizarremod.ModValues;
+import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
+import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
+import xyz.pixelatedw.bizarremod.packets.client.CStandControlPacket;
 
 public class ModKeybindings
 {
@@ -28,13 +31,14 @@ public class ModKeybindings
 	{
 		PlayerEntity player = ModMain.proxy.getClientPlayer();
 		World world = ModMain.proxy.getClientWorld();
-
+		IStandData props = StandDataCapability.get(player);
+		
 		if (player == null)
 			return;
 
 		if (standControl.isPressed())
 		{
-			System.out.println("@@@@@@");
+			ModNetwork.sendToServer(new CStandControlPacket(ModValues.STAND_ID_GREEN_DAY));
 		}
 	}
 }

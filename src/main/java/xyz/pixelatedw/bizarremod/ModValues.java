@@ -5,6 +5,8 @@ public class ModValues
 
 	public static final String 
 	
+	STAND_ID_GREEN_DAY = "green_day",
+	
 	CONTROLS_KEY_STAND_CONTROL = "Stand Summon/Cancel",
 	CONTROLS_CATEGORY = "Bizzare Controls",
 	

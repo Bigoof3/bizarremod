@@ -1,8 +1,26 @@
 package xyz.pixelatedw.bizarremod.helpers;
 
+import java.util.HashMap;
+
+import xyz.pixelatedw.bizarremod.ModValues;
+import xyz.pixelatedw.bizarremod.entities.stands.info.GreenDayStandInfo;
+import xyz.pixelatedw.bizarremod.entities.stands.info.StandInfo;
+
 public class StandLogicHelper
 {
 
+	private static HashMap<String, StandInfo> stands = new HashMap<String, StandInfo>();
+	
+	static
+	{
+		stands.put(ModValues.STAND_ID_GREEN_DAY, new GreenDayStandInfo());
+	}
+	
+	public static HashMap<String, StandInfo> getRegisteredStands()
+	{
+		return stands;
+	}
+	
 	public static byte convertStandStat(char value)
 	{
 		switch(Character.toUpperCase(value))

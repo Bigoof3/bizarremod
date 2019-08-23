@@ -1,10 +1,10 @@
 package xyz.pixelatedw.bizarremod.models;
 
-import net.minecraft.client.renderer.entity.model.EntityModel;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
 
-public class GreenDayModel extends EntityModel<GenericStandEntity>
+public class GreenDayModel extends BipedModel<GenericStandEntity>
 {
 	public RendererModel right_arm;
 	public RendererModel right_leg;
@@ -38,6 +38,14 @@ public class GreenDayModel extends EntityModel<GenericStandEntity>
 
 	public GreenDayModel()
 	{
+		this.bipedBody.showModel = false;
+		this.bipedHead.showModel = false;
+		this.bipedLeftArm.showModel = false;
+		this.bipedLeftLeg.showModel = false;
+		this.bipedRightArm.showModel = false;
+		this.bipedRightLeg.showModel = false;
+		this.bipedHeadwear.showModel = false;
+
 		this.textureWidth = 64;
 		this.textureHeight = 64;
 		this.left_arm_plate = new RendererModel(this, 40, 0);
@@ -176,12 +184,28 @@ public class GreenDayModel extends EntityModel<GenericStandEntity>
 	public void render(GenericStandEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
 	{
 		super.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+		this.setRotationAngles(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+
 		this.right_leg.render(scale);
 		this.body.render(scale);
 		this.left_leg.render(scale);
 		this.head.render(scale);
 		this.right_arm.render(scale);
 		this.left_arm.render(scale);
+	}
+
+	@Override
+	public void setRotationAngles(GenericStandEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
+	{
+		this.bipedLeftArm = this.left_arm;
+		this.bipedRightArm = this.right_arm;
+		this.bipedLeftLeg = this.left_leg;
+		this.bipedRightLeg = this.right_leg;
+		
+		super.setRotationAngles(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+
+		this.head.rotateAngleY = (netHeadYaw / 60F);
+		this.head.rotateAngleX = (headPitch / 60F);
 	}
 
 	public void setRotateAngle(RendererModel RendererModel, float x, float y, float z)
