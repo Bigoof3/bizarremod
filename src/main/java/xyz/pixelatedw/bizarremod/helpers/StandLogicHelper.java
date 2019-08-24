@@ -2,6 +2,7 @@ package xyz.pixelatedw.bizarremod.helpers;
 
 import java.util.HashMap;
 
+import xyz.pixelatedw.bizarremod.ModMain;
 import xyz.pixelatedw.bizarremod.ModValues;
 import xyz.pixelatedw.bizarremod.entities.stands.info.GreenDayStandInfo;
 import xyz.pixelatedw.bizarremod.entities.stands.info.StandInfo;
@@ -14,6 +15,17 @@ public class StandLogicHelper
 	static
 	{
 		stands.put(ModValues.STAND_ID_GREEN_DAY, new GreenDayStandInfo());
+	}
+	
+	public static StandInfo getStandInfo(String standName)
+	{
+		if(stands.containsKey(standName))
+			return stands.get(standName);
+		else
+		{
+			ModMain.LOGGER.warn(standName + " is not a registered Stand !");
+			return null;
+		}
 	}
 	
 	public static HashMap<String, StandInfo> getRegisteredStands()

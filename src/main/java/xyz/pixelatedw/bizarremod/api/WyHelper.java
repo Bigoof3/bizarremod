@@ -1,6 +1,8 @@
 package xyz.pixelatedw.bizarremod.api;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
@@ -8,8 +10,21 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.util.math.AxisAlignedBB;
+
 public class WyHelper
 {
+	
+	public static <T> List<T> getNearbyEntities(Entity center, double radius, Class<? extends Entity> clz)
+	{
+		AxisAlignedBB aabb = new AxisAlignedBB(center.posX, center.posY, center.posZ, center.posX + 1, center.posY + 1, center.posZ + 1).grow(radius, radius, radius);
+		List<T> targets = new ArrayList<T>();
+		targets.addAll((Collection<? extends T>) center.world.getEntitiesWithinAABB(clz, aabb));
+		targets.remove(center);
+		
+		return targets;
+	}
 	
 	public static Color hexToRGB(String hexColor)
 	{

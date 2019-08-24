@@ -8,6 +8,7 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.config.GuiUtils;
@@ -55,8 +56,18 @@ public class StandSelectScreen extends Screen
 		InventoryScreen.drawEntityOnScreen(posX + 0, posY + 190, 50, 0.0F, 0.0F, stand);
 
 		// Stats section	
-		// #TODO The fancy stats circle would be cool, opengl style		
-		if(this.page == 1)
+		// #TODO The fancy stats circle would be cool, opengl style	
+		if(this.page == 0)
+		{
+			this.minecraft.fontRenderer.drawStringWithShadow("- Mold Infestation -", posX + 130, posY + 90, -1);
+			this.minecraft.fontRenderer.drawStringWithShadow(TextFormatting.AQUA + " Passive", posX + 155, posY + 100, -1);
+			
+			this.minecraft.fontRenderer.drawStringWithShadow("Produces a potent mold that rots and destroys", posX + 70, posY + 115, -1);
+			this.minecraft.fontRenderer.drawStringWithShadow("the flesh of those it infects.", posX + 70, posY + 125, -1);
+			this.minecraft.fontRenderer.drawStringWithShadow("The mold's growth is triggered when the potential", posX + 70, posY + 135, -1);
+			this.minecraft.fontRenderer.drawStringWithShadow("victims lower their current altitude.", posX + 70, posY + 145, -1);
+		}
+		else if(this.page == 1)
 		{
 			String stat = "";
 			
@@ -130,11 +141,15 @@ public class StandSelectScreen extends Screen
 		Button abilitiesButton = new Button(posX + 90, posY + 20, 50, 20, "Abilities", b -> 
 		{
 			this.page = 0;
+			
+			this.init();
 		});
 		
 		Button statsButton = new Button(posX + 150, posY + 20, 50, 20, "Stats", b -> 
 		{
 			this.page = 1;
+			
+			this.init();
 		});	
 			
 		if(this.currentStand == 1)
@@ -142,6 +157,11 @@ public class StandSelectScreen extends Screen
 
 		if(this.currentStand >= this.maxStandsInList)
 			nextButton.active = false;
+		
+		if(this.page == 0)
+			abilitiesButton.active = false;	
+		else if(this.page == 1)
+			statsButton.active = false;
 		
 		this.addButton(previousButton);
 		this.addButton(chooseButton);

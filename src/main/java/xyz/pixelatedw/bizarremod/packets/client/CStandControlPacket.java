@@ -4,10 +4,11 @@ import java.util.function.Supplier;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkEvent;
+import xyz.pixelatedw.bizarremod.ModMain;
+import xyz.pixelatedw.bizarremod.api.WyHelper;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
@@ -56,15 +57,21 @@ public class CStandControlPacket
 				}
 				else
 				{
-					double radius = 1.5;
-					AxisAlignedBB aabb = new AxisAlignedBB(player.posX, player.posY, player.posZ, player.posX + 1, player.posY + 1, player.posZ + 1).grow(radius, radius, radius);
-					GenericStandEntity target = (GenericStandEntity) player.world.getEntitiesWithinAABBExcludingEntity(player, aabb).get(0);
-					
-					if(target.getOwner() == player)
+					try
 					{
+						GenericStandEntity target = WyHelper.<GenericStandEntity>getNearbyEntities(player, 1.5, GenericStandEntity.class).get(0);
+						
+						if(target.getOwner() == player)
+						{
+							props.setStandSummoned(false);
+							target.onCancel(player);
+							target.remove();
+						}
+					}
+					catch(Exception e)
+					{
+						ModMain.LOGGER.warn("Error when summoning the Stand, canceling it.");
 						props.setStandSummoned(false);
-						target.onCancel(player);
-						target.remove();
 					}
 				}
 			});			

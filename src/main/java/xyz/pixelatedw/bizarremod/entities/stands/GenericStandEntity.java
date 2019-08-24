@@ -1,7 +1,5 @@
 package xyz.pixelatedw.bizarremod.entities.stands;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -11,8 +9,8 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
 
@@ -49,7 +47,7 @@ public abstract class GenericStandEntity extends CreatureEntity
 		this.prevPosX = owner.getPosition().getX();
 		this.prevPosY = owner.getPosition().getY();
 		this.prevPosZ = owner.getPosition().getZ();
-		
+
 		this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(this.owner.getMaxHealth());
 	}
 
@@ -75,10 +73,9 @@ public abstract class GenericStandEntity extends CreatureEntity
 	}
 
 	@Override
-	@Nullable
-	public AxisAlignedBB getCollisionBox(Entity entityIn)
+	public boolean isNotColliding(IWorldReader world)
 	{
-		return null;
+		return false;
 	}
 
 	@Override
@@ -91,33 +88,34 @@ public abstract class GenericStandEntity extends CreatureEntity
 				this.remove();
 				return;
 			}
-			
-			if(this.getHealth() <= 0)
+
+			if (this.getHealth() <= 0)
 				this.owner.attackEntityFrom(DamageSource.MAGIC, Float.MAX_VALUE);
-			
-			if(this.getHealth() != this.owner.getHealth())
+
+			if (this.getHealth() != this.owner.getHealth())
 				this.setHealth(this.owner.getHealth());
-			
+
 			double distance = this.getDistanceSq(this.owner);
-			if(distance > 1)
+			if (distance > 2)
 				this.moveStand(distance, this.owner);
-						
+
 			this.setRotation(this.owner.rotationYaw, this.owner.rotationPitch);
 		}
+
 		super.tick();
 	}
-	
+
 	public void moveStand(double distance, Entity entity)
 	{
 		double velX = this.posX - entity.posX;
 		double velY = this.posY - entity.posY;
 		double velZ = this.posZ - entity.posZ;
-		float speed = (float) distance / 10.0F;
-		if (distance < 0.5D)
+		float speed = (float) distance / 20.0F;
+		if (distance < 1.0D)
 			speed = -0.1F;
-		
+
 		double powX = 0, powY = 0, powZ = 0;
-		
+
 		if (velX > 0.0D)
 			powX -= speed;
 		if (velX < 0.0D)
@@ -132,23 +130,23 @@ public abstract class GenericStandEntity extends CreatureEntity
 			powZ -= speed;
 		if (velZ < 0.0D)
 			powZ += speed;
-		
+
 		this.setMotion(this.getMotion().add(powX, powY, powZ));
 	}
 
-    @Override
+	@Override
 	public boolean attackEntityFrom(DamageSource damageSource, float damageValue)
-    {
-    	if(this.world.isRemote)
-    		return false;
-    	
-    	if(damageSource.getTrueSource() != null && damageSource.getTrueSource() instanceof PlayerEntity && damageSource.getTrueSource() == this.owner)
-    		return false;
+	{
+		if (this.world.isRemote)
+			return false;
 
-        this.owner.attackEntityFrom(damageSource, damageValue);
-    	return super.attackEntityFrom(damageSource, damageValue);
-    }	
-	
+		if (damageSource.getTrueSource() != null && damageSource.getTrueSource() instanceof PlayerEntity && damageSource.getTrueSource() == this.owner)
+			return false;
+
+		this.owner.attackEntityFrom(damageSource, damageValue);
+		return super.attackEntityFrom(damageSource, damageValue);
+	}
+
 	public void onSummon(PlayerEntity owner)
 	{
 		owner.sendMessage(this.getName());
@@ -162,7 +160,7 @@ public abstract class GenericStandEntity extends CreatureEntity
 	{
 		this.owner = player;
 	}
-	
+
 	public PlayerEntity getOwner()
 	{
 		return this.owner;
