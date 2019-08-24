@@ -1,0 +1,16 @@
+{
+    "multipart": [
+		{ "apply": { "model": "${modid}:block/${texture}_post_ends" }},
+		
+        { "when": { "north": false, "east": false, "south": false, "west": false }, "apply": { "model": "${modid}:block/${texture}_post" } },
+        { "when": { "north": true, "east": false, "south": false, "west": false }, "apply": { "model": "${modid}:block/${texture}_cap" } },
+        { "when": { "north": false, "east": true, "south": false, "west": false }, "apply": { "model": "${modid}:block/${texture}_cap", "y": 90 } },
+        { "when": { "north": false, "east": false, "south": true, "west": false }, "apply": { "model": "${modid}:block/${texture}_cap_alt" } },
+        { "when": { "north": false, "east": false, "south": false, "west": true }, "apply": { "model": "${modid}:block/${texture}_cap_alt", "y": 90 } },
+		
+		{ "when": { "north": true }, "apply": { "model": "${modid}:block/${texture}_side" } },
+        { "when": { "east": true }, "apply": { "model": "${modid}:block/${texture}_side", "y": 90 } },
+        { "when": { "south": true }, "apply": { "model": "${modid}:block/${texture}_side_alt" } },
+        { "when": { "west": true }, "apply": { "model": "${modid}:block/${texture}_side_alt", "y": 90 } }
+    ]
+}

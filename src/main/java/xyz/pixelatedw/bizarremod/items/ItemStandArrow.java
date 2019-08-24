@@ -1,6 +1,7 @@
 package xyz.pixelatedw.bizarremod.items;
 
 
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -34,5 +35,12 @@ public class ItemStandArrow extends Item
 		}
 		
 		return new ActionResult<>(ActionResultType.FAIL, player.getHeldItem(hand));
+	}
+	
+	@Override
+	public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) 
+	{
+		System.out.println("Random Stand here");
+		return true;
 	}
 }

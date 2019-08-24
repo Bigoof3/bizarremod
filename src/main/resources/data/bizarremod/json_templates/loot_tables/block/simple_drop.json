@@ -1,0 +1,35 @@
+{
+	"type": "minecraft:block",
+	"pools": 
+	[
+		{
+			"name": "${modid}:drop_pool",
+			"rolls": 1,
+			"entries": 
+			[
+				{
+					"type": "minecraft:item",
+					"functions": 
+					[
+						{
+							"function": "minecraft:set_count",
+							"count": 
+							{
+								"min": "${min}",
+								"max": "${max}",
+								"type": "minecraft:uniform"
+							}
+		                }
+					],
+					"name": "${modid}:${item}"
+				}
+			],
+			"conditions": 
+			[
+				{
+					"condition": "minecraft:survives_explosion"
+				}
+			]
+		}
+	]
+}

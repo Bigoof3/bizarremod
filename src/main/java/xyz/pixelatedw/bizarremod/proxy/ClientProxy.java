@@ -49,6 +49,9 @@ public class ClientProxy implements IProxy
 	{
 		switch(guiId)
 		{
+			case -1:
+				Minecraft.getInstance().displayGuiScreen(null);
+				break;
 			case ModValues.GUI_CREATIVE_STAND_SELECT:
 				Minecraft.getInstance().displayGuiScreen(new StandSelectScreen(player));
 				break;

@@ -6,16 +6,20 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.config.GuiUtils;
+import xyz.pixelatedw.bizarremod.ModMain;
 import xyz.pixelatedw.bizarremod.api.WyHelper;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
 import xyz.pixelatedw.bizarremod.entities.stands.info.StandInfo;
 import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
+import xyz.pixelatedw.bizarremod.init.ModNetwork;
+import xyz.pixelatedw.bizarremod.packets.server.SSyncStandDataPacket;
 
 @OnlyIn(Dist.CLIENT)
 public class StandSelectScreen extends Screen
@@ -50,11 +54,10 @@ public class StandSelectScreen extends Screen
 		GenericStandEntity stand = info.summonStand(this.player);
 		InventoryScreen.drawEntityOnScreen(posX + 0, posY + 190, 50, 0.0F, 0.0F, stand);
 
-		// Stats section		
+		// Stats section	
+		// #TODO The fancy stats circle would be cool, opengl style		
 		if(this.page == 1)
 		{
-			// #TODO The fancy stats circle would be cool, opengl style
-			
 			String stat = "";
 			
 			// Destruction Power
@@ -115,6 +118,8 @@ public class StandSelectScreen extends Screen
 		{
 			StandInfo info = (StandInfo) StandLogicHelper.getRegisteredStands().values().toArray()[this.currentStand - 1];
 			props.setStand(info.getStandId());
+			ModNetwork.sendTo(new SSyncStandDataPacket(props), (ServerPlayerEntity)this.player);
+			ModMain.proxy.openScreen(-1, this.player);
 		});
 				
 		Button nextButton = new Button(posX + 200, posY + 200, 90, 20, "Next", b -> 

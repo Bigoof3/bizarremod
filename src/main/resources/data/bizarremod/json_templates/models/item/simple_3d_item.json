@@ -1,0 +1,28 @@
+{
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "${modid}:items/${texture}"
+	},
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [ "${thirdperson_rotations}" ],
+            "translation": [ "${thirdperson_translations}" ],
+            "scale": [ "${thirdperson_scales}" ]
+        },
+        "thirdperson_lefthand": {
+			"rotation": [ "${thirdperson_rotations}" ],
+            "translation": [ "${thirdperson_translations}" ],
+            "scale": [ "${thirdperson_scales}" ]
+        },
+        "firstperson_righthand": {
+			"rotation": [ "${firstperson_rotations}" ],
+            "translation": [ "${firstperson_translations}" ],
+            "scale": [ "${firstperson_scales}" ]
+        },
+        "firstperson_lefthand": {
+			"rotation": [ "${firstperson_rotations}" ],
+            "translation": [ "${firstperson_translations}" ],
+            "scale": [ "${firstperson_scales}" ]
+        }
+    }
+}

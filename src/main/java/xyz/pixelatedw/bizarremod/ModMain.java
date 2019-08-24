@@ -8,6 +8,7 @@ import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import xyz.pixelatedw.bizarremod.api.WyDebug;
 import xyz.pixelatedw.bizarremod.config.CommonConfig;
+import xyz.pixelatedw.bizarremod.events.EventsJoinWorld;
 import xyz.pixelatedw.bizarremod.init.ModCapabilities;
 import xyz.pixelatedw.bizarremod.init.ModNetwork;
 import xyz.pixelatedw.bizarremod.proxy.ClientProxy;
@@ -42,6 +43,8 @@ public class ModMain
 	private static void commonSetup(FMLCommonSetupEvent event)
 	{
 		ModCapabilities.init();
+		
+		MinecraftForge.EVENT_BUS.register(new EventsJoinWorld());
 	}
 	
 	private void serverAboutToStart(FMLServerAboutToStartEvent event)
