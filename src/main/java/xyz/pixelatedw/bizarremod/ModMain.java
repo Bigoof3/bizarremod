@@ -52,7 +52,6 @@ public class ModMain
 		MinecraftForge.EVENT_BUS.register(new EventsJoinWorld());
 		
 		MinecraftForge.EVENT_BUS.register(new EventsStandAbilities());
-
 	}
 	
 	private void serverAboutToStart(FMLServerAboutToStartEvent event)

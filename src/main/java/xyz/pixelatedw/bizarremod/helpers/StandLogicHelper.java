@@ -47,7 +47,7 @@ public class StandLogicHelper
 			case 'N': return 6;
 			case '?': return 7;
 			
-			default: return 0;
+			default: return 7;
 		}
 	}
 	
@@ -65,7 +65,7 @@ public class StandLogicHelper
 			case 6: return 'Ø';
 			case 7: return '?';
 			
-			default: return 'E';
+			default: return '?';
 		}
 	}
 	

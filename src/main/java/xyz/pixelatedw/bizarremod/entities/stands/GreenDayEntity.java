@@ -59,16 +59,4 @@ public class GreenDayEntity extends GenericStandEntity
 		
 	}
 
-	/*@Override
-	protected void readAdditional(CompoundNBT compound) {}
-
-	@Override
-	protected void writeAdditional(CompoundNBT compound) {}*/
-
-	/*@Override
-	public IPacket<?> createSpawnPacket()
-	{
-		return NetworkHooks.getEntitySpawningPacket(this);
-	}*/
-
 }

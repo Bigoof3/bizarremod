@@ -8,6 +8,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import xyz.pixelatedw.bizarremod.ModValues;
 import xyz.pixelatedw.bizarremod.api.json.WyJSONHelper;
+import xyz.pixelatedw.bizarremod.events.EventsAbilityRenderers;
 import xyz.pixelatedw.bizarremod.init.ModKeybindings;
 import xyz.pixelatedw.bizarremod.init.ModRenderers;
 import xyz.pixelatedw.bizarremod.screens.StandSelectScreen;
@@ -26,6 +27,8 @@ public class ClientProxy implements IProxy
 	public static void clientSetup(FMLClientSetupEvent event)
 	{
 		ModRenderers.registerRenderers();
+		
+		MinecraftForge.EVENT_BUS.register(new EventsAbilityRenderers());
 		
 		WyJSONHelper.generateJSONLangs();
 		WyJSONHelper.generateJSONModels(false);
