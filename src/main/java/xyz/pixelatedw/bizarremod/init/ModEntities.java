@@ -6,11 +6,14 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 import xyz.pixelatedw.bizarremod.api.WyRegistry;
+import xyz.pixelatedw.bizarremod.entities.projectiles.PunchEntity;
 import xyz.pixelatedw.bizarremod.entities.stands.GreenDayEntity;
 
 public class ModEntities
 {
 
+	public static final EntityType PUNCH = WyRegistry.registerEntityType("punch", PunchEntity::new);
+	
 	public static final EntityType GREEN_DAY = WyRegistry.registerEntityType("green_day", GreenDayEntity::new);
 
 	
@@ -26,6 +29,11 @@ public class ModEntities
 			event.getRegistry().registerAll
 			(
 				GREEN_DAY
+			);
+			
+			event.getRegistry().registerAll
+			(
+				PUNCH
 			);
 		}
 		

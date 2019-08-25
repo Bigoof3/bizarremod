@@ -46,7 +46,7 @@ public class SSyncStandDataPacket
 				PlayerEntity player = ModMain.proxy.getClientPlayer();
 				World world = player.world;
 				IStandData props = StandDataCapability.get(player);
-
+				
 				StandDataCapability.INSTANCE.getStorage().readNBT(StandDataCapability.INSTANCE, props, null, message.data);
 			});			
 		}

@@ -4,6 +4,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import xyz.pixelatedw.bizarremod.ModValues;
 import xyz.pixelatedw.bizarremod.abilities.Ability;
 import xyz.pixelatedw.bizarremod.abilities.greenday.MoldInfestationAbility;
+import xyz.pixelatedw.bizarremod.entities.projectiles.PunchEntity;
 import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
 import xyz.pixelatedw.bizarremod.entities.stands.GreenDayEntity;
 
@@ -17,7 +18,7 @@ public class GreenDayStandInfo extends StandInfo
 	}
 	
 	@Override
-	public GenericStandEntity summonStand(PlayerEntity owner)
+	public GenericStandEntity getStandEntity(PlayerEntity owner)
 	{
 		GenericStandEntity stand = new GreenDayEntity(owner.world, owner);
 
@@ -31,6 +32,17 @@ public class GreenDayStandInfo extends StandInfo
 				{ 
 					new MoldInfestationAbility() 
 				};
+	}
+
+	@Override
+	public PunchEntity getPunch(PlayerEntity player)
+	{
+		PunchEntity punch = new PunchEntity(player, player.world);
+		
+		punch.setTexture(this.getStandId());
+		punch.setDamage(2);
+		
+		return punch;
 	}
 
 }

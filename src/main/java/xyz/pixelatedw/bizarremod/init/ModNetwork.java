@@ -10,13 +10,14 @@ import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 import xyz.pixelatedw.bizarremod.ModValues;
+import xyz.pixelatedw.bizarremod.packets.client.CRequestSyncStandDataPacket;
 import xyz.pixelatedw.bizarremod.packets.client.CStandControlPacket;
 import xyz.pixelatedw.bizarremod.packets.server.SSyncStandDataPacket;
 
 public class ModNetwork
 {
 	private static final String PROTOCOL_VERSION = Integer.toString(1);
-	public static SimpleChannel channel = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(ModValues.PROJECT_ID, "main_channel")).clientAcceptedVersions(PROTOCOL_VERSION::equals).serverAcceptedVersions(PROTOCOL_VERSION::equals).networkProtocolVersion(() -> PROTOCOL_VERSION).simpleChannel();
+	private static SimpleChannel channel = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(ModValues.PROJECT_ID, "main_channel")).clientAcceptedVersions(PROTOCOL_VERSION::equals).serverAcceptedVersions(PROTOCOL_VERSION::equals).networkProtocolVersion(() -> PROTOCOL_VERSION).simpleChannel();
 
 	public static void init()
 	{
@@ -24,7 +25,8 @@ public class ModNetwork
 
 		// Client
 		channel.registerMessage(packet++, CStandControlPacket.class, CStandControlPacket::encode, CStandControlPacket::decode, CStandControlPacket::handle);
-		
+		channel.registerMessage(packet++, CRequestSyncStandDataPacket.class, CRequestSyncStandDataPacket::encode, CRequestSyncStandDataPacket::decode, CRequestSyncStandDataPacket::handle);
+
 		// Server
 		channel.registerMessage(packet++, SSyncStandDataPacket.class, SSyncStandDataPacket::encode, SSyncStandDataPacket::decode, SSyncStandDataPacket::handle);
 

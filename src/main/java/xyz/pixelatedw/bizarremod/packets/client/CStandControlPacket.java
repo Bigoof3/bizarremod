@@ -49,7 +49,7 @@ public class CStandControlPacket
 
 				if(!props.hasStandSummoned())
 				{
-					GenericStandEntity stand = StandLogicHelper.getRegisteredStands().get(message.standName).summonStand(player);
+					GenericStandEntity stand = StandLogicHelper.getRegisteredStands().get(message.standName).getStandEntity(player);
 					
 					props.setStandSummoned(true);
 					stand.onSummon(player);

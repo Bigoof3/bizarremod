@@ -203,7 +203,7 @@ public class GreenDayModel extends BipedModel<GenericStandEntity>
 		this.bipedRightLeg = this.right_leg;
 		
 		super.setRotationAngles(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-
+		
 		this.head.rotateAngleY = (netHeadYaw / 60F);
 		this.head.rotateAngleX = (headPitch / 60F);
 	}

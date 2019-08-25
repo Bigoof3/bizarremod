@@ -52,7 +52,7 @@ public class StandSelectScreen extends Screen
 		// #TODO Filter by part origin / stats / ?
 		
 		StandInfo info = (StandInfo) StandLogicHelper.getRegisteredStands().values().toArray()[this.currentStand - 1];
-		GenericStandEntity stand = info.summonStand(this.player);
+		GenericStandEntity stand = info.getStandEntity(this.player);
 		InventoryScreen.drawEntityOnScreen(posX + 0, posY + 190, 50, 0.0F, 0.0F, stand);
 
 		// Stats section	

@@ -31,17 +31,17 @@ public class CommonConfig
 		this.shounenScream = builder.comment("Users will scream (audio + text) the name of their Stand or ability used\n Default: false").define("Shounen Scream", false);
 	}
 	
-	public boolean getShounenScream()
+	public boolean isShounenScreamEnabled()
 	{
 		return this.shounenScream.get();
 	}
 	
-	public boolean getOneStand()
+	public boolean isOneStandEnabled()
 	{
 		return this.oneStand.get();
 	}
 	
-	public boolean getVisibleStands()
+	public boolean isVisibleStandsEnabled()
 	{
 		return this.visibleStands.get();
 	}
