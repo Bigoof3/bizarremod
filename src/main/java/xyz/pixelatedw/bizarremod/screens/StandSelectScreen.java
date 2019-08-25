@@ -150,6 +150,13 @@ public class StandSelectScreen extends Screen
 			this.page = 1;
 			
 			this.init();
+		});
+		
+		Button optionsButton = new Button(posX + 210, posY + 20, 50, 20, "Options", b -> 
+		{
+			this.page = 2;
+			
+			this.init();
 		});	
 			
 		if(this.currentStand == 1)
@@ -163,12 +170,15 @@ public class StandSelectScreen extends Screen
 		else if(this.page == 1)
 			statsButton.active = false;
 		
+		optionsButton.active = false;
+		
 		this.addButton(previousButton);
 		this.addButton(chooseButton);
 		this.addButton(nextButton);
 		
 		this.addButton(abilitiesButton);
 		this.addButton(statsButton);
+		this.addButton(optionsButton);
 	}
 
 }
