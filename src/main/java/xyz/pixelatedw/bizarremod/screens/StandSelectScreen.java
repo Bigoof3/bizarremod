@@ -17,7 +17,7 @@ import xyz.pixelatedw.bizarremod.api.WyHelper;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
-import xyz.pixelatedw.bizarremod.entities.stands.info.StandInfo;
+import xyz.pixelatedw.bizarremod.entities.stands.StandInfo;
 import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
 import xyz.pixelatedw.bizarremod.init.ModNetwork;
 import xyz.pixelatedw.bizarremod.packets.server.SSyncStandDataPacket;

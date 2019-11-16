@@ -28,7 +28,7 @@ public abstract class GenericStandEntity extends CreatureEntity
 	protected static final DataParameter<Byte> DEVELOPMENT_POTENTIAL = EntityDataManager.createKey(GenericStandEntity.class, DataSerializers.BYTE);
 
 	private PlayerEntity owner;
-
+	
 	public GenericStandEntity(EntityType type, World world)
 	{
 		super(type, world);

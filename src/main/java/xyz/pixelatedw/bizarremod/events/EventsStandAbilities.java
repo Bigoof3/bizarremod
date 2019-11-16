@@ -9,7 +9,7 @@ import xyz.pixelatedw.bizarremod.abilities.PassiveAbility;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.projectiles.PunchEntity;
-import xyz.pixelatedw.bizarremod.entities.stands.info.StandInfo;
+import xyz.pixelatedw.bizarremod.entities.stands.StandInfo;
 import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
 import xyz.pixelatedw.bizarremod.init.ModNetwork;
 import xyz.pixelatedw.bizarremod.packets.client.CRequestSyncStandDataPacket;
@@ -48,7 +48,7 @@ public class EventsStandAbilities
 		PunchEntity punch = info.getPunch(player);
 		if(punch == null)
 			return;
-		
+
 		ModNetwork.sendToServer(new CRequestSyncStandDataPacket());
 		
 		if(!props.hasStandSummoned())

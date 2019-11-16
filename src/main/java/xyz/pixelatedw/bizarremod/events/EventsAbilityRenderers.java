@@ -21,7 +21,7 @@ public class EventsAbilityRenderers
 	{
 		LivingEntity entity = event.getEntity();
 		LivingRenderer renderer = event.getRenderer();
-
+		
 		GlStateManager.pushMatrix();
 		{
 			GlStateManager.translatef((float) event.getX(), (float) event.getY() + 1.45F, (float) event.getZ());
@@ -33,19 +33,25 @@ public class EventsAbilityRenderers
 
 			GlStateManager.scaled(1.05, 0.9, 1.05);
 
-			float ageInTicks = entity.ticksExisted + (float) event.getY();
-			float headYawOffset = this.interpolateRotation(entity.prevRenderYawOffset, entity.renderYawOffset, (float) event.getY());
-			float headYaw = this.interpolateRotation(entity.prevRotationYawHead, entity.rotationYawHead, (float) event.getY());
-			float headPitch = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * (float) event.getY();
-			this.rotateCorpse(entity, ageInTicks, headYawOffset, (float) event.getY());
-			float limbSwingAmount = entity.prevLimbSwingAmount + (entity.limbSwingAmount - entity.prevLimbSwingAmount) * (float) event.getY();
-			float limbSwing = entity.limbSwing - entity.limbSwingAmount * (1.0F - (float) event.getY());
+			float ageInTicks = entity.ticksExisted + event.getPartialRenderTick();
+			float headYawOffset = this.interpolateRotation(entity.prevRenderYawOffset, entity.renderYawOffset, event.getPartialRenderTick());
+			float headYaw = this.interpolateRotation(entity.prevRotationYawHead, entity.rotationYawHead, event.getPartialRenderTick());
+			float headPitch = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * event.getPartialRenderTick();
 
-			renderer.getEntityModel().render(entity, limbSwing, limbSwingAmount, ageInTicks, headYaw - headYawOffset, headPitch, 0.0625F);
+			this.rotateCorpse(entity, ageInTicks, headYawOffset, (float) event.getY());
+			float limbSwingAmount = entity.prevLimbSwingAmount + (entity.limbSwingAmount - entity.prevLimbSwingAmount) * event.getPartialRenderTick();
+			float limbSwing = entity.limbSwing - entity.limbSwingAmount * (1.0F - event.getPartialRenderTick());
+
+			//renderer.getEntityModel().render(entity, limbSwing, limbSwingAmount, ageInTicks, headYaw - headYawOffset, headPitch, 0.0625F);
 		}
 		GlStateManager.popMatrix();
 	}
 
+    protected float handleRotationFloat(LivingEntity entity, float partialTicks)
+    {
+        return entity.ticksExisted + partialTicks;
+    }
+	
 	protected void rotateCorpse(LivingEntity entityLiving, float ageInTicks, float headYawOffset, float v)
 	{
 		GL11.glRotatef(180.0F + headYawOffset, 0.0F, 1.0F, 0.0F);

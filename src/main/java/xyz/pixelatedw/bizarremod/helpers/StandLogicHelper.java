@@ -4,8 +4,8 @@ import java.util.HashMap;
 
 import xyz.pixelatedw.bizarremod.ModMain;
 import xyz.pixelatedw.bizarremod.ModValues;
-import xyz.pixelatedw.bizarremod.entities.stands.info.GreenDayStandInfo;
-import xyz.pixelatedw.bizarremod.entities.stands.info.StandInfo;
+import xyz.pixelatedw.bizarremod.entities.stands.GreenDayEntity;
+import xyz.pixelatedw.bizarremod.entities.stands.StandInfo;
 
 public class StandLogicHelper
 {
@@ -14,7 +14,7 @@ public class StandLogicHelper
 	
 	static
 	{
-		stands.put(ModValues.STAND_ID_GREEN_DAY, new GreenDayStandInfo());
+		stands.put(ModValues.STAND_ID_GREEN_DAY, new GreenDayEntity.GreenDayStandInfo());
 	}
 	
 	public static StandInfo getStandInfo(String standName)
