@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import xyz.pixelatedw.bizarremod.ModMain;
 import xyz.pixelatedw.bizarremod.ModValues;
+import xyz.pixelatedw.bizarremod.entities.stands.AerosmithEntity;
 import xyz.pixelatedw.bizarremod.entities.stands.GreenDayEntity;
 import xyz.pixelatedw.bizarremod.entities.stands.StandInfo;
 
@@ -15,6 +16,7 @@ public class StandLogicHelper
 	static
 	{
 		stands.put(ModValues.STAND_ID_GREEN_DAY, new GreenDayEntity.GreenDayStandInfo());
+		stands.put(ModValues.STAND_ID_AEROSMITH, new AerosmithEntity.AerosmithStandInfo());
 	}
 	
 	public static StandInfo getStandInfo(String standName)

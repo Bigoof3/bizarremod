@@ -25,7 +25,7 @@ public class GoParticleEffect extends ParticleEffect
 			middlePoint *= WyHelper.randomDouble() + 0.3F;
 
 			motionY += middlePoint / 6;
-			motionY += 0.15;
+			motionY += 0.05;
 
 			SimpleParticle particle = new SimpleParticle(world, ModParticles.GO, posX, posY + (i / 10), posZ, 0, motionY, 0);
 			particle.setColor(0.5F, 0.0F, 0.5F);

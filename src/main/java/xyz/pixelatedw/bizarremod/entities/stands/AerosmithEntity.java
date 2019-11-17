@@ -4,20 +4,20 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import xyz.pixelatedw.bizarremod.ModValues;
 import xyz.pixelatedw.bizarremod.abilities.Ability;
-import xyz.pixelatedw.bizarremod.abilities.greenday.MoldInfestationAbility;
 import xyz.pixelatedw.bizarremod.entities.projectiles.PunchEntity;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
 
-public class GreenDayEntity extends GenericStandEntity
+public class AerosmithEntity extends GenericStandEntity
 {
-	public GreenDayEntity(World world, PlayerEntity owner)
+
+	public AerosmithEntity(World world, PlayerEntity owner)
 	{
-		super(ModEntities.GREEN_DAY, world, owner);
+		super(ModEntities.AEROSMITH, world, owner);
 	}
 	
-	public GreenDayEntity(World world)
+	public AerosmithEntity(World world)
 	{
-		super(ModEntities.GREEN_DAY, world);
+		super(ModEntities.AEROSMITH, world);
 	}
 
 	@Override
@@ -30,18 +30,18 @@ public class GreenDayEntity extends GenericStandEntity
 	protected void registerData()
 	{
 		super.registerData();
-		this.setDestructivePower('A');
-		this.setSpeed('C');
-		this.setRange('A');
-		this.setPersistance('A');
+		this.setDestructivePower('B');
+		this.setSpeed('B');
+		this.setRange('B');
+		this.setPersistance('C');
 		this.setPrecision('E');
-		this.setDevelopmentPotential('A');
+		this.setDevelopmentPotential('C');
 	}
-
+	
 	@Override
 	public String getStandName()
 	{
-		return "Green Day";
+		return "Aerosmith";
 	}
 	
 	@Override
@@ -56,41 +56,13 @@ public class GreenDayEntity extends GenericStandEntity
 		
 	}
 	
-	public static class GreenDayStandInfo extends StandInfo
+	public static class AerosmithStandInfo extends StandInfo
 	{
 
 		@Override
 		public String getStandId()
 		{
-			return ModValues.STAND_ID_GREEN_DAY;
-		}
-		
-		@Override
-		public GenericStandEntity getStandEntity(PlayerEntity owner)
-		{
-			GenericStandEntity stand = new GreenDayEntity(owner.world, owner);
-
-			return stand;
-		}
-
-		@Override
-		public Ability[] getAbilities()
-		{
-			return new Ability[] 
-					{ 
-						new MoldInfestationAbility() 
-					};
-		}
-
-		@Override
-		public PunchEntity getPunch(PlayerEntity player)
-		{
-			PunchEntity punch = new PunchEntity(player, player.world);
-			
-			punch.setTexture(this.getStandId());
-			punch.setDamage(2);
-			
-			return punch;
+			return ModValues.STAND_ID_AEROSMITH;
 		}
 
 		@Override
@@ -98,6 +70,26 @@ public class GreenDayEntity extends GenericStandEntity
 		{
 			return JoJoPart.VENTO_AUREO;
 		}
-	}
 
+		@Override
+		public GenericStandEntity getStandEntity(PlayerEntity owner)
+		{
+			GenericStandEntity stand = new AerosmithEntity(owner.world, owner);
+
+			return stand;
+		}
+
+		@Override
+		public Ability[] getAbilities()
+		{
+			return null;
+		}
+
+		@Override
+		public PunchEntity getPunch(PlayerEntity player)
+		{
+			return null;
+		}
+		
+	}
 }

@@ -154,7 +154,7 @@ public abstract class GenericStandEntity extends CreatureEntity
 
 	public abstract void onCancel(PlayerEntity owner);
 
-	abstract String getStandName();
+	public abstract String getStandName();
 
 	public void setOwner(PlayerEntity player)
 	{

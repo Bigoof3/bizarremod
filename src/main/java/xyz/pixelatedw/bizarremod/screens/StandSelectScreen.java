@@ -109,6 +109,10 @@ public class StandSelectScreen extends Screen
 			stat = StandLogicHelper.convertStandStat(stand.getDevelopmentPotential()) + "";
 			this.minecraft.fontRenderer.drawStringWithShadow(stat, posX + 278, posY + 162, -1);
 		}
+		else if(this.page == 2)
+		{
+			
+		}
 		
 		super.render(x, y, f);
 	}
@@ -122,7 +126,8 @@ public class StandSelectScreen extends Screen
 		
 		Button previousButton = new Button(posX - 20, posY + 200, 90, 20, "Previous", b -> 
 		{
-			
+			this.currentStand--;
+			this.init();
 		});
 	
 		Button chooseButton = new Button(posX + 90, posY + 200, 90, 20, "Choose", b -> 
@@ -135,27 +140,25 @@ public class StandSelectScreen extends Screen
 				
 		Button nextButton = new Button(posX + 200, posY + 200, 90, 20, "Next", b -> 
 		{
-			
+			this.currentStand++;
+			this.init();
 		});
 
-		Button abilitiesButton = new Button(posX + 90, posY + 20, 50, 20, "Abilities", b -> 
+		Button abilitiesButton = new Button(posX + 80, posY + 20, 50, 20, "Abilities", b -> 
 		{
-			this.page = 0;
-			
+			this.page = 0;			
 			this.init();
 		});
 		
-		Button statsButton = new Button(posX + 150, posY + 20, 50, 20, "Stats", b -> 
+		Button statsButton = new Button(posX + 140, posY + 20, 50, 20, "Stats", b -> 
 		{
-			this.page = 1;
-			
+			this.page = 1;		
 			this.init();
 		});
 		
-		Button optionsButton = new Button(posX + 210, posY + 20, 50, 20, "Options", b -> 
+		Button optionsButton = new Button(posX + 200, posY + 20, 50, 20, "Options", b -> 
 		{
-			this.page = 2;
-			
+			this.page = 2;		
 			this.init();
 		});	
 			
@@ -169,8 +172,8 @@ public class StandSelectScreen extends Screen
 			abilitiesButton.active = false;	
 		else if(this.page == 1)
 			statsButton.active = false;
-		
-		optionsButton.active = false;
+		else if(this.page == 2)
+			optionsButton.active = false;		
 		
 		this.addButton(previousButton);
 		this.addButton(chooseButton);

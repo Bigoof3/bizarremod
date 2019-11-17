@@ -4,7 +4,6 @@ import net.minecraft.client.renderer.entity.BipedRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.entity.MobEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -13,7 +12,7 @@ import xyz.pixelatedw.bizarremod.ModValues;
 import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
 
 @OnlyIn(Dist.CLIENT)
-public class GenericStandRenderer extends BipedRenderer
+public class GenericStandRenderer extends BipedRenderer<GenericStandEntity, BipedModel<GenericStandEntity>>
 {
 
 	private BipedModel model;
@@ -29,13 +28,13 @@ public class GenericStandRenderer extends BipedRenderer
 	}
 
 	@Override
-	public void doRender(MobEntity entity, double x, double y, double z, float entityYaw, float partialTicks)
+	public void doRender(GenericStandEntity entity, double x, double y, double z, float entityYaw, float partialTicks)
 	{
 		super.doRender(entity, x, y + 0.4F, z, entityYaw, partialTicks);
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(MobEntity entity)
+	protected ResourceLocation getEntityTexture(GenericStandEntity entity)
 	{
 		return this.texture;
 	}

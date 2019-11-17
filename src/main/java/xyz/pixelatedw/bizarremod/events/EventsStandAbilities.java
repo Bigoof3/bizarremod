@@ -30,6 +30,9 @@ public class EventsStandAbilities
 
 			StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
 			
+			if(info.getAbilities() == null)
+				return;
+			
 			for(Ability ability : info.getAbilities())
 			{
 				if(ability instanceof PassiveAbility)
