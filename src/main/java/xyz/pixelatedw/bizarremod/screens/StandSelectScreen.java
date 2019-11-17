@@ -8,11 +8,11 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.config.GuiUtils;
 import xyz.pixelatedw.bizarremod.ModMain;
+import xyz.pixelatedw.bizarremod.abilities.Ability;
 import xyz.pixelatedw.bizarremod.api.WyHelper;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
@@ -27,6 +27,7 @@ public class StandSelectScreen extends Screen
 {
 	private PlayerEntity player;
 	private int currentStand = 1;
+	private int currentAbility = 1;
 	private int maxStandsInList;
 	private int page = 0;
 	
@@ -54,18 +55,19 @@ public class StandSelectScreen extends Screen
 		StandInfo info = (StandInfo) StandLogicHelper.getRegisteredStands().values().toArray()[this.currentStand - 1];
 		GenericStandEntity stand = info.getStandEntity(this.player);
 		InventoryScreen.drawEntityOnScreen(posX + 0, posY + 190, 50, 0.0F, 0.0F, stand);
-
+		this.drawCenteredString(this.minecraft.fontRenderer, stand.getStandName(), posX, posY + 182, -1);
 		// Stats section	
 		// #TODO The fancy stats circle would be cool, opengl style	
-		if(this.page == 0)
+		if(this.page == 0 && info.getAbilities() != null)
 		{
-			this.minecraft.fontRenderer.drawStringWithShadow("- Mold Infestation -", posX + 130, posY + 90, -1);
-			this.minecraft.fontRenderer.drawStringWithShadow(TextFormatting.AQUA + " Passive", posX + 155, posY + 100, -1);
-			
-			this.minecraft.fontRenderer.drawStringWithShadow("Produces a potent mold that rots and destroys", posX + 70, posY + 115, -1);
-			this.minecraft.fontRenderer.drawStringWithShadow("the flesh of those it infects.", posX + 70, posY + 125, -1);
-			this.minecraft.fontRenderer.drawStringWithShadow("The mold's growth is triggered when the potential", posX + 70, posY + 135, -1);
-			this.minecraft.fontRenderer.drawStringWithShadow("victims lower their current altitude.", posX + 70, posY + 145, -1);
+			for(int i = 0; i < info.getAbilities().length; i++)
+			{
+				if(i == (this.currentAbility % (info.getAbilities().length + 1)))
+				{
+					Ability ability = info.getAbilities()[i];
+					ability.renderDescription(this.minecraft.fontRenderer, posX, posY);
+				}
+			}
 		}
 		else if(this.page == 1)
 		{
@@ -123,16 +125,41 @@ public class StandSelectScreen extends Screen
 		int posX = (this.width - 256) / 2;
 		int posY = (this.height - 256) / 2;
 		IStandData props = StandDataCapability.get(this.player);
+		StandInfo info = (StandInfo) StandLogicHelper.getRegisteredStands().values().toArray()[this.currentStand - 1];
+
+		this.buttons.clear();
+		if(info.getAbilities() != null)
+		{
+			int i = 0;
+			for(Ability ability : info.getAbilities())
+			{
+				Button abilityButton = new Button(posX + 90 + (i * 30), posY + 170, 20, 20, "", b -> 
+				{
+					this.currentAbility++;
+					System.out.println(this.currentAbility % info.getAbilities().length);
+					this.init();
+				});
+				//System.out.println(this.currentAbility);
+				if(i == (this.currentAbility % (info.getAbilities().length + 1)))
+					abilityButton.active = false;
+				this.addButton(abilityButton);
+				i++;
+			}
+			
+			
+		}
 		
 		Button previousButton = new Button(posX - 20, posY + 200, 90, 20, "Previous", b -> 
 		{
+			if(!b.active)
+				return;
+			
 			this.currentStand--;
 			this.init();
 		});
 	
 		Button chooseButton = new Button(posX + 90, posY + 200, 90, 20, "Choose", b -> 
 		{
-			StandInfo info = (StandInfo) StandLogicHelper.getRegisteredStands().values().toArray()[this.currentStand - 1];
 			props.setStand(info.getStandId());
 			ModNetwork.sendTo(new SSyncStandDataPacket(props), (ServerPlayerEntity)this.player);
 			ModMain.proxy.openScreen(-1, this.player);
@@ -140,24 +167,36 @@ public class StandSelectScreen extends Screen
 				
 		Button nextButton = new Button(posX + 200, posY + 200, 90, 20, "Next", b -> 
 		{
+			if(!b.active)
+				return;
+			
 			this.currentStand++;
 			this.init();
 		});
 
 		Button abilitiesButton = new Button(posX + 80, posY + 20, 50, 20, "Abilities", b -> 
 		{
+			if(!b.active)
+				return;
+			
 			this.page = 0;			
 			this.init();
 		});
 		
 		Button statsButton = new Button(posX + 140, posY + 20, 50, 20, "Stats", b -> 
 		{
+			if(!b.active)
+				return;
+			
 			this.page = 1;		
 			this.init();
 		});
 		
 		Button optionsButton = new Button(posX + 200, posY + 20, 50, 20, "Options", b -> 
 		{
+			if(!b.active)
+				return;
+			
 			this.page = 2;		
 			this.init();
 		});	
@@ -169,7 +208,7 @@ public class StandSelectScreen extends Screen
 			nextButton.active = false;
 		
 		if(this.page == 0)
-			abilitiesButton.active = false;	
+			abilitiesButton.active = false;
 		else if(this.page == 1)
 			statsButton.active = false;
 		else if(this.page == 2)

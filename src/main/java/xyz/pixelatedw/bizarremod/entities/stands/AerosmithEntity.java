@@ -4,6 +4,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import xyz.pixelatedw.bizarremod.ModValues;
 import xyz.pixelatedw.bizarremod.abilities.Ability;
+import xyz.pixelatedw.bizarremod.abilities.aerosmith.CabonDioxideRadarAbility;
+import xyz.pixelatedw.bizarremod.abilities.aerosmith.MachineGunsAbility;
 import xyz.pixelatedw.bizarremod.entities.projectiles.PunchEntity;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
 
@@ -82,7 +84,11 @@ public class AerosmithEntity extends GenericStandEntity
 		@Override
 		public Ability[] getAbilities()
 		{
-			return null;
+			return new Ability[] 
+					{ 
+						new MachineGunsAbility(),
+						new CabonDioxideRadarAbility()
+					};
 		}
 
 		@Override
