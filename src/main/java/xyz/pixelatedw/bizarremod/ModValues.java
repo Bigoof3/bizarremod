@@ -10,7 +10,7 @@ public class ModValues
 	public static String 
 	
 	PROJECT_RESOURCES_FOLDER;
-	
+
 	public static final String 
 	
 	STAND_ID_GREEN_DAY = "green_day",

@@ -11,6 +11,7 @@ import xyz.pixelatedw.bizarremod.api.json.WyJSONHelper;
 import xyz.pixelatedw.bizarremod.events.EventsAbilityRenderers;
 import xyz.pixelatedw.bizarremod.init.ModKeybindings;
 import xyz.pixelatedw.bizarremod.init.ModRenderers;
+import xyz.pixelatedw.bizarremod.particles.effects.ParticleEffect;
 import xyz.pixelatedw.bizarremod.screens.StandSelectScreen;
 
 public class ClientProxy implements IProxy
@@ -59,6 +60,11 @@ public class ClientProxy implements IProxy
 				Minecraft.getInstance().displayGuiScreen(new StandSelectScreen(player));
 				break;
 		}
+	}
+	
+	public void spawnParticleEffect(ParticleEffect effect, World world, double posX, double posY, double posZ, double motionX, double motionY, double motionZ)
+	{
+		effect.spawn(world, posX, posY, posZ, motionX, motionY, motionZ);
 	}
 
 }

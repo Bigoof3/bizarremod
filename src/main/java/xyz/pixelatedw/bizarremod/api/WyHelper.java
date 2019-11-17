@@ -9,12 +9,27 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.AxisAlignedBB;
 
 public class WyHelper
 {
+	public static double percentage(double i, double j)
+	{
+		return (i / 100) * j;
+	}
+
+	public static double randomWithRange(int min, int max)
+	{
+		return new Random().nextInt(max + 1 - min) + min;
+	}
+
+	public static double randomDouble()
+	{
+		return new Random().nextDouble() * 2 - 1;
+	}
 	
 	public static <T> List<T> getNearbyEntities(Entity center, double radius, Class<? extends Entity> clz)
 	{
