@@ -1,9 +1,13 @@
 package xyz.pixelatedw.bizarremod.screens;
 
+import java.util.List;
+
+import com.google.common.collect.Lists;
 import com.mojang.blaze3d.platform.GlStateManager;
 
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
+import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -27,15 +31,16 @@ public class StandSelectScreen extends Screen
 {
 	private PlayerEntity player;
 	private int currentStand = 1;
-	private int currentAbility = 1;
+	private int currentAbility;
 	private int maxStandsInList;
 	private int page = 0;
+	private List<Widget> abilityButtons = Lists.newArrayList();
 	
 	public StandSelectScreen(PlayerEntity player)
 	{
 		super(new StringTextComponent(""));
 		this.player = player;
-		this.maxStandsInList = StandLogicHelper.getRegisteredStands().size();		
+		this.maxStandsInList = StandLogicHelper.getRegisteredStands().size();
 	}
 
 	@Override
@@ -62,7 +67,7 @@ public class StandSelectScreen extends Screen
 		{
 			for(int i = 0; i < info.getAbilities().length; i++)
 			{
-				if(i == (this.currentAbility % (info.getAbilities().length + 1)))
+				if(this.currentAbility == i)
 				{
 					Ability ability = info.getAbilities()[i];
 					ability.renderDescription(this.minecraft.fontRenderer, posX, posY);
@@ -122,31 +127,37 @@ public class StandSelectScreen extends Screen
 	@Override
 	public void init()
 	{
+		this.init(0);
+	}
+	
+	public void init(int ablIndex)
+	{
 		int posX = (this.width - 256) / 2;
 		int posY = (this.height - 256) / 2;
 		IStandData props = StandDataCapability.get(this.player);
 		StandInfo info = (StandInfo) StandLogicHelper.getRegisteredStands().values().toArray()[this.currentStand - 1];
-
+		
 		this.buttons.clear();
 		if(info.getAbilities() != null)
 		{
 			int i = 0;
 			for(Ability ability : info.getAbilities())
 			{
+				final int j = i;
 				Button abilityButton = new Button(posX + 90 + (i * 30), posY + 170, 20, 20, "", b -> 
 				{
-					this.currentAbility++;
-					System.out.println(this.currentAbility % info.getAbilities().length);
-					this.init();
+					if(!b.active)
+						return;
+
+					this.currentAbility = j;
+					this.init(j);
 				});
-				//System.out.println(this.currentAbility);
-				if(i == (this.currentAbility % (info.getAbilities().length + 1)))
+
+				if(ablIndex == i)
 					abilityButton.active = false;
 				this.addButton(abilityButton);
 				i++;
 			}
-			
-			
 		}
 		
 		Button previousButton = new Button(posX - 20, posY + 200, 90, 20, "Previous", b -> 
