@@ -18,7 +18,7 @@ public class CabonDioxideRadarAbility extends PassiveAbility
 	public void renderDescription(FontRenderer fontObj, int posX, int posY)
 	{
 		fontObj.drawStringWithShadow("- Carbon Dioxide Radio -", posX + 130, posY + 90, -1);
-		fontObj.drawStringWithShadow(TextFormatting.AQUA + " Passive", posX + 155, posY + 100, -1);
+		fontObj.drawStringWithShadow(TextFormatting.AQUA + "     Passive", posX + 155, posY + 100, -1);
 		
 		fontObj.drawStringWithShadow("Used to find an enemy's position through their", posX + 70, posY + 115, -1);
 		fontObj.drawStringWithShadow("breath when they exhale.", posX + 70, posY + 125, -1);

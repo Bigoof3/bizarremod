@@ -137,6 +137,9 @@ public class StandSelectScreen extends Screen
 		IStandData props = StandDataCapability.get(this.player);
 		StandInfo info = (StandInfo) StandLogicHelper.getRegisteredStands().values().toArray()[this.currentStand - 1];
 		
+		if(this.currentAbility >= info.getAbilities().length)
+			this.currentAbility = 0;
+		
 		this.buttons.clear();
 		if(info.getAbilities() != null)
 		{
@@ -159,7 +162,7 @@ public class StandSelectScreen extends Screen
 				i++;
 			}
 		}
-		
+
 		Button previousButton = new Button(posX - 20, posY + 200, 90, 20, "Previous", b -> 
 		{
 			if(!b.active)
