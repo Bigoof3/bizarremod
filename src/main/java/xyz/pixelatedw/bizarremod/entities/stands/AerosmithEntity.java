@@ -4,6 +4,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import xyz.pixelatedw.bizarremod.ModValues;
 import xyz.pixelatedw.bizarremod.abilities.Ability;
+import xyz.pixelatedw.bizarremod.abilities.aerosmith.BombAbility;
 import xyz.pixelatedw.bizarremod.abilities.aerosmith.CabonDioxideRadarAbility;
 import xyz.pixelatedw.bizarremod.abilities.aerosmith.MachineGunsAbility;
 import xyz.pixelatedw.bizarremod.entities.projectiles.PunchEntity;
@@ -87,6 +88,7 @@ public class AerosmithEntity extends GenericStandEntity
 			return new Ability[] 
 					{ 
 						new MachineGunsAbility(),
+						new BombAbility(),
 						new CabonDioxideRadarAbility()
 					};
 		}
