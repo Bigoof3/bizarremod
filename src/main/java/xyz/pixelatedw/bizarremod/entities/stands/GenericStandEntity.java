@@ -75,7 +75,7 @@ public abstract class GenericStandEntity extends CreatureEntity
 	@Override
 	public boolean isNotColliding(IWorldReader world)
 	{
-		return false;
+		return true;
 	}
 
 	@Override

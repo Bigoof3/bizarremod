@@ -25,7 +25,7 @@ public class EventsStandAbilities
 			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
 			IStandData props = StandDataCapability.get(player);
 			
-			if(!props.hasStandSummoned() || player.world.isRemote)
+			if(!props.hasStandSummoned() )
 				return;
 
 			StandInfo info = StandLogicHelper.getStandInfo(props.getStand());

@@ -14,7 +14,9 @@ public class ModValues
 	public static final String 
 	
 	STAND_ID_GREEN_DAY = "green_day",
+	STAND_ID_GREEN_DAY_ALT = "green_day_alt",
 	STAND_ID_AEROSMITH = "aerosmith",
+	STAND_ID_AEROSMITH_ALT = "aerosmith_alt",	
 	
 	CONTROLS_KEY_STAND_CONTROL = "Stand Summon/Cancel",
 	CONTROLS_CATEGORY = "Bizzare Controls",

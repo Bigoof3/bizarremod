@@ -17,7 +17,7 @@ public class BombAbility extends Ability
 	@Override
 	public void renderDescription(FontRenderer fontObj, int posX, int posY)
 	{
-		fontObj.drawStringWithShadow("- Bomb -", posX + 130, posY + 90, -1);
+		fontObj.drawStringWithShadow("     - Bomb -", posX + 130, posY + 90, -1);
 		fontObj.drawStringWithShadow(TextFormatting.GREEN + " Active", posX + 155, posY + 100, -1);
 		
 		fontObj.drawStringWithShadow("Aerosmith is equipped with small bomb", posX + 70, posY + 115, -1);

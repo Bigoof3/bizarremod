@@ -98,6 +98,12 @@ public class GreenDayEntity extends GenericStandEntity
 		{
 			return JoJoPart.VENTO_AUREO;
 		}
+
+		@Override
+		public String getTexture()
+		{
+			return ModValues.STAND_ID_GREEN_DAY;
+		}
 	}
 
 }

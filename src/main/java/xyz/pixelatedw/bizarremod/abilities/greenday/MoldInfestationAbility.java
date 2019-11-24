@@ -3,7 +3,6 @@ package xyz.pixelatedw.bizarremod.abilities.greenday;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
@@ -11,6 +10,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import xyz.pixelatedw.bizarremod.abilities.PassiveAbility;
 import xyz.pixelatedw.bizarremod.api.WyHelper;
 import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
+import xyz.pixelatedw.bizarremod.init.ModPotionEffects;
 
 public class MoldInfestationAbility extends PassiveAbility
 {
@@ -25,7 +25,7 @@ public class MoldInfestationAbility extends PassiveAbility
 			
 			if(entity.getPosition().compareTo(new Vec3i(entity.posX, entity.prevPosY, entity.posZ)) < 0.0)
 			{
-				entity.addPotionEffect(new EffectInstance(Effects.POISON, 200, 1));
+				entity.addPotionEffect(new EffectInstance(ModPotionEffects.GREEN_DAY_MOLD, 200, 1));
 			}
 		}
 	}

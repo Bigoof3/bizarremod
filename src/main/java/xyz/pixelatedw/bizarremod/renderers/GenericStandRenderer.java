@@ -9,7 +9,10 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import xyz.pixelatedw.bizarremod.ModValues;
+import xyz.pixelatedw.bizarremod.api.WyHelper;
 import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
+import xyz.pixelatedw.bizarremod.entities.stands.StandInfo;
+import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
 
 @OnlyIn(Dist.CLIENT)
 public class GenericStandRenderer extends BipedRenderer<GenericStandEntity, BipedModel<GenericStandEntity>>
@@ -36,6 +39,10 @@ public class GenericStandRenderer extends BipedRenderer<GenericStandEntity, Bipe
 	@Override
 	protected ResourceLocation getEntityTexture(GenericStandEntity entity)
 	{
+		StandInfo info = StandLogicHelper.getStandInfo(WyHelper.getResourceName(entity.getStandName()));
+		if(info.getTexture() != null)
+			this.texture = new ResourceLocation(ModValues.PROJECT_ID, "textures/models/stands/" + info.getTexture() + ".png");
+		
 		return this.texture;
 	}
 
