@@ -21,15 +21,11 @@ public class GoParticleEffect extends ParticleEffect
 			posX = posX + WyHelper.randomDouble() / 6;
 			posZ = posZ + WyHelper.randomDouble() / 6;
 
-			double middlePoint = 0.5;
-			middlePoint *= WyHelper.randomDouble() + 0.3F;
-
-			motionY += middlePoint / 6;
 			motionY += 0.05;
 
 			SimpleParticle particle = new SimpleParticle(world, ModParticles.GO, posX, posY + (i / 10), posZ, 0, motionY, 0);
 			particle.setColor(0.5F, 0.0F, 0.5F);
-			particle.setParticleAge(10);
+			particle.setParticleAge(15);
 			particle.setParticleScale(3F);
 
 			Minecraft.getInstance().particles.addEffect(particle);

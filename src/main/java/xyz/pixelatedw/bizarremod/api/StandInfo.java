@@ -1,8 +1,9 @@
-package xyz.pixelatedw.bizarremod.entities.stands;
+package xyz.pixelatedw.bizarremod.api;
 
 import net.minecraft.entity.player.PlayerEntity;
 import xyz.pixelatedw.bizarremod.abilities.Ability;
 import xyz.pixelatedw.bizarremod.entities.projectiles.PunchEntity;
+import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
 
 public abstract class StandInfo
 {

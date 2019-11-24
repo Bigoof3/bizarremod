@@ -17,11 +17,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.config.GuiUtils;
 import xyz.pixelatedw.bizarremod.ModMain;
 import xyz.pixelatedw.bizarremod.abilities.Ability;
+import xyz.pixelatedw.bizarremod.api.StandInfo;
 import xyz.pixelatedw.bizarremod.api.WyHelper;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
-import xyz.pixelatedw.bizarremod.entities.stands.StandInfo;
 import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
 import xyz.pixelatedw.bizarremod.init.ModNetwork;
 import xyz.pixelatedw.bizarremod.packets.server.SSyncStandDataPacket;
@@ -136,7 +136,7 @@ public class StandSelectScreen extends Screen
 		int posY = (this.height - 256) / 2;
 		IStandData props = StandDataCapability.get(this.player);
 		StandInfo info = (StandInfo) StandLogicHelper.getRegisteredStands().values().toArray()[this.currentStand - 1];
-		
+		System.out.println(info.getStandId());
 		if(this.currentAbility >= info.getAbilities().length)
 			this.currentAbility = 0;
 		
@@ -153,7 +153,9 @@ public class StandSelectScreen extends Screen
 	
 		Button chooseButton = new Button(posX + 90, posY + 200, 90, 20, "Choose", b -> 
 		{
-			props.setStand(info.getStandId());
+			StandInfo currentInfo = (StandInfo) StandLogicHelper.getRegisteredStands().values().toArray()[this.currentStand - 1];
+			props.setStand(currentInfo.getStandId());
+			System.out.println(currentInfo.getStandId());
 			ModNetwork.sendTo(new SSyncStandDataPacket(props), (ServerPlayerEntity)this.player);
 			ModMain.proxy.openScreen(-1, this.player);
 		});

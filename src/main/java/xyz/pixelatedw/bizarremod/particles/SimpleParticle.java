@@ -1,6 +1,8 @@
 package xyz.pixelatedw.bizarremod.particles;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager.DestFactor;
+import com.mojang.blaze3d.platform.GlStateManager.SourceFactor;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.IParticleFactory;
@@ -19,6 +21,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import xyz.pixelatedw.bizarremod.api.WyHelper;
 
 @OnlyIn(Dist.CLIENT)
 public class SimpleParticle extends TexturedParticle
@@ -49,23 +52,25 @@ public class SimpleParticle extends TexturedParticle
 			return;
 		
 		Minecraft.getInstance().textureManager.bindTexture(this.texture);
-		
+
 		float scale = 0.1F * this.particleScale;
 		float x = (float) (this.prevPosX + (this.posX - this.prevPosX) * partialTicks - interpPosX);
 		float y = (float) (this.prevPosY + (this.posY - this.prevPosY) * partialTicks - interpPosY);
 		float z = (float) (this.prevPosZ + (this.posZ - this.prevPosZ) * partialTicks - interpPosZ);
 				
 		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
 		GlStateManager.disableLighting();
 		RenderHelper.disableStandardItemLighting();
 		buffer.begin(7, VERTEX_FORMAT);
-		buffer.pos(x - rotationX * scale - rotationXY * scale, y - rotationZ * scale, z - rotationYZ * scale - rotationXZ * scale).tex(1, 1).color(this.particleRed, this.particleGreen, this.particleBlue, 1).lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
-		buffer.pos(x - rotationX * scale + rotationXY * scale, y + rotationZ * scale, z - rotationYZ * scale + rotationXZ * scale).tex(1, 0).color(this.particleRed, this.particleGreen, this.particleBlue, 1).lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
-		buffer.pos(x + rotationX * scale + rotationXY * scale, y + rotationZ * scale, z + rotationYZ * scale + rotationXZ * scale).tex(0, 0).color(this.particleRed, this.particleGreen, this.particleBlue, 1).lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
-		buffer.pos(x + rotationX * scale - rotationXY * scale, y - rotationZ * scale, z + rotationYZ * scale - rotationXZ * scale).tex(0, 1).color(this.particleRed, this.particleGreen, this.particleBlue, 1).lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
+		buffer.pos(x - rotationX * scale - rotationXY * scale, y - rotationZ * scale, z - rotationYZ * scale - rotationXZ * scale).tex(1, 1).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
+		buffer.pos(x - rotationX * scale + rotationXY * scale, y + rotationZ * scale, z - rotationYZ * scale + rotationXZ * scale).tex(1, 0).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
+		buffer.pos(x + rotationX * scale + rotationXY * scale, y + rotationZ * scale, z + rotationYZ * scale + rotationXZ * scale).tex(0, 0).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
+		buffer.pos(x + rotationX * scale - rotationXY * scale, y - rotationZ * scale, z + rotationYZ * scale - rotationXZ * scale).tex(0, 1).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
 		Tessellator.getInstance().draw();
 		RenderHelper.enableStandardItemLighting();
-		GlStateManager.enableLighting();
+		GlStateManager.enableLighting();        
 	}
 
 	@Override
@@ -81,7 +86,18 @@ public class SimpleParticle extends TexturedParticle
         this.motionX *= 0.99D;
         this.motionY *= 0.99D;
         this.motionZ *= 0.99D;
-
+	
+        // The "Menacing" effect
+        this.setPosition(this.posX + (WyHelper.randomDouble() / 10), this.posY + (WyHelper.randomDouble() / 10), this.posZ + (WyHelper.randomDouble() / 10));
+        if(this.age + 5 >= this.maxAge)
+        {
+        	if(this.particleScale > 0)
+        		this.setParticleScale(this.particleScale -= 0.1);
+        	
+        	if(this.particleAlpha > 0)
+        		this.particleAlpha -= 0.15;      	
+        }		
+        
         if (this.age++ >= this.maxAge || this.onGround)
             this.setExpired();	
 	}

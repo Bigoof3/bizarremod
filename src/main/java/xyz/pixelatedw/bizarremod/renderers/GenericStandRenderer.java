@@ -9,9 +9,9 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import xyz.pixelatedw.bizarremod.ModValues;
+import xyz.pixelatedw.bizarremod.api.StandInfo;
 import xyz.pixelatedw.bizarremod.api.WyHelper;
 import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
-import xyz.pixelatedw.bizarremod.entities.stands.StandInfo;
 import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
 
 @OnlyIn(Dist.CLIENT)
