@@ -43,7 +43,7 @@ public class WyJSONHelper
 			if(next instanceof Block)
 			{
 				Block nextBlock = (Block) next;
-				String name = WyHelper.getFancyName(nextBlock.getRegistryName().getPath());
+				String name = WyHelper.getResourceName(nextBlock.getRegistryName().getPath());
 
 				jsonModel = new File(ModValues.PROJECT_RESOURCES_FOLDER + "/data/" + ModValues.PROJECT_ID + "/loot_tables/blocks/" + name + ".json");			
 			}
@@ -137,7 +137,7 @@ public class WyJSONHelper
 		while (i.hasNext())
 		{
 			Item item = (Item) i.next();
-			String itemName = WyHelper.getFancyName(item.getRegistryName().getPath());
+			String itemName = WyHelper.getResourceName(item.getRegistryName().getPath());
 
 			File jsonModel = new File(ModValues.PROJECT_RESOURCES_FOLDER + "/assets/" + ModValues.PROJECT_ID + "/models/item/" + itemName + ".json");
 			if (jsonModel.exists() && !override)
@@ -179,7 +179,7 @@ public class WyJSONHelper
 		while (i.hasNext())
 		{
 			Block block = (Block) i.next();
-			String blockName = WyHelper.getFancyName(block.getRegistryName().getPath());
+			String blockName = WyHelper.getResourceName(block.getRegistryName().getPath());
 
 			File jsonModel = new File(ModValues.PROJECT_RESOURCES_FOLDER + "/assets/" + ModValues.PROJECT_ID + "/models/block/" + blockName + ".json");
 			if (!jsonModel.exists() || override)

@@ -12,6 +12,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import xyz.pixelatedw.bizarremod.ModValues;
+import xyz.pixelatedw.bizarremod.init.ModPotionEffects;
 
 public class EventsAbilityRenderers
 {
@@ -21,6 +22,9 @@ public class EventsAbilityRenderers
 	{
 		LivingEntity entity = event.getEntity();
 		LivingRenderer renderer = event.getRenderer();
+		
+		if(!entity.isPotionActive(ModPotionEffects.GREEN_DAY_MOLD))
+			return;
 		
 		GlStateManager.pushMatrix();
 		{
@@ -38,11 +42,11 @@ public class EventsAbilityRenderers
 			float headYaw = this.interpolateRotation(entity.prevRotationYawHead, entity.rotationYawHead, event.getPartialRenderTick());
 			float headPitch = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * event.getPartialRenderTick();
 
-			this.rotateCorpse(entity, ageInTicks, headYawOffset, (float) event.getY());
+			this.rotateCorpse(entity, ageInTicks, headYawOffset, event.getPartialRenderTick());
 			float limbSwingAmount = entity.prevLimbSwingAmount + (entity.limbSwingAmount - entity.prevLimbSwingAmount) * event.getPartialRenderTick();
 			float limbSwing = entity.limbSwing - entity.limbSwingAmount * (1.0F - event.getPartialRenderTick());
 
-			//renderer.getEntityModel().render(entity, limbSwing, limbSwingAmount, ageInTicks, headYaw - headYawOffset, headPitch, 0.0625F);
+			renderer.getEntityModel().render(entity, limbSwing, limbSwingAmount, ageInTicks, headYaw - headYawOffset, headPitch, 0.0625F);
 		}
 		GlStateManager.popMatrix();
 	}

@@ -19,7 +19,7 @@ public abstract class JSONModelBlock implements IJSONModel
 
 	public JSONModelBlock(String blockName, String blockTemplate, String blockStateTemplate)
 	{
-		this.blockName = WyHelper.getFancyName(blockName);
+		this.blockName = WyHelper.getResourceName(blockName);
 		this.blockTemplate = new File(ModValues.PROJECT_RESOURCES_FOLDER + "/data/" + ModValues.PROJECT_ID + "/json_templates/models/block/" + blockTemplate + ".json");
 		this.blockStateTemplate = new File(ModValues.PROJECT_RESOURCES_FOLDER + "/data/" + ModValues.PROJECT_ID + "/json_templates/models/blockstate/" + blockStateTemplate + ".json");
 	}

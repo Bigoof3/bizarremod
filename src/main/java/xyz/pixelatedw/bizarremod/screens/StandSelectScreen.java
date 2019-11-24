@@ -140,28 +140,7 @@ public class StandSelectScreen extends Screen
 		if(this.currentAbility >= info.getAbilities().length)
 			this.currentAbility = 0;
 		
-		this.buttons.clear();
-		if(info.getAbilities() != null)
-		{
-			int i = 0;
-			for(Ability ability : info.getAbilities())
-			{
-				final int j = i;
-				Button abilityButton = new Button(posX + 90 + (i * 30), posY + 170, 20, 20, "", b -> 
-				{
-					if(!b.active)
-						return;
-
-					this.currentAbility = j;
-					this.init(j);
-				});
-
-				if(ablIndex == i)
-					abilityButton.active = false;
-				this.addButton(abilityButton);
-				i++;
-			}
-		}
+		this.buttons.clear();		
 
 		Button previousButton = new Button(posX - 20, posY + 200, 90, 20, "Previous", b -> 
 		{
@@ -222,7 +201,30 @@ public class StandSelectScreen extends Screen
 			nextButton.active = false;
 		
 		if(this.page == 0)
+		{
 			abilitiesButton.active = false;
+			if(info.getAbilities() != null)
+			{
+				int i = 0;
+				for(Ability ability : info.getAbilities())
+				{
+					final int j = i;
+					Button abilityButton = new Button(posX + 90 + (i * 30), posY + 170, 20, 20, "", b -> 
+					{
+						if(!b.active)
+							return;
+
+						this.currentAbility = j;
+						this.init(j);
+					});
+
+					if(ablIndex == i)
+						abilityButton.active = false;
+					this.addButton(abilityButton);
+					i++;
+				}
+			}
+		}
 		else if(this.page == 1)
 			statsButton.active = false;
 		else if(this.page == 2)

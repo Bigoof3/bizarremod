@@ -20,7 +20,7 @@ public abstract class JSONLootTableBlock implements IJSONLootTable
 
 	public JSONLootTableBlock(String itemName, int min, int max, String templateName)
 	{
-		this.itemName = WyHelper.getFancyName(itemName);
+		this.itemName = WyHelper.getResourceName(itemName);
 		this.min = min;
 		this.max = max;
 		this.template = new File(ModValues.PROJECT_RESOURCES_FOLDER + "/data/" + ModValues.PROJECT_ID + "/json_templates/loot_tables/block/" + templateName + ".json");

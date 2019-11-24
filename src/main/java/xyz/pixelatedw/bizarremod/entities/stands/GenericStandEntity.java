@@ -80,7 +80,7 @@ public abstract class GenericStandEntity extends CreatureEntity
 
 	@Override
 	public void tick()
-	{
+	{     
 		if (!this.world.isRemote)
 		{
 			if (this.owner == null)
@@ -102,7 +102,10 @@ public abstract class GenericStandEntity extends CreatureEntity
 			this.setRotation(this.owner.rotationYaw, this.owner.rotationPitch);
 		}
 
+		this.noClip = true;
 		super.tick();
+		this.noClip = false;
+		this.setNoGravity(true);
 	}
 
 	public void moveStand(double distance, Entity entity)

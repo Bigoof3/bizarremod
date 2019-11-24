@@ -84,8 +84,8 @@ public class WyHelper
 		return Character.toUpperCase(text.charAt(0)) + text.substring(1) + " "; 
 	}
 	
-	public static String getFancyName(String text)
+	public static String getResourceName(String text)
 	{
-		return text.replaceAll("\\s+", "").toLowerCase().replaceAll("'", "").replaceAll("-", "").replaceAll(":", "").replaceAll("#", "").replace(",", "");
+		return text.replaceAll("[ \\t]+$", "").replaceAll("\\s+", "_").replaceAll("[\\'\\:\\-\\,\\#]", "").toLowerCase();
 	}
 }
