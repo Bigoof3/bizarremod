@@ -98,7 +98,7 @@ public abstract class GenericStandEntity extends CreatureEntity
 			double distance = this.getDistanceSq(this.owner);
 			if (distance > 3)
 				this.moveStand(distance, this.owner);
-
+			
 			this.setRotation(this.owner.rotationYaw, this.owner.rotationPitch);
 		}
 
@@ -113,26 +113,26 @@ public abstract class GenericStandEntity extends CreatureEntity
 		double velX = this.posX - entity.posX;
 		double velY = this.posY - entity.posY;
 		double velZ = this.posZ - entity.posZ;
-		float speed = (float) distance / 20.0F;
+		float speed = (float) distance / 40.0F;
 		if (distance < 1.0D)
 			speed = -0.1F;
 
 		double powX = 0, powY = 0, powZ = 0;
 
 		if (velX > 0.0D)
-			powX -= speed;
+			powX -= speed / 2;
 		if (velX < 0.0D)
-			powX += speed;
+			powX += speed / 2;
 
 		if (velY > 0.0D)
-			powY -= speed;
+			powY -= speed / 3;
 		if (velY < 0.0D)
-			powY += speed;
+			powY += speed / 3;
 
 		if (velZ > 0.0D)
-			powZ -= speed;
+			powZ -= speed / 2;
 		if (velZ < 0.0D)
-			powZ += speed;
+			powZ += speed / 2;
 
 		this.setMotion(this.getMotion().add(powX, powY, powZ));
 	}
