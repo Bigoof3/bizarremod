@@ -2,8 +2,10 @@ package xyz.pixelatedw.bizarremod.entities.projectiles;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.network.IPacket;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
 
 public class PunchEntity extends ThrowableEntity
@@ -27,6 +29,12 @@ public class PunchEntity extends ThrowableEntity
 	{
 		
 	}
+	
+	@Override
+	public void tick()
+	{
+		super.tick();
+	}
 
 	@Override
 	protected void registerData() {}
@@ -48,6 +56,12 @@ public class PunchEntity extends ThrowableEntity
 	
 	public String getTexture()
 	{
-		return texture;
+		return this.texture;
 	}
+	
+	@Override
+    public IPacket<?> createSpawnPacket() 
+	{
+		return NetworkHooks.getEntitySpawningPacket(this);
+    }
 }

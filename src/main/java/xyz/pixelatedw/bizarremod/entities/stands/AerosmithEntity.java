@@ -99,11 +99,5 @@ public class AerosmithEntity extends GenericStandEntity
 		{
 			return null;
 		}
-		
-		@Override
-		public String getTexture()
-		{
-			return ModValues.STAND_ID_AEROSMITH;
-		}
 	}
 }

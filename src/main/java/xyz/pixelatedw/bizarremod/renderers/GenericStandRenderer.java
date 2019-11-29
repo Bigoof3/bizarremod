@@ -40,8 +40,7 @@ public class GenericStandRenderer extends BipedRenderer<GenericStandEntity, Bipe
 	protected ResourceLocation getEntityTexture(GenericStandEntity entity)
 	{
 		StandInfo info = StandLogicHelper.getStandInfo(WyHelper.getResourceName(entity.getStandName()));
-		if(info.getTexture() != null)
-			this.texture = new ResourceLocation(ModValues.PROJECT_ID, "textures/models/stands/" + info.getTexture() + ".png");
+		this.texture = new ResourceLocation(ModValues.PROJECT_ID, "textures/models/stands/" + info.getStandId() + ".png");
 		
 		return this.texture;
 	}

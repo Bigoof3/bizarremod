@@ -12,6 +12,7 @@ import net.minecraftforge.fml.network.simple.SimpleChannel;
 import xyz.pixelatedw.bizarremod.ModValues;
 import xyz.pixelatedw.bizarremod.packets.client.CRequestSyncStandDataPacket;
 import xyz.pixelatedw.bizarremod.packets.client.CStandControlPacket;
+import xyz.pixelatedw.bizarremod.packets.client.CStandPunchPacket;
 import xyz.pixelatedw.bizarremod.packets.server.SSyncStandDataPacket;
 
 public class ModNetwork
@@ -26,10 +27,10 @@ public class ModNetwork
 		// Client
 		channel.registerMessage(packet++, CStandControlPacket.class, CStandControlPacket::encode, CStandControlPacket::decode, CStandControlPacket::handle);
 		channel.registerMessage(packet++, CRequestSyncStandDataPacket.class, CRequestSyncStandDataPacket::encode, CRequestSyncStandDataPacket::decode, CRequestSyncStandDataPacket::handle);
+		channel.registerMessage(packet++, CStandPunchPacket.class, CStandPunchPacket::encode, CStandPunchPacket::decode, CStandPunchPacket::handle);
 
 		// Server
 		channel.registerMessage(packet++, SSyncStandDataPacket.class, SSyncStandDataPacket::encode, SSyncStandDataPacket::decode, SSyncStandDataPacket::handle);
-
 	}
 
 	public static <MSG> void sendToServer(MSG msg)

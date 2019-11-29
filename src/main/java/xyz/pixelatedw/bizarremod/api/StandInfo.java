@@ -13,7 +13,6 @@ public abstract class StandInfo
 	public abstract GenericStandEntity getStandEntity(PlayerEntity owner);
 	public abstract Ability[] getAbilities();
 	public abstract PunchEntity getPunch(PlayerEntity player);
-	public abstract String getTexture();
 
 	public enum JoJoPart
 	{

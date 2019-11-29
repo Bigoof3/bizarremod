@@ -30,11 +30,8 @@ public class ModEntities
 			
 			event.getRegistry().registerAll
 			(
-				GREEN_DAY, AEROSMITH
-			);
-			
-			event.getRegistry().registerAll
-			(
+				GREEN_DAY, AEROSMITH,
+				
 				PUNCH
 			);
 		}

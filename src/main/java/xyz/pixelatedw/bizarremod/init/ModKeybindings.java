@@ -6,6 +6,7 @@ import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.InputEvent.KeyInputEvent;
+import net.minecraftforge.client.event.InputEvent.MouseInputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import xyz.pixelatedw.bizarremod.ModMain;
@@ -14,6 +15,7 @@ import xyz.pixelatedw.bizarremod.api.WyHelper;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.packets.client.CStandControlPacket;
+import xyz.pixelatedw.bizarremod.packets.client.CStandPunchPacket;
 
 public class ModKeybindings
 {
@@ -39,5 +41,21 @@ public class ModKeybindings
 
 		if (standControl.isPressed() && !WyHelper.isNullOrEmpty(props.getStand()))
 			ModNetwork.sendToServer(new CStandControlPacket(props.getStand()));
+	}
+	
+	@SuppressWarnings("resource")
+	@SubscribeEvent
+	public void onMouseInput(MouseInputEvent event)
+	{
+		PlayerEntity player = ModMain.proxy.getClientPlayer();
+		
+		if(player == null)
+			return;
+		
+		World world = ModMain.proxy.getClientWorld();
+		IStandData props = StandDataCapability.get(player);
+
+		if(event.getButton() == 0 && event.getAction() == GLFW.GLFW_PRESS)
+			ModNetwork.sendToServer(new CStandPunchPacket(props.getStand()));
 	}
 }
