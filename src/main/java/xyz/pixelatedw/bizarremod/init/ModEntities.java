@@ -13,7 +13,7 @@ import xyz.pixelatedw.bizarremod.entities.stands.GreenDayEntity;
 public class ModEntities
 {
 
-	public static final EntityType PUNCH = WyRegistry.registerEntityType("punch", PunchEntity::new);
+	public static final EntityType PUNCH = WyRegistry.registerEntityType("punch", PunchEntity::new, 1, 1);
 	
 	public static final EntityType GREEN_DAY = WyRegistry.registerEntityType("green_day", GreenDayEntity::new);
 	public static final EntityType AEROSMITH = WyRegistry.registerEntityType("aerosmith", AerosmithEntity::new);

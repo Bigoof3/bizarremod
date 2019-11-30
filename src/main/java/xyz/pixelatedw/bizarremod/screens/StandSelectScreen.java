@@ -136,7 +136,7 @@ public class StandSelectScreen extends Screen
 		int posY = (this.height - 256) / 2;
 		IStandData props = StandDataCapability.get(this.player);
 		StandInfo info = (StandInfo) StandLogicHelper.getRegisteredStands().values().toArray()[this.currentStand - 1];
-		System.out.println(info.getStandId());
+
 		if(this.currentAbility >= info.getAbilities().length)
 			this.currentAbility = 0;
 		
@@ -155,7 +155,7 @@ public class StandSelectScreen extends Screen
 		{
 			StandInfo currentInfo = (StandInfo) StandLogicHelper.getRegisteredStands().values().toArray()[this.currentStand - 1];
 			props.setStand(currentInfo.getStandId());
-			System.out.println(currentInfo.getStandId());
+
 			ModNetwork.sendTo(new SSyncStandDataPacket(props), (ServerPlayerEntity)this.player);
 			ModMain.proxy.openScreen(-1, this.player);
 		});

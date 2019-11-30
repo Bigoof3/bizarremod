@@ -89,8 +89,8 @@ public class GreenDayEntity extends GenericStandEntity
 			PunchEntity punch = new PunchEntity(player, player.world);
 			
 			punch.setTexture(this.getStandId());
-			punch.setDamage(2);
-			
+			punch.setDamage(1 + this.getStandEntity(player).getDestructivePower());
+
 			return punch;
 		}
 

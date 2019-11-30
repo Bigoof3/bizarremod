@@ -1,5 +1,7 @@
 package xyz.pixelatedw.bizarremod.entities.projectiles;
 
+import java.util.function.Consumer;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
@@ -22,6 +24,7 @@ public class PunchEntity extends ThrowableEntity
 	private static final DataParameter<String> TEXTURE = EntityDataManager.createKey(PunchEntity.class, DataSerializers.STRING);
 	private double damage = 1;
 	private int ticks, maxticks;
+	private Consumer<RayTraceResult> onImpactFunc;
 	
 	public PunchEntity(World world)
 	{
@@ -67,6 +70,7 @@ public class PunchEntity extends ThrowableEntity
 			{
 				LivingEntity hitEntity = (LivingEntity) entityHit.getEntity();
 				hitEntity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), 4);
+								
 				this.remove();
 			}
 		}
@@ -79,6 +83,9 @@ public class PunchEntity extends ThrowableEntity
 			if (hitMat.isSolid())
 				this.remove();
 		}
+		
+		if(result != null && this.onImpactFunc != null)
+			this.onImpactFunc.accept(result);
 	}
 
 	@Override
@@ -97,6 +104,11 @@ public class PunchEntity extends ThrowableEntity
 		return this.damage;
 	}
 
+	public void setImpactLogic(Consumer<RayTraceResult> onImpactFunc)
+	{
+		this.onImpactFunc = onImpactFunc;
+	}
+	
 	public void setTexture(String texture)
 	{
 		this.dataManager.set(TEXTURE, texture);
