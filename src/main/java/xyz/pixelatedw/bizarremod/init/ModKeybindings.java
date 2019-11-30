@@ -4,6 +4,7 @@ import org.lwjgl.glfw.GLFW;
 
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.InputEvent.KeyInputEvent;
 import net.minecraftforge.client.event.InputEvent.MouseInputEvent;
@@ -48,14 +49,15 @@ public class ModKeybindings
 	public void onMouseInput(MouseInputEvent event)
 	{
 		PlayerEntity player = ModMain.proxy.getClientPlayer();
-		
+
 		if(player == null)
 			return;
 		
 		World world = ModMain.proxy.getClientWorld();
+		ItemStack heldItem = player.getHeldItemMainhand();
 		IStandData props = StandDataCapability.get(player);
 
-		if(event.getButton() == 0 && event.getAction() == GLFW.GLFW_PRESS)
+		if(event.getButton() == 0 && event.getAction() == GLFW.GLFW_PRESS && heldItem.isEmpty())
 			ModNetwork.sendToServer(new CStandPunchPacket(props.getStand()));
 	}
 }

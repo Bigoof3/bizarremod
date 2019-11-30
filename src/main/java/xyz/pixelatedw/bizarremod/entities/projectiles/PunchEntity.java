@@ -17,6 +17,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
+import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
 
 public class PunchEntity extends ThrowableEntity
@@ -70,8 +71,9 @@ public class PunchEntity extends ThrowableEntity
 			{
 				LivingEntity hitEntity = (LivingEntity) entityHit.getEntity();
 				hitEntity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), 4);
-								
-				this.remove();
+				
+				if(!(hitEntity instanceof GenericStandEntity))
+					this.remove();
 			}
 		}
 		else if (result.getType() == Type.BLOCK)
