@@ -71,7 +71,7 @@ public class WyRegistry
 		EntityType type = EntityType.Builder.create((entityType, world) -> func.apply(world), EntityClassification.MISC)
 			.setTrackingRange(128)
 			.setShouldReceiveVelocityUpdates(true)
-			.setUpdateInterval(3)
+			.setUpdateInterval(1)
 			.setCustomClientFactory((entity, world) -> func.apply(world))
 			.size(width, height)
 			.build(name)
