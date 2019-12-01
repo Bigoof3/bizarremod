@@ -53,21 +53,21 @@ public class StandLogicHelper
 		}
 	}
 	
-	public static char convertStandStat(byte value)
+	public static String convertStandStat(byte value)
 	{
 		switch(value)
 		{
-			case 4: return 'A';
-			case 3: return 'B';
-			case 2: return 'C';
-			case 1: return 'D';
-			case 0: return 'E';
+			case 4: return "A";
+			case 3: return "B";
+			case 2: return "C";
+			case 1: return "D";
+			case 0: return "E";
 			
-			case 5: return '∞';
-			case 6: return 'Ø';
-			case 7: return '?';
+			case 5: return "∞";
+			case 6: return "Ø";
+			case 7: return "?";
 			
-			default: return '?';
+			default: return "?";
 		}
 	}
 	
