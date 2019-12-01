@@ -15,10 +15,13 @@ buildscript
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
+apply plugin: 'java'
+
 version = " ${mc_version} - ${mod_version} - DEV#${getVersion()}"
 group= "${package_group}"
 archivesBaseName = "${mod_name} "
 
+compileJava.options.encoding = 'UTF-8'
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 def getVersion()
@@ -124,9 +127,12 @@ dependencies {
 
 }
 
-jar {
-    manifest {
-        attributes([
+jar 
+{
+    manifest 
+	{
+        attributes
+		([
             "Specification-Title": "examplemod",
             "Specification-Vendor": "examplemodsareus",
             "Specification-Version": "1", // We are version 1 of ourselves
@@ -138,19 +144,31 @@ jar {
     }
 }
 
+tasks.withType(JavaCompile) 
+{
+    options.encoding = 'UTF-8'
+}
+
 def reobfFile = file("$buildDir/reobfJar/output.jar")
-def reobfArtifact = artifacts.add('default', reobfFile) {
+def reobfArtifact = artifacts.add('default', reobfFile) 
+{
     type 'jar'
     builtBy 'reobfJar'
 }
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
+
+publishing 
+{
+    publications 
+	{
+        mavenJava(MavenPublication) 
+		{
             artifact reobfArtifact
         }
     }
-    repositories {
-        maven {
+    repositories 
+	{
+        maven 
+		{
             url "file:///${project.projectDir}/mcmodsrepo"
         }
     }
