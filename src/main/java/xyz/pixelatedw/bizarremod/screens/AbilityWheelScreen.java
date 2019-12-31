@@ -43,7 +43,6 @@ public class AbilityWheelScreen extends Screen
 		double radius = 80;
 		int abilities = 6;
 		
-		int i = 0;
 		while(phi < Math.PI)
 		{
 			phi += Math.PI / 2;
@@ -59,16 +58,13 @@ public class AbilityWheelScreen extends Screen
 				if(x == 0 && y == 0)
 					continue;
 				
-				this.addButton(new AbilityButton((posX + 95) + x, (posY + 95) + y, 98, 20, (button) ->
+				this.addButton(new AbilityButton((posX + 95) + x, (posY + 95) + y, 98, 20, (button, type) ->
 				{
-					System.out.println("Press Callback");
+					System.out.println("Press Callback : " + type);
 				}));
-				i++;
 			}
 			
-		}
-		//System.out.println(i);
-		
+		}		
 	}
 
 	@Override
