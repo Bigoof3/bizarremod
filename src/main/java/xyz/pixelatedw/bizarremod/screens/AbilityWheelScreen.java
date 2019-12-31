@@ -43,6 +43,7 @@ public class AbilityWheelScreen extends Screen
 		double radius = 80;
 		int abilities = 6;
 		
+		int i = 0;
 		while(phi < Math.PI)
 		{
 			phi += Math.PI / 2;
@@ -62,6 +63,7 @@ public class AbilityWheelScreen extends Screen
 				{
 					System.out.println("Press Callback : " + type);
 				}));
+				i++;
 			}
 			
 		}		
