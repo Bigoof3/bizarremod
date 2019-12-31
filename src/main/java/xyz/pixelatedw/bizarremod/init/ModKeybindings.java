@@ -19,17 +19,22 @@ import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.packets.client.CStandControlPacket;
 import xyz.pixelatedw.bizarremod.packets.client.CStandPunchPacket;
+import xyz.pixelatedw.bizarremod.screens.AbilityWheelScreen;
 
 @Mod.EventBusSubscriber(modid = Env.PROJECT_ID)
 public class ModKeybindings
 {
 
 	public static KeyBinding standControl;
+	public static KeyBinding abilityWheel;
 
 	public static void init()
 	{
 		standControl = new KeyBinding(Consts.CONTROLS_KEY_STAND_CONTROL, GLFW.GLFW_KEY_Z, Consts.CONTROLS_CATEGORY);
 		ClientRegistry.registerKeyBinding(standControl);
+		
+		abilityWheel = new KeyBinding(Consts.CONTROLS_KEY_ABILITY_WHEEL, GLFW.GLFW_KEY_X, Consts.CONTROLS_CATEGORY);
+		ClientRegistry.registerKeyBinding(abilityWheel);
 	}
 
 	@SubscribeEvent
@@ -45,6 +50,9 @@ public class ModKeybindings
 
 		if (standControl.isPressed() && !WyHelper.isNullOrEmpty(props.getStand()))
 			ModNetwork.sendToServer(new CStandControlPacket(props.getStand()));
+		
+		if (props.hasStandSummoned() && abilityWheel.isPressed())
+			Minecraft.getInstance().displayGuiScreen(new AbilityWheelScreen());
 	}
 	
 	@SubscribeEvent
@@ -59,7 +67,7 @@ public class ModKeybindings
 		ItemStack heldItem = player.getHeldItemMainhand();
 		IStandData props = StandDataCapability.get(player);
 
-		if(event.getButton() == 0 && event.getAction() == GLFW.GLFW_PRESS && heldItem.isEmpty())
+		if(event.getButton() == 0 && event.getAction() == GLFW.GLFW_PRESS && heldItem.isEmpty() && !Minecraft.getInstance().isGamePaused() && !(Minecraft.getInstance().currentScreen instanceof AbilityWheelScreen))
 			ModNetwork.sendToServer(new CStandPunchPacket(props.getStand()));
 	}
 }

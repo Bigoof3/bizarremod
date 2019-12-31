@@ -19,6 +19,7 @@ public class Consts
 	STAND_ID_AEROSMITH_ALT = "aerosmith_alt",	
 	
 	CONTROLS_KEY_STAND_CONTROL = "Stand Summon/Cancel",
+	CONTROLS_KEY_ABILITY_WHEEL = "Ability Wheel",
 	CONTROLS_CATEGORY = "Bizzare Controls";
 	
 }
