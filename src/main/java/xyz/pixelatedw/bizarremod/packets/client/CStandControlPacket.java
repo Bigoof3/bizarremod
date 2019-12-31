@@ -62,7 +62,7 @@ public class CStandControlPacket
 				{
 					try
 					{
-						GenericStandEntity target = WyHelper.<GenericStandEntity>getNearbyEntities(player.getPosition(), player.world, 1.5, GenericStandEntity.class).get(0);
+						GenericStandEntity target = WyHelper.<GenericStandEntity>getNearbyEntities(player.getPosition(), player.world, 5, GenericStandEntity.class).get(0);
 						
 						if(target.getOwner() == player)
 						{

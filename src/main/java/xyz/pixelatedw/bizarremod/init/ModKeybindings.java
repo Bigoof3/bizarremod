@@ -2,6 +2,7 @@ package xyz.pixelatedw.bizarremod.init;
 
 import org.lwjgl.glfw.GLFW;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -10,7 +11,6 @@ import net.minecraftforge.client.event.InputEvent.KeyInputEvent;
 import net.minecraftforge.client.event.InputEvent.MouseInputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import xyz.pixelatedw.bizarremod.ModMain;
 import xyz.pixelatedw.bizarremod.Consts;
 import xyz.pixelatedw.bizarremod.api.WyHelper;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
@@ -29,31 +29,30 @@ public class ModKeybindings
 		ClientRegistry.registerKeyBinding(standControl);
 	}
 
-	@SuppressWarnings("resource")
 	@SubscribeEvent
 	public void onKeyInput(KeyInputEvent event)
 	{
-		PlayerEntity player = ModMain.proxy.getClientPlayer();
-		World world = ModMain.proxy.getClientWorld();
-		IStandData props = StandDataCapability.get(player);
+		PlayerEntity player = Minecraft.getInstance().player;
 		
 		if (player == null)
 			return;
+		
+		World world = Minecraft.getInstance().world;
+		IStandData props = StandDataCapability.get(player);
 
 		if (standControl.isPressed() && !WyHelper.isNullOrEmpty(props.getStand()))
 			ModNetwork.sendToServer(new CStandControlPacket(props.getStand()));
 	}
 	
-	@SuppressWarnings("resource")
 	@SubscribeEvent
 	public void onMouseInput(MouseInputEvent event)
 	{
-		PlayerEntity player = ModMain.proxy.getClientPlayer();
+		PlayerEntity player = Minecraft.getInstance().player;
 
 		if(player == null)
 			return;
 		
-		World world = ModMain.proxy.getClientWorld();
+		World world = Minecraft.getInstance().world;
 		ItemStack heldItem = player.getHeldItemMainhand();
 		IStandData props = StandDataCapability.get(player);
 
