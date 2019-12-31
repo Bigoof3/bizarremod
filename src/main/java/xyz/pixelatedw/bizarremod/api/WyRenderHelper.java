@@ -25,9 +25,9 @@ public class WyRenderHelper
 		Tessellator.getInstance().draw();
 	}
 	
-	public static void drawCenteredString(FontRenderer fontObj, String text, int x, int y, int z)
+	public static void drawCenteredString(FontRenderer fontObj, String text, int x, int y, int color)
 	{
-		fontObj.drawStringWithShadow(text, x - fontObj.getStringWidth(text) / 2, y, z);
+		fontObj.drawStringWithShadow(text, x - fontObj.getStringWidth(text) / 2, y, color);
 	}
 
 	public static float handleRotationFloat(LivingEntity entity, float partialTicks)
