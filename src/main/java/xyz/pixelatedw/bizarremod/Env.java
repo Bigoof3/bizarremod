@@ -9,6 +9,6 @@ public class Env
 	PROJECT_NAME = "Wynd's Bizarre Mod",
 	PROJECT_ID = "bizarremod",
 	
-	//Auto assigned by the Deploy script
+	//Auto assigned by the Deploy script 
 	BUILD_MODE = "DEV";
 }
