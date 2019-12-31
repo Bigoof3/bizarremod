@@ -22,6 +22,8 @@ public class JoinWorldEvents
 			PlayerEntity player = (PlayerEntity) event.getEntity();
 			IStandData props = StandDataCapability.get(player);
 
+			props.setStandSummoned(false);
+			
 			if(!player.world.isRemote)
 				ModNetwork.sendTo(new SSyncStandDataPacket(props), (ServerPlayerEntity)player);
 		}
