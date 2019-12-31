@@ -3,12 +3,10 @@ package xyz.pixelatedw.bizarremod;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import xyz.pixelatedw.bizarremod.api.json.WyJSONHelper;
-import xyz.pixelatedw.bizarremod.events.stands.GreenDayEvents;
 import xyz.pixelatedw.bizarremod.init.ModKeybindings;
 import xyz.pixelatedw.bizarremod.init.ModParticleTypes;
 import xyz.pixelatedw.bizarremod.init.ModRenderers;
@@ -21,7 +19,6 @@ public class ClientSetup
 	@SubscribeEvent
 	public static void clientSetup(FMLClientSetupEvent event)
 	{
-		MinecraftForge.EVENT_BUS.register(new ModKeybindings());
 		ModKeybindings.init();
 		
 		ModRenderers.registerRenderers();

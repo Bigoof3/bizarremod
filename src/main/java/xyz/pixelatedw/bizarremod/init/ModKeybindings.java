@@ -11,13 +11,16 @@ import net.minecraftforge.client.event.InputEvent.KeyInputEvent;
 import net.minecraftforge.client.event.InputEvent.MouseInputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.common.Mod;
 import xyz.pixelatedw.bizarremod.Consts;
+import xyz.pixelatedw.bizarremod.Env;
 import xyz.pixelatedw.bizarremod.api.WyHelper;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.packets.client.CStandControlPacket;
 import xyz.pixelatedw.bizarremod.packets.client.CStandPunchPacket;
 
+@Mod.EventBusSubscriber(modid = Env.PROJECT_ID)
 public class ModKeybindings
 {
 
@@ -30,7 +33,7 @@ public class ModKeybindings
 	}
 
 	@SubscribeEvent
-	public void onKeyInput(KeyInputEvent event)
+	public static void onKeyInput(KeyInputEvent event)
 	{
 		PlayerEntity player = Minecraft.getInstance().player;
 		
@@ -45,7 +48,7 @@ public class ModKeybindings
 	}
 	
 	@SubscribeEvent
-	public void onMouseInput(MouseInputEvent event)
+	public static void onMouseInput(MouseInputEvent event)
 	{
 		PlayerEntity player = Minecraft.getInstance().player;
 
