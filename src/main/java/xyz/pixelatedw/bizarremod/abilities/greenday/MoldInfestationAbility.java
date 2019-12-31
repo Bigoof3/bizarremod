@@ -20,7 +20,7 @@ public class MoldInfestationAbility extends PassiveAbility
 	{
 		for(LivingEntity entity : WyHelper.getNearbyEntities(user.getPosition(), user.world, 50, LivingEntity.class))
 		{
-			if(entity instanceof GenericStandEntity)
+			if(entity instanceof GenericStandEntity || entity == user)
 				continue;
 			
 			if(entity.getPosition().compareTo(new Vec3i(entity.posX, entity.prevPosY, entity.posZ)) < 0.0)
