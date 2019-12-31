@@ -13,7 +13,7 @@ import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
 import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
-import xyz.pixelatedw.bizarremod.particles.effects.GoParticleEffect;
+import xyz.pixelatedw.bizarremod.init.ModParticleEffects;
 
 public class CStandControlPacket
 {
@@ -56,7 +56,7 @@ public class CStandControlPacket
 					props.setStandSummoned(true);
 					stand.onSummon(player);
 					world.addEntity(stand);
-					ModMain.proxy.spawnParticleEffect(new GoParticleEffect(), world, stand.posX, stand.posY + 1.0, stand.posZ, 0, 0, 0);
+					ModParticleEffects.SUMMON_STAND.spawn(world, stand.posX, stand.posY + 1.0, stand.posZ, 0, 0, 0);
 				}
 				else
 				{

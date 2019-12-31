@@ -4,6 +4,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import xyz.pixelatedw.bizarremod.Env;
 import xyz.pixelatedw.bizarremod.abilities.Ability;
 import xyz.pixelatedw.bizarremod.abilities.PassiveAbility;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
@@ -14,11 +16,12 @@ import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
 import xyz.pixelatedw.bizarremod.init.ModNetwork;
 import xyz.pixelatedw.bizarremod.packets.client.CRequestSyncStandDataPacket;
 
+@Mod.EventBusSubscriber(modid = Env.PROJECT_ID)
 public class EventsStandAbilities
 {
 
 	@SubscribeEvent
-	public void onLivingUpdate(LivingUpdateEvent event)
+	public static void onLivingUpdate(LivingUpdateEvent event)
 	{
 		if(event.getEntityLiving() instanceof PlayerEntity)
 		{
@@ -42,7 +45,7 @@ public class EventsStandAbilities
 	}
 	
 	@SubscribeEvent
-	public void onPunch(PlayerInteractEvent.LeftClickEmpty event)
+	public static void onPunch(PlayerInteractEvent.LeftClickEmpty event)
 	{
 		PlayerEntity player = event.getPlayer();
 		IStandData props = StandDataCapability.get(player);

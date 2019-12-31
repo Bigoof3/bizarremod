@@ -9,6 +9,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
+import net.minecraft.particles.IParticleData.IDeserializer;
+import net.minecraft.particles.ParticleType;
 import net.minecraft.potion.Effect;
 import net.minecraft.world.World;
 import xyz.pixelatedw.bizarremod.Env;
@@ -16,6 +18,7 @@ import xyz.pixelatedw.bizarremod.api.json.loottables.IJSONLootTable;
 import xyz.pixelatedw.bizarremod.api.json.models.JSONModelBlock;
 import xyz.pixelatedw.bizarremod.api.json.models.JSONModelItem;
 import xyz.pixelatedw.bizarremod.api.json.models.item.JSONModelSimpleItem;
+import xyz.pixelatedw.bizarremod.particles.data.GenericParticleData;
 
 public class WyRegistry
 {
@@ -23,6 +26,16 @@ public class WyRegistry
 	public static HashMap<Block, JSONModelBlock> blocks = new HashMap<Block, JSONModelBlock>();
 	public static HashMap<Object, IJSONLootTable> lootTables = new HashMap<Object, IJSONLootTable>();
 	public static HashMap<String, String> langMap = new HashMap<String, String>();
+	
+	public static ParticleType registerGenericParticleType(String id)
+	{
+		return registerGenericParticleType(id, GenericParticleData.DESERIALIZER);
+	}
+	
+	public static ParticleType registerGenericParticleType(String id, IDeserializer<?> deserializer)
+	{
+		return new ParticleType<>(true, deserializer).setRegistryName(Env.PROJECT_ID, id);
+	}
 	
 	public static void registerLootTable(Object obj, IJSONLootTable json)
 	{

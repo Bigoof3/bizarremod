@@ -11,14 +11,16 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import xyz.pixelatedw.bizarremod.Env;
 import xyz.pixelatedw.bizarremod.init.ModPotionEffects;
 
+@Mod.EventBusSubscriber(modid = Env.PROJECT_ID)
 public class EventsAbilityRenderers
 {
 
 	@SubscribeEvent
-	public void onEntityRendered(RenderLivingEvent.Pre event)
+	public static void onEntityRendered(RenderLivingEvent.Pre event)
 	{
 		LivingEntity entity = event.getEntity();
 		LivingRenderer renderer = event.getRenderer();
@@ -38,11 +40,11 @@ public class EventsAbilityRenderers
 			GlStateManager.scaled(1.05, 0.9, 1.05);
 
 			float ageInTicks = entity.ticksExisted + event.getPartialRenderTick();
-			float headYawOffset = this.interpolateRotation(entity.prevRenderYawOffset, entity.renderYawOffset, event.getPartialRenderTick());
-			float headYaw = this.interpolateRotation(entity.prevRotationYawHead, entity.rotationYawHead, event.getPartialRenderTick());
+			float headYawOffset = interpolateRotation(entity.prevRenderYawOffset, entity.renderYawOffset, event.getPartialRenderTick());
+			float headYaw = interpolateRotation(entity.prevRotationYawHead, entity.rotationYawHead, event.getPartialRenderTick());
 			float headPitch = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * event.getPartialRenderTick();
 
-			this.rotateCorpse(entity, ageInTicks, headYawOffset, event.getPartialRenderTick());
+			rotateCorpse(entity, ageInTicks, headYawOffset, event.getPartialRenderTick());
 			float limbSwingAmount = entity.prevLimbSwingAmount + (entity.limbSwingAmount - entity.prevLimbSwingAmount) * event.getPartialRenderTick();
 			float limbSwing = entity.limbSwing - entity.limbSwingAmount * (1.0F - event.getPartialRenderTick());
 
@@ -51,12 +53,12 @@ public class EventsAbilityRenderers
 		GlStateManager.popMatrix();
 	}
 
-    protected float handleRotationFloat(LivingEntity entity, float partialTicks)
+    private static float handleRotationFloat(LivingEntity entity, float partialTicks)
     {
         return entity.ticksExisted + partialTicks;
     }
 	
-	protected void rotateCorpse(LivingEntity entityLiving, float ageInTicks, float headYawOffset, float v)
+	private static void rotateCorpse(LivingEntity entityLiving, float ageInTicks, float headYawOffset, float v)
 	{
 		GL11.glRotatef(180.0F + headYawOffset, 0.0F, 1.0F, 0.0F);
 
@@ -72,7 +74,7 @@ public class EventsAbilityRenderers
 		}
 	}
 
-	private float interpolateRotation(float lowerLimit, float upperLimit, float range)
+	private static float interpolateRotation(float lowerLimit, float upperLimit, float range)
 	{
 		float f3;
 

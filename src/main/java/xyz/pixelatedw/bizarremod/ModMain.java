@@ -3,17 +3,10 @@ package xyz.pixelatedw.bizarremod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import xyz.pixelatedw.bizarremod.api.WyHelper;
 import xyz.pixelatedw.bizarremod.config.CommonConfig;
-import xyz.pixelatedw.bizarremod.events.EventsJoinWorld;
-import xyz.pixelatedw.bizarremod.events.EventsStandAbilities;
-import xyz.pixelatedw.bizarremod.init.ModCapabilities;
 import xyz.pixelatedw.bizarremod.init.ModNetwork;
 import xyz.pixelatedw.bizarremod.proxy.ClientProxy;
 import xyz.pixelatedw.bizarremod.proxy.IProxy;
@@ -39,23 +32,6 @@ public class ModMain
 		proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
 		
 		CommonConfig.init();
-		ModNetwork.init();
-		
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(ModMain::commonSetup);	
-		MinecraftForge.EVENT_BUS.addListener(this::serverAboutToStart);
-	}
-	
-	private static void commonSetup(FMLCommonSetupEvent event)
-	{
-		ModCapabilities.init();
-		
-		MinecraftForge.EVENT_BUS.register(new EventsJoinWorld());
-		
-		MinecraftForge.EVENT_BUS.register(new EventsStandAbilities());
-	}
-	
-	private void serverAboutToStart(FMLServerAboutToStartEvent event)
-	{
-		
+		ModNetwork.init();		
 	}
 }

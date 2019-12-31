@@ -3,7 +3,7 @@ package xyz.pixelatedw.bizarremod.init;
 import net.minecraft.util.ResourceLocation;
 import xyz.pixelatedw.bizarremod.Env;
 
-public class ModParticles
+public class ModParticleTextures
 {
 	public static final ResourceLocation
 	
