@@ -16,62 +16,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import org.lwjgl.opengl.GL11;
-
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import xyz.pixelatedw.bizarremod.Env;
 
 public class WyHelper
 {
-	public static void drawCenteredString(FontRenderer fontObj, String text, int x, int y, int z)
-	{
-		fontObj.drawStringWithShadow(text, x - fontObj.getStringWidth(text) / 2, y, z);
-	}
-
-	public static float handleRotationFloat(LivingEntity entity, float partialTicks)
-    {
-        return entity.ticksExisted + partialTicks;
-    }
-	
-    public static void rotateCorpse(LivingEntity entityLiving, float ageInTicks, float headYawOffset, float v)
-	{
-		GL11.glRotatef(180.0F + headYawOffset, 0.0F, 1.0F, 0.0F);
-
-		if (entityLiving.deathTime > 0)
-		{
-			float f3 = (entityLiving.deathTime + v - 1.0F) / 20.0F * 1.6F;
-			f3 = MathHelper.sqrt(f3);
-
-			if (f3 > 1.0F)
-			{
-				f3 = 1.0F;
-			}
-		}
-	}
-
-	public static float interpolateRotation(float lowerLimit, float upperLimit, float range)
-	{
-		float f3;
-
-		for (f3 = upperLimit - lowerLimit; f3 < -180.0F; f3 += 360.0F)
-		{
-			;
-		}
-
-		while (f3 >= 180.0F)
-		{
-			f3 -= 360.0F;
-		}
-
-		return lowerLimit + range * f3;
-	}
-	
 	public static boolean isDevBuild()
 	{
 		return Env.BUILD_MODE.equalsIgnoreCase("DEV");

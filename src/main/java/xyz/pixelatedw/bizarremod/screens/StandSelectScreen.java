@@ -11,14 +11,17 @@ import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.config.GuiUtils;
+import xyz.pixelatedw.bizarremod.Env;
 import xyz.pixelatedw.bizarremod.ModMain;
 import xyz.pixelatedw.bizarremod.abilities.Ability;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
 import xyz.pixelatedw.bizarremod.api.WyHelper;
+import xyz.pixelatedw.bizarremod.api.WyRenderHelper;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
@@ -61,6 +64,7 @@ public class StandSelectScreen extends Screen
 		GenericStandEntity stand = info.getStandEntity(this.player);
 		InventoryScreen.drawEntityOnScreen(posX + 0, posY + 190, 50, 0.0F, 0.0F, stand);
 		this.drawCenteredString(this.minecraft.fontRenderer, stand.getStandName(), posX, posY + 182, -1);
+		WyRenderHelper.drawIcon(this.getIcon(info), posX - 60, posY + 168, 32, 32);
 		// Stats section	
 		// #TODO The fancy stats circle would be cool, opengl style	
 		if(this.page == 0 && info.getAbilities() != null)
@@ -239,6 +243,11 @@ public class StandSelectScreen extends Screen
 		this.addButton(abilitiesButton);
 		this.addButton(statsButton);
 		this.addButton(optionsButton);
+	}
+	
+	private ResourceLocation getIcon(StandInfo currentStandInfo)
+	{
+		return new ResourceLocation(Env.PROJECT_ID, "textures/ui/icons/" + currentStandInfo.getStandId() + ".png");
 	}
 
 }
