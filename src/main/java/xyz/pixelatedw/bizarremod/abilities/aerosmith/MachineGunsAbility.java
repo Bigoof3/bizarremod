@@ -4,6 +4,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.text.TextFormatting;
 import xyz.pixelatedw.bizarremod.abilities.PassiveAbility;
+import xyz.pixelatedw.bizarremod.api.WyHelper;
 
 public class MachineGunsAbility extends PassiveAbility
 {
@@ -17,12 +18,12 @@ public class MachineGunsAbility extends PassiveAbility
 	@Override
 	public void renderDescription(FontRenderer fontObj, int posX, int posY)
 	{
-		fontObj.drawStringWithShadow(" - Machine Guns -", posX + 130, posY + 90, -1);
-		fontObj.drawStringWithShadow(TextFormatting.GREEN + " Active", posX + 155, posY + 100, -1);
+		WyHelper.drawCenteredString(fontObj, "- Machine Guns -", posX + 185, posY + 60, -1);
+		WyHelper.drawCenteredString(fontObj, TextFormatting.GREEN + " Active", posX + 183, posY + 72, -1);
 		
-		fontObj.drawStringWithShadow("Aerosmith is equipped with small machine guns", posX + 70, posY + 115, -1);
-		fontObj.drawStringWithShadow("on its wings shooting tracer bullets with", posX + 70, posY + 125, -1);
-		fontObj.drawStringWithShadow("infinite ammunition.", posX + 70, posY + 135, -1);
+		WyHelper.drawCenteredString(fontObj, "Aerosmith is equipped with small machine guns", posX + 190, posY + 95, -1);
+		WyHelper.drawCenteredString(fontObj, "on its wings shooting tracer bullets with", posX + 190, posY + 110, -1);
+		WyHelper.drawCenteredString(fontObj, "infinite ammunition.", posX + 190, posY + 125, -1);
 	}
 
 

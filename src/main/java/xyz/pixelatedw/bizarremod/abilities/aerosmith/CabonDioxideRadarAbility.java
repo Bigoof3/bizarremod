@@ -4,6 +4,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.text.TextFormatting;
 import xyz.pixelatedw.bizarremod.abilities.PassiveAbility;
+import xyz.pixelatedw.bizarremod.api.WyHelper;
 
 public class CabonDioxideRadarAbility extends PassiveAbility
 {
@@ -17,13 +18,13 @@ public class CabonDioxideRadarAbility extends PassiveAbility
 	@Override
 	public void renderDescription(FontRenderer fontObj, int posX, int posY)
 	{
-		fontObj.drawStringWithShadow("- Carbon Dioxide Radio -", posX + 130, posY + 90, -1);
-		fontObj.drawStringWithShadow(TextFormatting.AQUA + "     Passive", posX + 155, posY + 100, -1);
+		WyHelper.drawCenteredString(fontObj, "- Carbon Dioxide Radio -", posX + 185, posY + 60, -1);
+		WyHelper.drawCenteredString(fontObj, TextFormatting.AQUA + " Passive", posX + 183, posY + 72, -1);
 		
-		fontObj.drawStringWithShadow("Used to find an enemy's position through their", posX + 70, posY + 115, -1);
-		fontObj.drawStringWithShadow("breath when they exhale.", posX + 70, posY + 125, -1);
-		fontObj.drawStringWithShadow("While active, a small mechanical radar will appear", posX + 70, posY + 135, -1);
-		fontObj.drawStringWithShadow("on screen showing all targets.", posX + 70, posY + 145, -1);
+		WyHelper.drawCenteredString(fontObj, "Used to find an enemy's position through their", posX + 190, posY + 95, -1);
+		WyHelper.drawCenteredString(fontObj, "breath when they exhale.", posX + 190, posY + 110, -1);
+		WyHelper.drawCenteredString(fontObj, "While active, a small mechanical radar will appear", posX + 190, posY + 125, -1);
+		WyHelper.drawCenteredString(fontObj, "on screen showing all targets.", posX + 190, posY + 140, -1);
 	}
 
 }

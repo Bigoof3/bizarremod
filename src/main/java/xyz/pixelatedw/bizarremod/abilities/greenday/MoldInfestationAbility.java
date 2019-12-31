@@ -34,13 +34,13 @@ public class MoldInfestationAbility extends PassiveAbility
 	@OnlyIn(Dist.CLIENT)
 	public void renderDescription(FontRenderer fontObj, int posX, int posY)
 	{
-		fontObj.drawStringWithShadow("- Mold Infestation -", posX + 130, posY + 90, -1);
-		fontObj.drawStringWithShadow(TextFormatting.AQUA + " Passive", posX + 155, posY + 100, -1);
+		WyHelper.drawCenteredString(fontObj, "- Mold Infestation -", posX + 185, posY + 60, -1);
+		WyHelper.drawCenteredString(fontObj, TextFormatting.AQUA + " Passive", posX + 183, posY + 72, -1);
 		
-		fontObj.drawStringWithShadow("Produces a potent mold that rots and destroys", posX + 70, posY + 115, -1);
-		fontObj.drawStringWithShadow("the flesh of those it infects.", posX + 70, posY + 125, -1);
-		fontObj.drawStringWithShadow("The mold's growth is triggered when the potential", posX + 70, posY + 135, -1);
-		fontObj.drawStringWithShadow("victims lowers their current altitude.", posX + 70, posY + 145, -1);
+		WyHelper.drawCenteredString(fontObj, "Produces a potent mold that rots and destroys", posX + 190, posY + 95, -1);
+		WyHelper.drawCenteredString(fontObj, "the flesh of those it infects.", posX + 190, posY + 110, -1);
+		WyHelper.drawCenteredString(fontObj, "The mold's growth is triggered when the potential", posX + 190, posY + 125, -1);
+		WyHelper.drawCenteredString(fontObj, "victims lowers their current altitude.", posX + 190, posY + 140, -1);
 	}
 
 }

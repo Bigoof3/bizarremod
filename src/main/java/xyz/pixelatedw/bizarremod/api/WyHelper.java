@@ -18,6 +18,7 @@ import java.util.Random;
 
 import org.lwjgl.opengl.GL11;
 
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -28,6 +29,10 @@ import xyz.pixelatedw.bizarremod.Env;
 
 public class WyHelper
 {
+	public static void drawCenteredString(FontRenderer fontObj, String text, int x, int y, int z)
+	{
+		fontObj.drawStringWithShadow(text, x - fontObj.getStringWidth(text) / 2, y, z);
+	}
 
 	public static float handleRotationFloat(LivingEntity entity, float partialTicks)
     {
