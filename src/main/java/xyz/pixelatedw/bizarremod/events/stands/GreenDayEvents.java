@@ -1,6 +1,4 @@
-package xyz.pixelatedw.bizarremod.events;
-
-import org.lwjgl.opengl.GL11;
+package xyz.pixelatedw.bizarremod.events.stands;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 
@@ -8,15 +6,15 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import xyz.pixelatedw.bizarremod.Env;
+import xyz.pixelatedw.bizarremod.api.WyHelper;
 import xyz.pixelatedw.bizarremod.init.ModPotionEffects;
 
 @Mod.EventBusSubscriber(modid = Env.PROJECT_ID)
-public class EventsAbilityRenderers
+public class GreenDayEvents
 {
 
 	@SubscribeEvent
@@ -27,6 +25,9 @@ public class EventsAbilityRenderers
 		
 		if(!entity.isPotionActive(ModPotionEffects.GREEN_DAY_MOLD))
 			return;
+		
+		if(entity.getActivePotionEffect(ModPotionEffects.GREEN_DAY_MOLD).getDuration() <= 0)
+			entity.removePotionEffect(ModPotionEffects.GREEN_DAY_MOLD);
 		
 		GlStateManager.pushMatrix();
 		{
@@ -40,11 +41,11 @@ public class EventsAbilityRenderers
 			GlStateManager.scaled(1.05, 0.9, 1.05);
 
 			float ageInTicks = entity.ticksExisted + event.getPartialRenderTick();
-			float headYawOffset = interpolateRotation(entity.prevRenderYawOffset, entity.renderYawOffset, event.getPartialRenderTick());
-			float headYaw = interpolateRotation(entity.prevRotationYawHead, entity.rotationYawHead, event.getPartialRenderTick());
+			float headYawOffset = WyHelper.interpolateRotation(entity.prevRenderYawOffset, entity.renderYawOffset, event.getPartialRenderTick());
+			float headYaw = WyHelper.interpolateRotation(entity.prevRotationYawHead, entity.rotationYawHead, event.getPartialRenderTick());
 			float headPitch = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * event.getPartialRenderTick();
 
-			rotateCorpse(entity, ageInTicks, headYawOffset, event.getPartialRenderTick());
+			WyHelper.rotateCorpse(entity, ageInTicks, headYawOffset, event.getPartialRenderTick());
 			float limbSwingAmount = entity.prevLimbSwingAmount + (entity.limbSwingAmount - entity.prevLimbSwingAmount) * event.getPartialRenderTick();
 			float limbSwing = entity.limbSwing - entity.limbSwingAmount * (1.0F - event.getPartialRenderTick());
 
@@ -52,43 +53,4 @@ public class EventsAbilityRenderers
 		}
 		GlStateManager.popMatrix();
 	}
-
-    private static float handleRotationFloat(LivingEntity entity, float partialTicks)
-    {
-        return entity.ticksExisted + partialTicks;
-    }
-	
-	private static void rotateCorpse(LivingEntity entityLiving, float ageInTicks, float headYawOffset, float v)
-	{
-		GL11.glRotatef(180.0F + headYawOffset, 0.0F, 1.0F, 0.0F);
-
-		if (entityLiving.deathTime > 0)
-		{
-			float f3 = (entityLiving.deathTime + v - 1.0F) / 20.0F * 1.6F;
-			f3 = MathHelper.sqrt(f3);
-
-			if (f3 > 1.0F)
-			{
-				f3 = 1.0F;
-			}
-		}
-	}
-
-	private static float interpolateRotation(float lowerLimit, float upperLimit, float range)
-	{
-		float f3;
-
-		for (f3 = upperLimit - lowerLimit; f3 < -180.0F; f3 += 360.0F)
-		{
-			;
-		}
-
-		while (f3 >= 180.0F)
-		{
-			f3 -= 360.0F;
-		}
-
-		return lowerLimit + range * f3;
-	}
-
 }

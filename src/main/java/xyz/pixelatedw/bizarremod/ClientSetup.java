@@ -8,7 +8,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import xyz.pixelatedw.bizarremod.api.json.WyJSONHelper;
-import xyz.pixelatedw.bizarremod.events.EventsAbilityRenderers;
+import xyz.pixelatedw.bizarremod.events.stands.GreenDayEvents;
 import xyz.pixelatedw.bizarremod.init.ModKeybindings;
 import xyz.pixelatedw.bizarremod.init.ModParticleTypes;
 import xyz.pixelatedw.bizarremod.init.ModRenderers;

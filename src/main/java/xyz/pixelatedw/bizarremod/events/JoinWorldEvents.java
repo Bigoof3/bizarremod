@@ -12,7 +12,7 @@ import xyz.pixelatedw.bizarremod.init.ModNetwork;
 import xyz.pixelatedw.bizarremod.packets.server.SSyncStandDataPacket;
 
 @Mod.EventBusSubscriber(modid = Env.PROJECT_ID)
-public class EventsJoinWorld
+public class JoinWorldEvents
 {
 	@SubscribeEvent
 	public static void onEntityJoinWorld(EntityJoinWorldEvent event)

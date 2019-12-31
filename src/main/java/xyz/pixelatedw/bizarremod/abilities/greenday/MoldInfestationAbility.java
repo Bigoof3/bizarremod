@@ -22,7 +22,7 @@ public class MoldInfestationAbility extends PassiveAbility
 		{
 			if(entity instanceof GenericStandEntity || entity == user)
 				continue;
-			
+
 			if(entity.getPosition().compareTo(new Vec3i(entity.posX, entity.prevPosY, entity.posZ)) < 0.0)
 			{
 				entity.addPotionEffect(new EffectInstance(ModPotionEffects.GREEN_DAY_MOLD, 200, 1));

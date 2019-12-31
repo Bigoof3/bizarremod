@@ -19,10 +19,10 @@ public class SSyncStandDataPacket
 
 	public SSyncStandDataPacket() {}
 	
-	public SSyncStandDataPacket(IStandData devilFruitProps)
+	public SSyncStandDataPacket(IStandData props)
 	{
 		this.data = new CompoundNBT();
-		this.data = StandDataCapability.INSTANCE.getStorage().writeNBT(StandDataCapability.INSTANCE, devilFruitProps, null);
+		this.data = StandDataCapability.INSTANCE.getStorage().writeNBT(StandDataCapability.INSTANCE, props, null);
 	}
 
 	public void encode(PacketBuffer buffer)

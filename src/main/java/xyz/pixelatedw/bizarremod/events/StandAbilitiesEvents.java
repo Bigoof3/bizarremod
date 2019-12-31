@@ -17,7 +17,7 @@ import xyz.pixelatedw.bizarremod.init.ModNetwork;
 import xyz.pixelatedw.bizarremod.packets.client.CRequestSyncStandDataPacket;
 
 @Mod.EventBusSubscriber(modid = Env.PROJECT_ID)
-public class EventsStandAbilities
+public class StandAbilitiesEvents
 {
 
 	@SubscribeEvent
