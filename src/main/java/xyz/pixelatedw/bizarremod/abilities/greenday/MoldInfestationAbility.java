@@ -16,6 +16,12 @@ public class MoldInfestationAbility extends PassiveAbility
 {
 
 	@Override
+	public String getName()
+	{
+		return "Mold Infestation";
+	}
+	
+	@Override
 	public void tick(LivingEntity user)
 	{
 		for(LivingEntity entity : WyHelper.getNearbyEntities(user.getPosition(), user.world, 50, LivingEntity.class))
@@ -34,7 +40,7 @@ public class MoldInfestationAbility extends PassiveAbility
 	@OnlyIn(Dist.CLIENT)
 	public void renderDescription(FontRenderer fontObj, int posX, int posY)
 	{
-		this.drawLine("- Mold Infestation -", posX + 185, posY + 60);
+		this.drawLine("- " + this.getName() + " -", posX + 185, posY + 60);
 		this.drawLine(TextFormatting.AQUA + " Passive", posX + 183, posY + 72);
 		
 		this.drawLine("Produces a potent mold that rots and destroys", posX + 190, posY + 95);

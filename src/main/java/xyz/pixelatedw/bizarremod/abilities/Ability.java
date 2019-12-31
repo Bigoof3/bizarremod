@@ -7,6 +7,7 @@ import xyz.pixelatedw.bizarremod.api.WyRenderHelper;
 
 public abstract class Ability
 {
+	public abstract String getName();
 	
 	public abstract void use(PlayerEntity player);
 	

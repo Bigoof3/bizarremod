@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import xyz.pixelatedw.bizarremod.abilities.Ability;
 import xyz.pixelatedw.bizarremod.api.WyRenderHelper;
 import xyz.pixelatedw.bizarremod.init.ModResourceLocations;
 
@@ -13,15 +14,19 @@ import xyz.pixelatedw.bizarremod.init.ModResourceLocations;
 public class AbilityButton extends Button
 {
 	protected final ISelectable onSelect;
+	protected final IHoverable onHover;
+	protected final Ability ability;
 	private int smoothScaling = 0;
 	private int translate = 0;
 
-	public AbilityButton(int x, int y, int width, int height, ISelectable onSelect)
+	public AbilityButton(int x, int y, Ability ability, ISelectable onSelect, IHoverable onHover)
 	{
 		super(x, y, 64, 64, "", (button) ->
 		{
 		});
+		this.ability = ability;
 		this.onSelect = onSelect;
+		this.onHover = onHover;
 	}
 
 	@Override
@@ -57,6 +62,7 @@ public class AbilityButton extends Button
 			if (this.translate > -5)
 				this.translate--;
 			size += this.smoothScaling;
+			this.onHover.onHover(this.ability);
 		}
 		else
 		{
@@ -81,5 +87,11 @@ public class AbilityButton extends Button
 	public interface ISelectable
 	{
 		void onSelect(Button button, int type);
+	}
+	
+	@OnlyIn(Dist.CLIENT)
+	public interface IHoverable
+	{
+		void onHover(Ability ability);
 	}
 }
