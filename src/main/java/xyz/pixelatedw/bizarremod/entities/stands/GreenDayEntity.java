@@ -2,7 +2,7 @@ package xyz.pixelatedw.bizarremod.entities.stands;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
-import xyz.pixelatedw.bizarremod.ModValues;
+import xyz.pixelatedw.bizarremod.Consts;
 import xyz.pixelatedw.bizarremod.abilities.Ability;
 import xyz.pixelatedw.bizarremod.abilities.greenday.MoldInfestationAbility;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
@@ -63,7 +63,7 @@ public class GreenDayEntity extends GenericStandEntity
 		@Override
 		public String getStandId()
 		{
-			return ModValues.STAND_ID_GREEN_DAY;
+			return Consts.STAND_ID_GREEN_DAY;
 		}
 		
 		@Override

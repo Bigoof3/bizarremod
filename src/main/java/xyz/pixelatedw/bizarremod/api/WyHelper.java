@@ -1,8 +1,13 @@
 package xyz.pixelatedw.bizarremod.api;
 
 import java.awt.Color;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
@@ -13,9 +18,63 @@ import java.util.Random;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import xyz.pixelatedw.bizarremod.Env;
 
 public class WyHelper
 {
+	public static boolean isDevBuild()
+	{
+		return Env.BUILD_MODE.equalsIgnoreCase("DEV");
+	}
+
+	public static boolean isEarlyAccessBuild()
+	{
+		return Env.BUILD_MODE.equalsIgnoreCase("EARLY_ACCESS");
+	}
+
+	public static boolean isReleaseBuild()
+	{
+		return Env.BUILD_MODE.equalsIgnoreCase("RELEASE");
+	}
+
+	public static boolean isDebug()
+	{
+		return ManagementFactory.getRuntimeMXBean().getInputArguments().toString().indexOf("-agentlib:jdwp") > 0;
+	}
+	
+	public static byte[] serialize(Object obj) throws IOException
+	{
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		ObjectOutputStream os = new ObjectOutputStream(out);
+		os.writeObject(obj);
+		return out.toByteArray();
+	}
+
+	public static Object deserialize(byte[] data) throws IOException, ClassNotFoundException
+	{
+		ByteArrayInputStream in = new ByteArrayInputStream(data);
+		ObjectInputStream is = new ObjectInputStream(in);
+		return is.readObject();
+	}
+	
+	public static <T> List<T> shuffle(List<T> ar)
+	{
+		Random rnd = new Random();
+		
+		for (int i = ar.size() - 1; i > 0; i--)
+		{
+			int index = rnd.nextInt(i + 1);
+			// Simple swap
+			T a = ar.get(index);
+			ar.set(index, ar.get(i));
+			ar.set(i, a);
+		}
+		
+		return ar;
+	}
+	
 	public static double percentage(double i, double j)
 	{
 		return (i / 100) * j;
@@ -31,14 +90,15 @@ public class WyHelper
 		return new Random().nextDouble() * 2 - 1;
 	}
 	
-	public static <T> List<T> getNearbyEntities(Entity center, double radius, Class<? extends Entity> clz)
+	public static <T extends Entity> List<T> getNearbyEntities(BlockPos pos, World world, double radius, Class<? extends T>... classEntities)
 	{
-		AxisAlignedBB aabb = new AxisAlignedBB(center.posX, center.posY, center.posZ, center.posX + 1, center.posY + 1, center.posZ + 1).grow(radius, radius, radius);
-		List<T> targets = new ArrayList<T>();
-		targets.addAll((Collection<? extends T>) center.world.getEntitiesWithinAABB(clz, aabb));
-		targets.remove(center);
-		
-		return targets;
+		AxisAlignedBB aabb = new AxisAlignedBB(pos.add(1, 1, 1)).grow(radius, radius, radius);
+		List<T> list = new ArrayList<T>();
+		for(Class<? extends T> clzz : classEntities)
+		{
+			list.addAll(world.getEntitiesWithinAABB(clzz, aabb));
+		}
+		return list;
 	}
 	
 	public static Color hexToRGB(String hexColor)

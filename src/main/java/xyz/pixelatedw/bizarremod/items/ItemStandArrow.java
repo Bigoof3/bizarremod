@@ -11,7 +11,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import xyz.pixelatedw.bizarremod.ModMain;
-import xyz.pixelatedw.bizarremod.ModValues;
+import xyz.pixelatedw.bizarremod.Consts;
 
 public class ItemStandArrow extends Item
 {
@@ -26,7 +26,7 @@ public class ItemStandArrow extends Item
 		if(!world.isRemote)
 		{
 			if(player.isCreative())
-				ModMain.proxy.openScreen(ModValues.GUI_CREATIVE_STAND_SELECT, player);
+				ModMain.proxy.openScreen(Consts.GUI_CREATIVE_STAND_SELECT, player);
 			else
 			{
 				System.out.println("Random Stand here");

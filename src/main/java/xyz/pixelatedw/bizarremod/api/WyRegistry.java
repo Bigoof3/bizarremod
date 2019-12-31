@@ -11,7 +11,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Effect;
 import net.minecraft.world.World;
-import xyz.pixelatedw.bizarremod.ModValues;
+import xyz.pixelatedw.bizarremod.Env;
 import xyz.pixelatedw.bizarremod.api.json.loottables.IJSONLootTable;
 import xyz.pixelatedw.bizarremod.api.json.models.JSONModelBlock;
 import xyz.pixelatedw.bizarremod.api.json.models.JSONModelItem;
@@ -42,8 +42,8 @@ public class WyRegistry
 	public static Item registerItem(Item item, String localizedName, JSONModelItem jsonType)
 	{
 		String truename = WyHelper.getResourceName(localizedName);
-		langMap.put("item." + ModValues.PROJECT_ID + "." + truename, localizedName);
-		item.setRegistryName(ModValues.PROJECT_ID, truename);
+		langMap.put("item." + Env.PROJECT_ID + "." + truename, localizedName);
+		item.setRegistryName(Env.PROJECT_ID, truename);
 		
 		items.put(item, jsonType);
 
@@ -53,8 +53,8 @@ public class WyRegistry
 	public static Effect registerEffect(String localizedName, Effect effect)
 	{
 		String truename = WyHelper.getResourceName(localizedName);
-		langMap.put("effect." + ModValues.PROJECT_ID + "." + truename, localizedName);
-		effect.setRegistryName(ModValues.PROJECT_ID, truename);
+		langMap.put("effect." + Env.PROJECT_ID + "." + truename, localizedName);
+		effect.setRegistryName(Env.PROJECT_ID, truename);
 
 		return effect;
 	}
@@ -75,13 +75,13 @@ public class WyRegistry
 			.setCustomClientFactory((entity, world) -> func.apply(world))
 			.size(width, height)
 			.build(name)
-			.setRegistryName(ModValues.PROJECT_ID, name);
+			.setRegistryName(Env.PROJECT_ID, name);
 		
 		StringBuilder builder = new StringBuilder();
 		String[] strs = name.split("_");
 		Arrays.stream(strs).forEach(x -> builder.append(WyHelper.upperCaseFirst(x)));	
 		
-		langMap.put("entity." + ModValues.PROJECT_ID + "." + name, builder.toString().trim());
+		langMap.put("entity." + Env.PROJECT_ID + "." + name, builder.toString().trim());
 		
 		return type;
 	}

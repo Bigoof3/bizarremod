@@ -6,7 +6,8 @@ import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
-import xyz.pixelatedw.bizarremod.ModValues;
+import xyz.pixelatedw.bizarremod.Consts;
+import xyz.pixelatedw.bizarremod.Env;
 import xyz.pixelatedw.bizarremod.api.json.models.JSONModelBlock;
 
 public class JSONModelBars extends JSONModelBlock
@@ -24,9 +25,9 @@ public class JSONModelBars extends JSONModelBlock
 	{
 		for(String component : paneComponents)
 		{
-			this.paneComponentTemplate = new File(ModValues.PROJECT_RESOURCES_FOLDER + "/data/" + ModValues.PROJECT_ID + "/json_templates/models/block/pane" + component + ".json");
+			this.paneComponentTemplate = new File(Consts.PROJECT_RESOURCES_FOLDER + "/data/" + Env.PROJECT_ID + "/json_templates/models/block/pane" + component + ".json");
 
-			File jsonModel = new File(ModValues.PROJECT_RESOURCES_FOLDER + "/assets/" + ModValues.PROJECT_ID + "/models/block/" + this.getBlockName() + "" + component + ".json");
+			File jsonModel = new File(Consts.PROJECT_RESOURCES_FOLDER + "/assets/" + Env.PROJECT_ID + "/models/block/" + this.getBlockName() + "" + component + ".json");
 			if (jsonModel.exists())
 				continue;
 			

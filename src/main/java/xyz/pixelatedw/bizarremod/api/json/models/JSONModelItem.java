@@ -9,7 +9,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import xyz.pixelatedw.bizarremod.ModValues;
+import xyz.pixelatedw.bizarremod.Consts;
+import xyz.pixelatedw.bizarremod.Env;
 import xyz.pixelatedw.bizarremod.api.WyHelper;
 
 public abstract class JSONModelItem implements IJSONModel
@@ -21,7 +22,7 @@ public abstract class JSONModelItem implements IJSONModel
 	public JSONModelItem(String itemName, String template)
 	{
 		this.itemName = WyHelper.getResourceName(itemName);
-		this.template = new File(ModValues.PROJECT_RESOURCES_FOLDER + "/data/" + ModValues.PROJECT_ID + "/json_templates/models/item/" + template + ".json");
+		this.template = new File(Consts.PROJECT_RESOURCES_FOLDER + "/data/" + Env.PROJECT_ID + "/json_templates/models/item/" + template + ".json");
 	}
 	
 	protected String[] replaceMarkedElements()
@@ -35,7 +36,7 @@ public abstract class JSONModelItem implements IJSONModel
 			{
 				String formattedLine = line;
 				if(line.contains("${modid}"))
-					formattedLine = formattedLine.replace("${modid}", ModValues.PROJECT_ID);
+					formattedLine = formattedLine.replace("${modid}", Env.PROJECT_ID);
 				
 				if(line.contains("${texture}"))
 					formattedLine = formattedLine.replace("${texture}", this.getItemName());

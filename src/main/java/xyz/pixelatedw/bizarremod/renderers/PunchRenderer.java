@@ -8,7 +8,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
-import xyz.pixelatedw.bizarremod.ModValues;
+import xyz.pixelatedw.bizarremod.Env;
 import xyz.pixelatedw.bizarremod.entities.projectiles.PunchEntity;
 import xyz.pixelatedw.bizarremod.models.FistModel;
 
@@ -46,7 +46,7 @@ public class PunchRenderer extends EntityRenderer<PunchEntity>
 	@Override
 	protected ResourceLocation getEntityTexture(PunchEntity entity)
 	{
-		return new ResourceLocation(ModValues.PROJECT_ID, "textures/models/stands/punches/" + entity.getTexture() + ".png");
+		return new ResourceLocation(Env.PROJECT_ID, "textures/models/stands/punches/" + entity.getTexture() + ".png");
 	}
 
 	public static class Factory implements IRenderFactory<PunchEntity>

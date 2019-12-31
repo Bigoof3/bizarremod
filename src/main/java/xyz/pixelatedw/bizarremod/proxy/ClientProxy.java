@@ -6,7 +6,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import xyz.pixelatedw.bizarremod.ModValues;
+import xyz.pixelatedw.bizarremod.Consts;
 import xyz.pixelatedw.bizarremod.api.json.WyJSONHelper;
 import xyz.pixelatedw.bizarremod.events.EventsAbilityRenderers;
 import xyz.pixelatedw.bizarremod.init.ModKeybindings;
@@ -56,7 +56,7 @@ public class ClientProxy implements IProxy
 			case -1:
 				Minecraft.getInstance().displayGuiScreen(null);
 				break;
-			case ModValues.GUI_CREATIVE_STAND_SELECT:
+			case Consts.GUI_CREATIVE_STAND_SELECT:
 				Minecraft.getInstance().displayGuiScreen(new StandSelectScreen(player));
 				break;
 		}

@@ -6,7 +6,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import xyz.pixelatedw.bizarremod.ModValues;
+import xyz.pixelatedw.bizarremod.Env;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataBase;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataProvider;
@@ -18,7 +18,7 @@ public class ModCapabilities
 		StandDataCapability.register();
 	}
 
-	@Mod.EventBusSubscriber(modid = ModValues.PROJECT_ID)
+	@Mod.EventBusSubscriber(modid = Env.PROJECT_ID)
 	public static class Registry
 	{
 		@SubscribeEvent
@@ -27,7 +27,7 @@ public class ModCapabilities
 			if(event.getObject() instanceof LivingEntity)
 			{
 				final StandDataBase abilityData = new StandDataBase();
-				event.addCapability(new ResourceLocation(ModValues.PROJECT_ID, "stand_data"), new StandDataProvider());
+				event.addCapability(new ResourceLocation(Env.PROJECT_ID, "stand_data"), new StandDataProvider());
 			}
 		}
 	}

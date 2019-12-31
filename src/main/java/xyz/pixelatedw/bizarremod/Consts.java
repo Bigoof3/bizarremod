@@ -1,6 +1,6 @@
 package xyz.pixelatedw.bizarremod;
 
-public class ModValues
+public class Consts
 {
 
 	public static final int
@@ -19,10 +19,6 @@ public class ModValues
 	STAND_ID_AEROSMITH_ALT = "aerosmith_alt",	
 	
 	CONTROLS_KEY_STAND_CONTROL = "Stand Summon/Cancel",
-	CONTROLS_CATEGORY = "Bizzare Controls",
-	
-	PROJECT_VERSION = "1.0",
-	PROJECT_NAME = "Bizarre Mod",
-	PROJECT_ID = "bizarremod"; 
+	CONTROLS_CATEGORY = "Bizzare Controls";
 	
 }

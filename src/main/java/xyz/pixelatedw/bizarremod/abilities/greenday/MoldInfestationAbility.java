@@ -18,7 +18,7 @@ public class MoldInfestationAbility extends PassiveAbility
 	@Override
 	public void tick(LivingEntity user)
 	{
-		for(LivingEntity entity : WyHelper.<LivingEntity>getNearbyEntities(user, 50, LivingEntity.class))
+		for(LivingEntity entity : WyHelper.getNearbyEntities(user.getPosition(), user.world, 50, LivingEntity.class))
 		{
 			if(entity instanceof GenericStandEntity)
 				continue;

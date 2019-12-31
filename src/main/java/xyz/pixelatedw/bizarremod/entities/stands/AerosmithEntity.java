@@ -2,7 +2,7 @@ package xyz.pixelatedw.bizarremod.entities.stands;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
-import xyz.pixelatedw.bizarremod.ModValues;
+import xyz.pixelatedw.bizarremod.Consts;
 import xyz.pixelatedw.bizarremod.abilities.Ability;
 import xyz.pixelatedw.bizarremod.abilities.aerosmith.BombAbility;
 import xyz.pixelatedw.bizarremod.abilities.aerosmith.CabonDioxideRadarAbility;
@@ -66,7 +66,7 @@ public class AerosmithEntity extends GenericStandEntity
 		@Override
 		public String getStandId()
 		{
-			return ModValues.STAND_ID_AEROSMITH;
+			return Consts.STAND_ID_AEROSMITH;
 		}
 
 		@Override

@@ -11,7 +11,7 @@ import net.minecraftforge.client.event.InputEvent.MouseInputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import xyz.pixelatedw.bizarremod.ModMain;
-import xyz.pixelatedw.bizarremod.ModValues;
+import xyz.pixelatedw.bizarremod.Consts;
 import xyz.pixelatedw.bizarremod.api.WyHelper;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
@@ -25,7 +25,7 @@ public class ModKeybindings
 
 	public static void init()
 	{
-		standControl = new KeyBinding(ModValues.CONTROLS_KEY_STAND_CONTROL, GLFW.GLFW_KEY_Z, ModValues.CONTROLS_CATEGORY);
+		standControl = new KeyBinding(Consts.CONTROLS_KEY_STAND_CONTROL, GLFW.GLFW_KEY_Z, Consts.CONTROLS_CATEGORY);
 		ClientRegistry.registerKeyBinding(standControl);
 	}
 

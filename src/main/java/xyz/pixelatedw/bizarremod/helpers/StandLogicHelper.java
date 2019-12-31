@@ -3,7 +3,7 @@ package xyz.pixelatedw.bizarremod.helpers;
 import java.util.HashMap;
 
 import xyz.pixelatedw.bizarremod.ModMain;
-import xyz.pixelatedw.bizarremod.ModValues;
+import xyz.pixelatedw.bizarremod.Consts;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
 import xyz.pixelatedw.bizarremod.entities.stands.AerosmithEntity;
 import xyz.pixelatedw.bizarremod.entities.stands.GreenDayEntity;
@@ -15,8 +15,8 @@ public class StandLogicHelper
 	
 	static
 	{
-		stands.put(ModValues.STAND_ID_GREEN_DAY, new GreenDayEntity.GreenDayStandInfo());
-		stands.put(ModValues.STAND_ID_AEROSMITH, new AerosmithEntity.AerosmithStandInfo());
+		stands.put(Consts.STAND_ID_GREEN_DAY, new GreenDayEntity.GreenDayStandInfo());
+		stands.put(Consts.STAND_ID_AEROSMITH, new AerosmithEntity.AerosmithStandInfo());
 	}
 	
 	public static StandInfo getStandInfo(String standName)

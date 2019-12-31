@@ -9,7 +9,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import xyz.pixelatedw.bizarremod.ModValues;
+import xyz.pixelatedw.bizarremod.Consts;
+import xyz.pixelatedw.bizarremod.Env;
 import xyz.pixelatedw.bizarremod.api.WyHelper;
 
 public abstract class JSONLootTableBlock implements IJSONLootTable
@@ -23,7 +24,7 @@ public abstract class JSONLootTableBlock implements IJSONLootTable
 		this.itemName = WyHelper.getResourceName(itemName);
 		this.min = min;
 		this.max = max;
-		this.template = new File(ModValues.PROJECT_RESOURCES_FOLDER + "/data/" + ModValues.PROJECT_ID + "/json_templates/loot_tables/block/" + templateName + ".json");
+		this.template = new File(Consts.PROJECT_RESOURCES_FOLDER + "/data/" + Env.PROJECT_ID + "/json_templates/loot_tables/block/" + templateName + ".json");
 	}
 	
 	protected String[] replaceMarkedElements()
@@ -37,7 +38,7 @@ public abstract class JSONLootTableBlock implements IJSONLootTable
 			{
 				String formattedLine = line;
 				if(line.contains("${modid}"))
-					formattedLine = formattedLine.replace("${modid}", ModValues.PROJECT_ID);
+					formattedLine = formattedLine.replace("${modid}", Env.PROJECT_ID);
 				
 				if(line.contains("${item}"))
 					formattedLine = formattedLine.replace("${item}", this.getItemName());

@@ -12,8 +12,8 @@ import java.util.Set;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import xyz.pixelatedw.bizarremod.ModValues;
-import xyz.pixelatedw.bizarremod.api.WyDebug;
+import xyz.pixelatedw.bizarremod.Consts;
+import xyz.pixelatedw.bizarremod.Env;
 import xyz.pixelatedw.bizarremod.api.WyHelper;
 import xyz.pixelatedw.bizarremod.api.WyRegistry;
 
@@ -26,11 +26,11 @@ public class WyJSONHelper
 	
 	public static void generateJSONLootTables(boolean override)
 	{
-		if (!WyDebug.isDebug())
+		if (!WyHelper.isDebug())
 			return;
 		
 		Iterator i = WyRegistry.lootTables.keySet().iterator();
-		File lootTablesFolder = new File(ModValues.PROJECT_RESOURCES_FOLDER + "/data/" + ModValues.PROJECT_ID + "/loot_tables/");
+		File lootTablesFolder = new File(Consts.PROJECT_RESOURCES_FOLDER + "/data/" + Env.PROJECT_ID + "/loot_tables/");
 		
 		if (!lootTablesFolder.exists())
 			lootTablesFolder.mkdirs();
@@ -45,7 +45,7 @@ public class WyJSONHelper
 				Block nextBlock = (Block) next;
 				String name = WyHelper.getResourceName(nextBlock.getRegistryName().getPath());
 
-				jsonModel = new File(ModValues.PROJECT_RESOURCES_FOLDER + "/data/" + ModValues.PROJECT_ID + "/loot_tables/blocks/" + name + ".json");			
+				jsonModel = new File(Consts.PROJECT_RESOURCES_FOLDER + "/data/" + Env.PROJECT_ID + "/loot_tables/blocks/" + name + ".json");			
 			}
 			
 			if (jsonModel != null && jsonModel.exists() && !override)
@@ -77,7 +77,7 @@ public class WyJSONHelper
 	
 	public static void generateJSONLangs()
 	{
-		if (!WyDebug.isDebug())
+		if (!WyHelper.isDebug())
 			return;
 
 		Map<String, String> sorted = WyHelper.sortAlphabetically(WyRegistry.langMap);
@@ -86,12 +86,12 @@ public class WyJSONHelper
 
 		Map.Entry prevEntry = null;
 
-		File langFolder = new File(ModValues.PROJECT_RESOURCES_FOLDER + "/assets/" + ModValues.PROJECT_ID + "/lang/");
+		File langFolder = new File(Consts.PROJECT_RESOURCES_FOLDER + "/assets/" + Env.PROJECT_ID + "/lang/");
 		langFolder.mkdirs();
 
 		if (langFolder.exists())
 		{
-			try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(ModValues.PROJECT_RESOURCES_FOLDER + "/assets/" + ModValues.PROJECT_ID + "/lang/en_US.json"), "UTF-8")))
+			try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(Consts.PROJECT_RESOURCES_FOLDER + "/assets/" + Env.PROJECT_ID + "/lang/en_US.json"), "UTF-8")))
 			{
 				writer.write("{\n");
 				while (i.hasNext())
@@ -125,11 +125,11 @@ public class WyJSONHelper
 	
 	public static void generateJSONModels(boolean override)
 	{
-		if (!WyDebug.isDebug())
+		if (!WyHelper.isDebug())
 			return;
 		
 		Iterator i = WyRegistry.items.keySet().iterator();
-		File itemFolder = new File(ModValues.PROJECT_RESOURCES_FOLDER + "/assets/" + ModValues.PROJECT_ID + "/models/item/");
+		File itemFolder = new File(Consts.PROJECT_RESOURCES_FOLDER + "/assets/" + Env.PROJECT_ID + "/models/item/");
 
 		if (!itemFolder.exists())
 			itemFolder.mkdirs();
@@ -139,7 +139,7 @@ public class WyJSONHelper
 			Item item = (Item) i.next();
 			String itemName = WyHelper.getResourceName(item.getRegistryName().getPath());
 
-			File jsonModel = new File(ModValues.PROJECT_RESOURCES_FOLDER + "/assets/" + ModValues.PROJECT_ID + "/models/item/" + itemName + ".json");
+			File jsonModel = new File(Consts.PROJECT_RESOURCES_FOLDER + "/assets/" + Env.PROJECT_ID + "/models/item/" + itemName + ".json");
 			if (jsonModel.exists() && !override)
 				continue;
 			
@@ -168,11 +168,11 @@ public class WyJSONHelper
 		
 		i = WyRegistry.blocks.keySet().iterator();
 		
-		File blockFolder = new File(ModValues.PROJECT_RESOURCES_FOLDER + "/assets/" + ModValues.PROJECT_ID + "/models/block/");
+		File blockFolder = new File(Consts.PROJECT_RESOURCES_FOLDER + "/assets/" + Env.PROJECT_ID + "/models/block/");
 		if (!blockFolder.exists())
 			blockFolder.mkdirs();
 		
-		File blockStatesFolder = new File(ModValues.PROJECT_RESOURCES_FOLDER + "/assets/" + ModValues.PROJECT_ID + "/blockstates/");
+		File blockStatesFolder = new File(Consts.PROJECT_RESOURCES_FOLDER + "/assets/" + Env.PROJECT_ID + "/blockstates/");
 		if (!blockStatesFolder.exists())
 			blockStatesFolder.mkdirs();
 		
@@ -181,7 +181,7 @@ public class WyJSONHelper
 			Block block = (Block) i.next();
 			String blockName = WyHelper.getResourceName(block.getRegistryName().getPath());
 
-			File jsonModel = new File(ModValues.PROJECT_RESOURCES_FOLDER + "/assets/" + ModValues.PROJECT_ID + "/models/block/" + blockName + ".json");
+			File jsonModel = new File(Consts.PROJECT_RESOURCES_FOLDER + "/assets/" + Env.PROJECT_ID + "/models/block/" + blockName + ".json");
 			if (!jsonModel.exists() || override)
 			{
 				try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(jsonModel), "UTF-8")))
@@ -208,7 +208,7 @@ public class WyJSONHelper
 				}
 			}
 			
-			jsonModel = new File(ModValues.PROJECT_RESOURCES_FOLDER + "/assets/" + ModValues.PROJECT_ID + "/blockstates/" + blockName + ".json");
+			jsonModel = new File(Consts.PROJECT_RESOURCES_FOLDER + "/assets/" + Env.PROJECT_ID + "/blockstates/" + blockName + ".json");
 			if (!jsonModel.exists() || override)
 			{
 				try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(jsonModel), "UTF-8")))

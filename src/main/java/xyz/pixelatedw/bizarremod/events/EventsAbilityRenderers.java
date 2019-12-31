@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import xyz.pixelatedw.bizarremod.ModValues;
+import xyz.pixelatedw.bizarremod.Env;
 import xyz.pixelatedw.bizarremod.init.ModPotionEffects;
 
 public class EventsAbilityRenderers
@@ -30,7 +30,7 @@ public class EventsAbilityRenderers
 		{
 			GlStateManager.translatef((float) event.getX(), (float) event.getY() + 1.45F, (float) event.getZ());
 
-			Minecraft.getInstance().textureManager.bindTexture(new ResourceLocation(ModValues.PROJECT_ID, "textures/misc/green_mold.png"));
+			Minecraft.getInstance().textureManager.bindTexture(new ResourceLocation(Env.PROJECT_ID, "textures/misc/green_mold.png"));
 
 			GlStateManager.rotatef(180.0F, 1.0F, 0.0F, 0.0F);
 			GlStateManager.rotatef(180.0F, 0.0F, 1.0F, 0.0F);

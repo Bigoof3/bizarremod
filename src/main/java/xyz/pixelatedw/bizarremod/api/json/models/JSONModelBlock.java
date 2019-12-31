@@ -9,7 +9,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import xyz.pixelatedw.bizarremod.ModValues;
+import xyz.pixelatedw.bizarremod.Consts;
+import xyz.pixelatedw.bizarremod.Env;
 import xyz.pixelatedw.bizarremod.api.WyHelper;
 
 public abstract class JSONModelBlock implements IJSONModel
@@ -20,8 +21,8 @@ public abstract class JSONModelBlock implements IJSONModel
 	public JSONModelBlock(String blockName, String blockTemplate, String blockStateTemplate)
 	{
 		this.blockName = WyHelper.getResourceName(blockName);
-		this.blockTemplate = new File(ModValues.PROJECT_RESOURCES_FOLDER + "/data/" + ModValues.PROJECT_ID + "/json_templates/models/block/" + blockTemplate + ".json");
-		this.blockStateTemplate = new File(ModValues.PROJECT_RESOURCES_FOLDER + "/data/" + ModValues.PROJECT_ID + "/json_templates/models/blockstate/" + blockStateTemplate + ".json");
+		this.blockTemplate = new File(Consts.PROJECT_RESOURCES_FOLDER + "/data/" + Env.PROJECT_ID + "/json_templates/models/block/" + blockTemplate + ".json");
+		this.blockStateTemplate = new File(Consts.PROJECT_RESOURCES_FOLDER + "/data/" + Env.PROJECT_ID + "/json_templates/models/blockstate/" + blockStateTemplate + ".json");
 	}
 
 	public abstract String[] getBlockStateModel();
@@ -37,7 +38,7 @@ public abstract class JSONModelBlock implements IJSONModel
 			{
 				String formattedLine = line;
 				if(line.contains("${modid}"))
-					formattedLine = formattedLine.replace("${modid}", ModValues.PROJECT_ID);
+					formattedLine = formattedLine.replace("${modid}", Env.PROJECT_ID);
 				
 				if(line.contains("${texture}"))
 					formattedLine = formattedLine.replace("${texture}", this.getBlockName());

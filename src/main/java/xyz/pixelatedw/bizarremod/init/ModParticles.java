@@ -1,12 +1,12 @@
 package xyz.pixelatedw.bizarremod.init;
 
 import net.minecraft.util.ResourceLocation;
-import xyz.pixelatedw.bizarremod.ModValues;
+import xyz.pixelatedw.bizarremod.Env;
 
 public class ModParticles
 {
 	public static final ResourceLocation
 	
-	GO = new ResourceLocation(ModValues.PROJECT_ID, "textures/particles/go.png");
+	GO = new ResourceLocation(Env.PROJECT_ID, "textures/particles/go.png");
 
 }
