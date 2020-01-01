@@ -27,6 +27,7 @@ public class PunchAbility extends Ability
 		
 		punch.setTexture(info.getStandId());
 		punch.setDamage(1 + info.getStandEntity(player).getDestructivePower());
+		punch.setRange(info.getStandEntity(player).getRange() / 2);
 		
 		if(punch == null || !props.hasStandSummoned())
 			return;

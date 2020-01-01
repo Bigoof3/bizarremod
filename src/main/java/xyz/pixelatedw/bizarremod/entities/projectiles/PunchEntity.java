@@ -24,20 +24,21 @@ public class PunchEntity extends ThrowableEntity
 {
 	private static final DataParameter<String> TEXTURE = EntityDataManager.createKey(PunchEntity.class, DataSerializers.STRING);
 	private double damage = 1;
+	private double range = 1;
 	private int ticks, maxticks;
 	private Consumer<RayTraceResult> onImpactFunc;
 	
 	public PunchEntity(World world)
 	{
 		super(ModEntities.PUNCH, world);
-		this.ticks = 5;
+		this.ticks = 1;
 		this.maxticks = this.ticks;
 	}
 
 	public PunchEntity(LivingEntity livingEntity, World world)
 	{
 		super(ModEntities.PUNCH, livingEntity, world);
-		this.ticks = 5;
+		this.ticks = 1;
 		this.maxticks = this.ticks;
 	}
 
@@ -45,13 +46,16 @@ public class PunchEntity extends ThrowableEntity
 	public void tick()
 	{	
 		super.tick();
-		if (this.ticks <= 0)
+		if(!this.world.isRemote)
 		{
-			this.ticks = this.maxticks;
-			this.remove();
+			if (this.ticks + this.range <= 0)
+			{
+				this.ticks = this.maxticks;
+				this.remove();
+			}
+			else
+				this.ticks--;
 		}
-		else
-			this.ticks--;
 	}
 	
 	@Override
@@ -70,7 +74,7 @@ public class PunchEntity extends ThrowableEntity
 			if (entityHit.getEntity() instanceof LivingEntity)
 			{
 				LivingEntity hitEntity = (LivingEntity) entityHit.getEntity();
-				hitEntity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), 4);
+				hitEntity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), (float) this.getDamage());
 				
 				if(!(hitEntity instanceof GenericStandEntity))
 					this.remove();
@@ -96,6 +100,16 @@ public class PunchEntity extends ThrowableEntity
 		this.dataManager.register(TEXTURE, "");
 	}
 
+	public void setRange(double range)
+	{
+		this.range = range;
+	}
+
+	public double getRange()
+	{
+		return this.range;
+	}
+	
 	public void setDamage(double damage)
 	{
 		this.damage = damage;
