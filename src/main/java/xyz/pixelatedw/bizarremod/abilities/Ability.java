@@ -1,11 +1,13 @@
 package xyz.pixelatedw.bizarremod.abilities;
 
+import java.io.Serializable;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import xyz.pixelatedw.bizarremod.api.WyRenderHelper;
 
-public abstract class Ability
+public abstract class Ability implements Serializable
 {
 	public abstract String getName();
 	

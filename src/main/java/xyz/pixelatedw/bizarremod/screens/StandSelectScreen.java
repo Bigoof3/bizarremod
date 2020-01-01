@@ -1,6 +1,8 @@
 package xyz.pixelatedw.bizarremod.screens;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -19,6 +21,7 @@ import net.minecraftforge.fml.client.config.GuiUtils;
 import xyz.pixelatedw.bizarremod.Env;
 import xyz.pixelatedw.bizarremod.ModMain;
 import xyz.pixelatedw.bizarremod.abilities.Ability;
+import xyz.pixelatedw.bizarremod.abilities.PassiveAbility;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
 import xyz.pixelatedw.bizarremod.api.WyHelper;
 import xyz.pixelatedw.bizarremod.api.WyRenderHelper;
@@ -160,6 +163,11 @@ public class StandSelectScreen extends Screen
 			StandInfo currentInfo = (StandInfo) StandLogicHelper.getRegisteredStands().values().toArray()[this.currentStand - 1];
 			props.setStand(currentInfo.getStandId());
 
+			if(this.getActiveAbilities(currentInfo).size() >= 1)
+				props.setPrimaryAbility(this.getActiveAbilities(currentInfo).get(0) != null ? this.getActiveAbilities(currentInfo).get(0) : null);
+			if(this.getActiveAbilities(currentInfo).size() >= 2)
+				props.setSecondaryAbility(this.getActiveAbilities(currentInfo).get(1) != null ? this.getActiveAbilities(currentInfo).get(1) : null);
+			
 			ModNetwork.sendTo(new SSyncStandDataPacket(props), (ServerPlayerEntity)this.player);
 			ModMain.proxy.openScreen(-1, this.player);
 		});
@@ -248,6 +256,11 @@ public class StandSelectScreen extends Screen
 	private ResourceLocation getIcon(StandInfo currentStandInfo)
 	{
 		return new ResourceLocation(Env.PROJECT_ID, "textures/ui/icons/" + currentStandInfo.getStandId() + ".png");
+	}
+	
+	private List<Ability> getActiveAbilities(StandInfo standInfo)
+	{
+		return Arrays.stream(standInfo.getAbilities()).parallel().filter(ability -> !(ability instanceof PassiveAbility)).collect(Collectors.toList());
 	}
 
 }

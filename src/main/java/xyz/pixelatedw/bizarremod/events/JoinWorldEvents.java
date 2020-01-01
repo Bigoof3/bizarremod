@@ -24,6 +24,8 @@ public class JoinWorldEvents
 
 			props.setStandSummoned(false);
 			
+			System.out.println(props.getPrimaryAbility() + " / " + props.getSecondaryAbility());
+			
 			if(!player.world.isRemote)
 				ModNetwork.sendTo(new SSyncStandDataPacket(props), (ServerPlayerEntity)player);
 		}
