@@ -36,7 +36,7 @@ public class PunchAbility extends Ability
 			return;
 
 		player.world.addEntity(punch);
-		punch.shoot(player, player.rotationPitch, player.rotationYaw, 0, 2f, 4 - info.getStandEntity(player).getPrecision());
+		punch.shoot(player, player.rotationPitch, player.rotationYaw, 0, 1 + (info.getStandEntity(player).getSpeed() / 3), 4 - info.getStandEntity(player).getPrecision());
 	}
 
 	@Override

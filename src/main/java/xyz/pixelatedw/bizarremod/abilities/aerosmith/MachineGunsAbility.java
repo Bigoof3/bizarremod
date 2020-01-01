@@ -37,7 +37,7 @@ public class MachineGunsAbility extends Ability
 			return;
 
 		player.world.addEntity(punch);
-		punch.shoot(player, player.rotationPitch, player.rotationYaw, 0, 2f, 5 - info.getStandEntity(player).getPrecision());		
+		punch.shoot(player, player.rotationPitch, player.rotationYaw, 0, 2 + info.getStandEntity(player).getSpeed(), 5 - info.getStandEntity(player).getPrecision());		
 	}
 
 	@Override
