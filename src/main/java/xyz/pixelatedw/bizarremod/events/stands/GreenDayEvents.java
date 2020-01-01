@@ -5,13 +5,13 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import xyz.pixelatedw.bizarremod.Env;
 import xyz.pixelatedw.bizarremod.api.WyRenderHelper;
 import xyz.pixelatedw.bizarremod.init.ModPotionEffects;
+import xyz.pixelatedw.bizarremod.init.ModResourceLocations;
 
 @Mod.EventBusSubscriber(modid = Env.PROJECT_ID)
 public class GreenDayEvents
@@ -33,7 +33,7 @@ public class GreenDayEvents
 		{
 			GlStateManager.translatef((float) event.getX(), (float) event.getY() + 1.45F, (float) event.getZ());
 
-			Minecraft.getInstance().textureManager.bindTexture(new ResourceLocation(Env.PROJECT_ID, "textures/misc/green_mold.png"));
+			Minecraft.getInstance().textureManager.bindTexture(ModResourceLocations.GREEN_DAY_MOLD);
 
 			GlStateManager.rotatef(180.0F, 1.0F, 0.0F, 0.0F);
 			GlStateManager.rotatef(180.0F, 0.0F, 1.0F, 0.0F);
