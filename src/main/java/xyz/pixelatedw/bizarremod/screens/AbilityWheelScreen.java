@@ -47,7 +47,10 @@ public class AbilityWheelScreen extends Screen
 		int posX = this.width / 2;
 		int posY = this.height / 2;
 
-		WyRenderHelper.drawCenteredString(this.minecraft.fontRenderer, WyHelper.isNullOrEmpty(this.hoveredAbilityName) ? "No active Abilities available" : this.hoveredAbilityName, posX, posY - 20, -1);
+		if(this.getActiveAbilities().size() > 0)
+			WyRenderHelper.drawCenteredString(this.minecraft.fontRenderer, WyHelper.isNullOrEmpty(this.hoveredAbilityName) ? "" : this.hoveredAbilityName, posX, posY - 20, -1);
+		else
+			WyRenderHelper.drawCenteredString(this.minecraft.fontRenderer, "No active Abilities available", posX, posY - 20, -1);
 
 		super.render(x, y, f);
 	}

@@ -50,8 +50,8 @@ public class ModKeybindings
 
 		if (standControl.isPressed() && !WyHelper.isNullOrEmpty(props.getStand()))
 			ModNetwork.sendToServer(new CStandControlPacket(props.getStand()));
-		
-		if (props.hasStandSummoned() && abilityWheel.isPressed())
+				
+		if (abilityWheel.isPressed() && props.hasStandSummoned())
 			Minecraft.getInstance().displayGuiScreen(new AbilityWheelScreen());
 	}
 	
