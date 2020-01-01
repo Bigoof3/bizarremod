@@ -67,7 +67,6 @@ public class ModKeybindings
 		ItemStack heldItem = player.getHeldItemMainhand();
 		IStandData props = StandDataCapability.get(player);
 
-
 		if(event.getAction() == GLFW.GLFW_PRESS && heldItem.isEmpty() && !Minecraft.getInstance().isGamePaused() && Minecraft.getInstance().currentScreen == null)
 		{
 			if(event.getButton() == 0)
