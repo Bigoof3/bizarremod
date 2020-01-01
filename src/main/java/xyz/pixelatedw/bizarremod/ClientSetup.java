@@ -23,9 +23,7 @@ public class ClientSetup
 		
 		ModRenderers.registerRenderers();
 				
-		WyJSONHelper.generateJSONLangs();
-		WyJSONHelper.generateJSONModels(false);
-		WyJSONHelper.generateJSONLootTables(false);
+		WyJSONHelper.runGenerators(false);
 	}
 
 	@SubscribeEvent

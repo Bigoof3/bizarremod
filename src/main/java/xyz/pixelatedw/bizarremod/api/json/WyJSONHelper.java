@@ -24,6 +24,13 @@ public class WyJSONHelper
 	 *  30 lines+ of JSON for a block to drop itself is not more useful or better looking than a few Java variables and methods...
 	 */
 	
+	public static void runGenerators(boolean overwrite)
+	{
+		WyJSONHelper.generateJSONLangs();
+		WyJSONHelper.generateJSONModels(overwrite);
+		WyJSONHelper.generateJSONLootTables(overwrite);
+	}
+	
 	public static void generateJSONLootTables(boolean override)
 	{
 		if (!WyHelper.isDebug())
