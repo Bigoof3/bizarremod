@@ -2,8 +2,8 @@ package xyz.pixelatedw.bizarremod.helpers;
 
 import java.util.HashMap;
 
-import xyz.pixelatedw.bizarremod.ModMain;
 import xyz.pixelatedw.bizarremod.Consts;
+import xyz.pixelatedw.bizarremod.ModMain;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
 import xyz.pixelatedw.bizarremod.entities.stands.AerosmithEntity;
 import xyz.pixelatedw.bizarremod.entities.stands.GreenDayEntity;
@@ -46,10 +46,10 @@ public class StandLogicHelper
 			case 'E': return 0;
 			
 			case 'I': return 5;
-			case 'N': return 6;
-			case '?': return 7;
+			case 'N': return -2;
+			case '?': return -1;
 			
-			default: return 7;
+			default: return -1;
 		}
 	}
 	
