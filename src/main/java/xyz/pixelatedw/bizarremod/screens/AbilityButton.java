@@ -8,6 +8,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import xyz.pixelatedw.bizarremod.abilities.Ability;
 import xyz.pixelatedw.bizarremod.api.WyRenderHelper;
+import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.init.ModResourceLocations;
 
 @OnlyIn(Dist.CLIENT)
@@ -16,15 +17,17 @@ public class AbilityButton extends Button
 	protected final ISelectable onSelect;
 	protected final IHoverable onHover;
 	protected final Ability ability;
+	protected final IStandData standProps;
 	private int smoothScaling = 0;
 	private int translate = 0;
 
-	public AbilityButton(int x, int y, Ability ability, ISelectable onSelect, IHoverable onHover)
+	public AbilityButton(int x, int y, Ability ability, IStandData standProps, ISelectable onSelect, IHoverable onHover)
 	{
 		super(x, y, 64, 64, "", (button) ->
 		{
 		});
 		this.ability = ability;
+		this.standProps = standProps;
 		this.onSelect = onSelect;
 		this.onHover = onHover;
 	}
@@ -78,7 +81,13 @@ public class AbilityButton extends Button
 		WyRenderHelper.drawIcon(ModResourceLocations.ABILITY_SLOT, this.x, this.y, size, size);
 
 		GlStateManager.translated(-this.translate / 1.5, -(this.translate * 2), 0);
-
+		
+		if(this.standProps.getPrimaryAbility().getName().equalsIgnoreCase(this.ability.getName()))
+			WyRenderHelper.drawIcon(ModResourceLocations.LEFT_MOUSE_USED, this.x + 16, this.y + 40, 32, 32);
+		
+		if(this.standProps.getSecondaryAbility().getName().equalsIgnoreCase(this.ability.getName()))
+			WyRenderHelper.drawIcon(ModResourceLocations.RIGHT_MOUSE_USED, this.x + 16, this.y + 40, 32, 32);
+		
 		GlStateManager.disableBlend();
 		GlStateManager.enableDepthTest();
 	}
@@ -86,7 +95,7 @@ public class AbilityButton extends Button
 	@OnlyIn(Dist.CLIENT)
 	public interface ISelectable
 	{
-		void onSelect(Button button, int type);
+		void onSelect(AbilityButton button, int type);
 	}
 	
 	@OnlyIn(Dist.CLIENT)

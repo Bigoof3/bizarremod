@@ -27,6 +27,7 @@ public class AbilityWheelScreen extends Screen
 	private Minecraft mc;
 	private PlayerEntity player;
 	private final StandInfo standInfo;
+	private final IStandData standProps;
 	private String hoveredAbilityName;
 
 	public AbilityWheelScreen()
@@ -35,8 +36,8 @@ public class AbilityWheelScreen extends Screen
 		this.mc = Minecraft.getInstance();
 		this.player = this.mc.player;
 
-		IStandData props = StandDataCapability.get(this.player);
-		standInfo = StandLogicHelper.getStandInfo(props.getStand());
+		this.standProps = StandDataCapability.get(this.player);
+		this.standInfo = StandLogicHelper.getStandInfo(this.standProps.getStand());
 	}
 
 	@Override
@@ -81,10 +82,19 @@ public class AbilityWheelScreen extends Screen
 				if (x == 0 && y == 0)
 					continue;
 
-				this.addButton(new AbilityButton((posX + 95) + x, (posY + 95) + y, this.getActiveAbilities().get(i),
+				this.addButton(new AbilityButton((posX + 95) + x, (posY + 95) + y, this.getActiveAbilities().get(i), this.standProps,
 						(button, type) ->
 						{
-							System.out.println("Press Callback : " + type);
+							if(type == 0 && !this.standProps.getSecondaryAbility().getName().equalsIgnoreCase(button.ability.getName()))
+							{
+								this.standProps.setPrimaryAbility(button.ability);
+								Minecraft.getInstance().displayGuiScreen(null);
+							}
+							else if(type == 1 && !this.standProps.getPrimaryAbility().getName().equalsIgnoreCase(button.ability.getName()))
+							{
+								this.standProps.setSecondaryAbility(button.ability);
+								Minecraft.getInstance().displayGuiScreen(null);
+							}
 						}, 
 						(ability) -> 
 						{
