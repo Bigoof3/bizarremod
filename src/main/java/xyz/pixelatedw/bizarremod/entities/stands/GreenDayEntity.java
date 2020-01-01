@@ -4,6 +4,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import xyz.pixelatedw.bizarremod.Consts;
 import xyz.pixelatedw.bizarremod.abilities.Ability;
+import xyz.pixelatedw.bizarremod.abilities.PunchAbility;
 import xyz.pixelatedw.bizarremod.abilities.greenday.MoldInfestationAbility;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
 import xyz.pixelatedw.bizarremod.entities.projectiles.PunchEntity;
@@ -79,7 +80,8 @@ public class GreenDayEntity extends GenericStandEntity
 		{
 			return new Ability[] 
 					{ 
-						new MoldInfestationAbility() 
+						new PunchAbility(),
+						new MoldInfestationAbility()
 					};
 		}
 

@@ -67,6 +67,8 @@ public class ModKeybindings
 		ItemStack heldItem = player.getHeldItemMainhand();
 		IStandData props = StandDataCapability.get(player);
 
+		System.out.println(event.getButton() == 1 && event.getAction() == GLFW.GLFW_PRESS);
+		
 		if(event.getButton() == 0 && event.getAction() == GLFW.GLFW_PRESS && heldItem.isEmpty() && !Minecraft.getInstance().isGamePaused() && !(Minecraft.getInstance().currentScreen instanceof AbilityWheelScreen))
 			ModNetwork.sendToServer(new CStandPunchPacket(props.getStand()));
 	}
