@@ -89,9 +89,9 @@ public class AbilityWheelScreen extends Screen
 				this.addButton(new AbilityButton((posX + 95) + x, (posY + 95) + y, this.getActiveAbilities().get(i), this.standProps,
 						(button, type) ->
 						{
-							if(type == 0 && !this.standProps.getSecondaryAbility().getName().equalsIgnoreCase(button.ability.getName()))
+							if(type == 0 && (this.standProps.getSecondaryAbility() == null || !this.standProps.getSecondaryAbility().getName().equalsIgnoreCase(button.ability.getName())))
 								this.standProps.setPrimaryAbility(button.ability);
-							else if(type == 1 && !this.standProps.getPrimaryAbility().getName().equalsIgnoreCase(button.ability.getName()))
+							else if(type == 1 && (this.standProps.getPrimaryAbility() == null || !this.standProps.getPrimaryAbility().getName().equalsIgnoreCase(button.ability.getName())))
 								this.standProps.setSecondaryAbility(button.ability);
 						}, 
 						(ability) -> 

@@ -59,6 +59,11 @@ public class GreenDayEntity extends GenericStandEntity
 	
 	public static class GreenDayStandInfo extends StandInfo
 	{
+		private Ability[] abilities = new Ability[] 
+					{ 
+						new PunchAbility(),
+						new MoldInfestationAbility()
+					};
 
 		@Override
 		public String getStandId()
@@ -77,11 +82,7 @@ public class GreenDayEntity extends GenericStandEntity
 		@Override
 		public Ability[] getAbilities()
 		{
-			return new Ability[] 
-					{ 
-						new PunchAbility(),
-						new MoldInfestationAbility()
-					};
+			return abilities;
 		}
 
 		@Override

@@ -69,12 +69,12 @@ public class ModKeybindings
 
 		if(event.getAction() == GLFW.GLFW_PRESS && heldItem.isEmpty() && !Minecraft.getInstance().isGamePaused() && Minecraft.getInstance().currentScreen == null)
 		{
-			if(event.getButton() == 0)
+			if(event.getButton() == 0 && props.getPrimaryAbility() != null)
 			{
 				ModNetwork.sendToServer(new CUseAbilityPacket(props.getPrimaryAbility()));
 				props.getPrimaryAbility().use(player);
 			}
-			else if(event.getButton() == 1)
+			else if(event.getButton() == 1 && props.getSecondaryAbility() != null)
 			{
 				ModNetwork.sendToServer(new CUseAbilityPacket(props.getSecondaryAbility()));
 				props.getSecondaryAbility().use(player);

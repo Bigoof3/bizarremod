@@ -19,25 +19,27 @@ public class StandAbilitiesEvents
 	@SubscribeEvent
 	public static void onLivingUpdate(LivingUpdateEvent event)
 	{
-		if(event.getEntityLiving() instanceof PlayerEntity)
+		if (event.getEntityLiving() instanceof PlayerEntity)
 		{
 			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
 			IStandData props = StandDataCapability.get(player);
-			
-			if(!props.hasStandSummoned() )
+
+			if (!props.hasStandSummoned())
 				return;
 
 			StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
-			
-			if(info.getAbilities() == null)
+
+			if (info.getAbilities() == null || info.getAbilities().length <= 0)
 				return;
-			
-			for(Ability ability : info.getAbilities())
+
+			for (Ability ability : info.getAbilities())
 			{
-				if(ability instanceof PassiveAbility)
+				if (ability instanceof PassiveAbility)
 					((PassiveAbility) ability).tick(player);
+				else
+					ability.cooldown();
 			}
 		}
 	}
-		
+
 }

@@ -62,6 +62,13 @@ public class AerosmithEntity extends GenericStandEntity
 	public static class AerosmithStandInfo extends StandInfo
 	{
 
+		private Ability[] abilities = new Ability[] 
+					{ 
+						new MachineGunsAbility(),
+						new BombAbility(),
+						new CabonDioxideRadarAbility()
+					};
+		
 		@Override
 		public String getStandId()
 		{
@@ -85,12 +92,7 @@ public class AerosmithEntity extends GenericStandEntity
 		@Override
 		public Ability[] getAbilities()
 		{
-			return new Ability[] 
-					{ 
-						new MachineGunsAbility(),
-						new BombAbility(),
-						new CabonDioxideRadarAbility()
-					};
+			return abilities;
 		}
 	}
 }
