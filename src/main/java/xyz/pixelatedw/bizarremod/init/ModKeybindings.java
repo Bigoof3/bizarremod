@@ -18,6 +18,7 @@ import xyz.pixelatedw.bizarremod.api.WyHelper;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.packets.client.CStandControlPacket;
+import xyz.pixelatedw.bizarremod.packets.client.CUseAbilityPacket;
 import xyz.pixelatedw.bizarremod.screens.AbilityWheelScreen;
 
 @Mod.EventBusSubscriber(modid = Env.PROJECT_ID)
@@ -67,11 +68,12 @@ public class ModKeybindings
 		IStandData props = StandDataCapability.get(player);
 
 
-		if((event.getButton() == 0 || event.getButton() == 1) && event.getAction() == GLFW.GLFW_PRESS && heldItem.isEmpty() && !Minecraft.getInstance().isGamePaused() && Minecraft.getInstance().currentScreen == null)
+		if(event.getAction() == GLFW.GLFW_PRESS && heldItem.isEmpty() && !Minecraft.getInstance().isGamePaused() && Minecraft.getInstance().currentScreen == null)
 		{
-			System.out.println(props.getPrimaryAbility());
-			System.out.println(props.getSecondaryAbility());
+			if(event.getButton() == 0)
+				ModNetwork.sendToServer(new CUseAbilityPacket(props.getPrimaryAbility()));
+			else if(event.getButton() == 1)
+				ModNetwork.sendToServer(new CUseAbilityPacket(props.getSecondaryAbility()));
 		}
-		//	ModNetwork.sendToServer(new CStandPunchPacket(props.getStand()));
 	}
 }

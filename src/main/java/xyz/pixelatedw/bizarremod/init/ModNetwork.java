@@ -13,6 +13,7 @@ import xyz.pixelatedw.bizarremod.Env;
 import xyz.pixelatedw.bizarremod.packets.client.CRequestSyncStandDataPacket;
 import xyz.pixelatedw.bizarremod.packets.client.CStandControlPacket;
 import xyz.pixelatedw.bizarremod.packets.client.CStandPunchPacket;
+import xyz.pixelatedw.bizarremod.packets.client.CUseAbilityPacket;
 import xyz.pixelatedw.bizarremod.packets.server.SSyncStandDataPacket;
 
 public class ModNetwork
@@ -28,6 +29,7 @@ public class ModNetwork
 		channel.registerMessage(packet++, CStandControlPacket.class, CStandControlPacket::encode, CStandControlPacket::decode, CStandControlPacket::handle);
 		channel.registerMessage(packet++, CRequestSyncStandDataPacket.class, CRequestSyncStandDataPacket::encode, CRequestSyncStandDataPacket::decode, CRequestSyncStandDataPacket::handle);
 		channel.registerMessage(packet++, CStandPunchPacket.class, CStandPunchPacket::encode, CStandPunchPacket::decode, CStandPunchPacket::handle);
+		channel.registerMessage(packet++, CUseAbilityPacket.class, CUseAbilityPacket::encode, CUseAbilityPacket::decode, CUseAbilityPacket::handle);
 
 		// Server
 		channel.registerMessage(packet++, SSyncStandDataPacket.class, SSyncStandDataPacket::encode, SSyncStandDataPacket::decode, SSyncStandDataPacket::handle);
