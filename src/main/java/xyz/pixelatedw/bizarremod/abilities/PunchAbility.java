@@ -20,6 +20,9 @@ public class PunchAbility extends Ability
 	@Override
 	public void use(PlayerEntity player)
 	{
+		if(player.world.isRemote)
+			return;
+		
 		IStandData props = StandDataCapability.get(player);
 		StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
 		
