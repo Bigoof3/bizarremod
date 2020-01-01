@@ -2,7 +2,6 @@ package xyz.pixelatedw.bizarremod.api;
 
 import net.minecraft.entity.player.PlayerEntity;
 import xyz.pixelatedw.bizarremod.abilities.Ability;
-import xyz.pixelatedw.bizarremod.entities.projectiles.PunchEntity;
 import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
 
 public abstract class StandInfo
@@ -12,7 +11,6 @@ public abstract class StandInfo
 	public abstract JoJoPart getStandPart();
 	public abstract GenericStandEntity getStandEntity(PlayerEntity owner);
 	public abstract Ability[] getAbilities();
-	public abstract PunchEntity getPunch(PlayerEntity player);
 
 	public enum JoJoPart
 	{

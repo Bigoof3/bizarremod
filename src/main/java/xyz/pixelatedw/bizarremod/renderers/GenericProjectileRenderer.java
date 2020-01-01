@@ -4,26 +4,30 @@ import com.mojang.blaze3d.platform.GlStateManager;
 
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.model.EntityModel;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import xyz.pixelatedw.bizarremod.Env;
 import xyz.pixelatedw.bizarremod.entities.projectiles.StandProjectileEntity;
-import xyz.pixelatedw.bizarremod.models.FistModel;
 
 @OnlyIn(Dist.CLIENT)
-public class PunchRenderer extends EntityRenderer<StandProjectileEntity>
+public class GenericProjectileRenderer extends EntityRenderer<Entity>
 {
-	private FistModel punch = new FistModel();
+	private final EntityModel model;
+	private final String texture;
 
-	public PunchRenderer(EntityRendererManager renderManager)
+	public GenericProjectileRenderer(EntityRendererManager renderManager, EntityModel model, String texture)
 	{
 		super(renderManager);
+		this.model = model;
+		this.texture = texture;
 	}
 
 	@Override
-	public void doRender(StandProjectileEntity entity, double x, double y, double z, float entityYaw, float partialTicks)
+	public void doRender(Entity entity, double x, double y, double z, float entityYaw, float partialTicks)
 	{
 		GlStateManager.color4f(1, 1, 1, 1);
 		GlStateManager.pushMatrix();
@@ -35,7 +39,7 @@ public class PunchRenderer extends EntityRenderer<StandProjectileEntity>
 		GlStateManager.rotated(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks, 1.0F, 0.0F, 0.0F);
 		
 		this.bindEntityTexture(entity);
-		this.punch.render(entity, (float) x, (float) y, (float) z, 0.0F, 0.0F, 0.0625F);
+		this.model.render(entity, (float) x, (float) y, (float) z, 0.0F, 0.0F, 0.0625F);
 		
 		GlStateManager.enableLighting();
 		GlStateManager.popMatrix();
@@ -44,17 +48,26 @@ public class PunchRenderer extends EntityRenderer<StandProjectileEntity>
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(StandProjectileEntity entity)
+	protected ResourceLocation getEntityTexture(Entity entity)
 	{
-		return new ResourceLocation(Env.PROJECT_ID, "textures/models/stands/punches/" + entity.getTexture() + ".png");
+		return new ResourceLocation(Env.PROJECT_ID, "textures/models/stands/projectiles/" + this.texture + ".png");
 	}
 
 	public static class Factory implements IRenderFactory<StandProjectileEntity>
 	{
+		private final EntityModel model;
+		private final String texture;
+		
+		public Factory(EntityModel model, String texture)
+		{
+			this.model = model;
+			this.texture = texture;
+		}
+		
 		@Override
 		public EntityRenderer<? super StandProjectileEntity> createRenderFor(EntityRendererManager manager)
 		{
-			return new PunchRenderer(manager);
+			return new GenericProjectileRenderer(manager, this.model, this.texture);
 		}
 	}
 }

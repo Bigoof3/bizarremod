@@ -7,7 +7,6 @@ import xyz.pixelatedw.bizarremod.abilities.Ability;
 import xyz.pixelatedw.bizarremod.abilities.PunchAbility;
 import xyz.pixelatedw.bizarremod.abilities.greenday.MoldInfestationAbility;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
-import xyz.pixelatedw.bizarremod.entities.projectiles.PunchEntity;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
 
 public class GreenDayEntity extends GenericStandEntity
@@ -83,17 +82,6 @@ public class GreenDayEntity extends GenericStandEntity
 						new PunchAbility(),
 						new MoldInfestationAbility()
 					};
-		}
-
-		@Override
-		public PunchEntity getPunch(PlayerEntity player)
-		{
-			PunchEntity punch = new PunchEntity(player, player.world);
-			
-			punch.setTexture(this.getStandId());
-			punch.setDamage(1 + this.getStandEntity(player).getDestructivePower());
-
-			return punch;
 		}
 
 		@Override

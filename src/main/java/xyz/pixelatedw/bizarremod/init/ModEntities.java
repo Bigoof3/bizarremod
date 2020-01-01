@@ -6,6 +6,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 import xyz.pixelatedw.bizarremod.api.WyRegistry;
+import xyz.pixelatedw.bizarremod.entities.projectiles.BulletEntity;
 import xyz.pixelatedw.bizarremod.entities.projectiles.PunchEntity;
 import xyz.pixelatedw.bizarremod.entities.stands.AerosmithEntity;
 import xyz.pixelatedw.bizarremod.entities.stands.GreenDayEntity;
@@ -14,7 +15,8 @@ public class ModEntities
 {
 
 	public static final EntityType PUNCH = WyRegistry.registerEntityType("punch", PunchEntity::new, 1, 1);
-	
+	public static final EntityType BULLET = WyRegistry.registerEntityType("bullet", BulletEntity::new, 1, 1);
+
 	public static final EntityType GREEN_DAY = WyRegistry.registerEntityType("green_day", GreenDayEntity::new);
 	public static final EntityType AEROSMITH = WyRegistry.registerEntityType("aerosmith", AerosmithEntity::new);
 
@@ -32,7 +34,7 @@ public class ModEntities
 			(
 				GREEN_DAY, AEROSMITH,
 				
-				PUNCH
+				PUNCH, BULLET
 			);
 		}
 		

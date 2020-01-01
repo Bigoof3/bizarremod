@@ -8,7 +8,6 @@ import xyz.pixelatedw.bizarremod.abilities.aerosmith.BombAbility;
 import xyz.pixelatedw.bizarremod.abilities.aerosmith.CabonDioxideRadarAbility;
 import xyz.pixelatedw.bizarremod.abilities.aerosmith.MachineGunsAbility;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
-import xyz.pixelatedw.bizarremod.entities.projectiles.PunchEntity;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
 
 public class AerosmithEntity extends GenericStandEntity
@@ -92,12 +91,6 @@ public class AerosmithEntity extends GenericStandEntity
 						new BombAbility(),
 						new CabonDioxideRadarAbility()
 					};
-		}
-
-		@Override
-		public PunchEntity getPunch(PlayerEntity player)
-		{
-			return null;
 		}
 	}
 }
