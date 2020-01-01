@@ -4,11 +4,9 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.TextFormatting;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
-import xyz.pixelatedw.bizarremod.api.WyHelper;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.projectiles.PunchEntity;
-import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
 import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
 
 public class PunchAbility extends Ability
@@ -27,12 +25,8 @@ public class PunchAbility extends Ability
 		
 		IStandData props = StandDataCapability.get(player);
 		StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
-		GenericStandEntity stand = WyHelper.getNearbyEntities(player.getPosition(), player.world, 2, GenericStandEntity.class).parallelStream().filter(std -> std.getOwner() == player).findFirst().orElse(null);
-		
-		if(stand == null)
-			return;
-		
-		PunchEntity punch = new PunchEntity(stand, player.world);
+
+		PunchEntity punch = new PunchEntity(player, player.world);
 		
 		punch.setTexture(info.getStandId());
 		punch.setDamage(1 + info.getStandEntity(player).getDestructivePower());
@@ -42,7 +36,7 @@ public class PunchAbility extends Ability
 			return;
 
 		player.world.addEntity(punch);
-		punch.shoot(player, player.rotationPitch, player.rotationYaw, 0, 1 + (info.getStandEntity(player).getSpeed() / 3), 4 - info.getStandEntity(player).getPrecision());
+		punch.shoot(player, player.rotationPitch, player.rotationYaw, 0, 2 + (info.getStandEntity(player).getSpeed() / 3), 4 - info.getStandEntity(player).getPrecision());
 		this.startCooldown();
 	}
 
