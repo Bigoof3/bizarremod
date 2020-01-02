@@ -28,6 +28,7 @@ import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
 import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
+import xyz.pixelatedw.bizarremod.init.ModEntities;
 import xyz.pixelatedw.bizarremod.init.ModNetwork;
 import xyz.pixelatedw.bizarremod.packets.client.CSyncStandDataPacket;
 
@@ -45,7 +46,7 @@ public class StandSelectScreen extends Screen
 	{
 		super(new StringTextComponent(""));
 		this.player = player;
-		this.maxStandsInList = StandLogicHelper.getRegisteredStands().size();
+		this.maxStandsInList = ModEntities.getRegisteredStands().size();
 	}
 
 	@Override
@@ -62,7 +63,7 @@ public class StandSelectScreen extends Screen
 		// #TODO Rotate the model right/left
 		// #TODO Filter by part origin / stats / ?
 		
-		StandInfo info = (StandInfo) StandLogicHelper.getRegisteredStands().values().toArray()[this.currentStand - 1];
+		StandInfo info = (StandInfo) ModEntities.getRegisteredStands().values().toArray()[this.currentStand - 1];
 		GenericStandEntity stand = info.getStandEntity(this.player);
 		InventoryScreen.drawEntityOnScreen(posX + 0, posY + 190, 50, 0.0F, 0.0F, stand);
 		this.drawCenteredString(this.minecraft.fontRenderer, stand.getStandName(), posX, posY + 182, -1);
@@ -141,7 +142,7 @@ public class StandSelectScreen extends Screen
 		int posX = (this.width - 256) / 2;
 		int posY = (this.height - 256) / 2;
 		IStandData props = StandDataCapability.get(this.player);
-		StandInfo info = (StandInfo) StandLogicHelper.getRegisteredStands().values().toArray()[this.currentStand - 1];
+		StandInfo info = (StandInfo) ModEntities.getRegisteredStands().values().toArray()[this.currentStand - 1];
 
 		if(this.currentAbility >= info.getAbilities().length)
 			this.currentAbility = 0;
@@ -159,7 +160,7 @@ public class StandSelectScreen extends Screen
 	
 		Button chooseButton = new Button(posX + 90, posY + 200, 90, 20, "Choose", b -> 
 		{
-			StandInfo currentInfo = (StandInfo) StandLogicHelper.getRegisteredStands().values().toArray()[this.currentStand - 1];
+			StandInfo currentInfo = (StandInfo) ModEntities.getRegisteredStands().values().toArray()[this.currentStand - 1];
 			props.setStand(currentInfo.getStandId());
 
 			if(this.getActiveAbilities(currentInfo).size() >= 1)

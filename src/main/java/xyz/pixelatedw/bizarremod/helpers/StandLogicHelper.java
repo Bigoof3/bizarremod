@@ -1,40 +1,22 @@
 package xyz.pixelatedw.bizarremod.helpers;
 
-import java.util.HashMap;
-
-import xyz.pixelatedw.bizarremod.Consts;
 import xyz.pixelatedw.bizarremod.ModMain;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
-import xyz.pixelatedw.bizarremod.entities.stands.AerosmithEntity;
-import xyz.pixelatedw.bizarremod.entities.stands.GreenDayEntity;
+import xyz.pixelatedw.bizarremod.init.ModEntities;
 
 public class StandLogicHelper
 {
-
-	private static HashMap<String, StandInfo> stands = new HashMap<String, StandInfo>();
-	
-	static
-	{
-		stands.put(Consts.STAND_ID_GREEN_DAY, new GreenDayEntity.GreenDayStandInfo());
-		stands.put(Consts.STAND_ID_AEROSMITH, new AerosmithEntity.AerosmithStandInfo());
-	}
-	
 	public static StandInfo getStandInfo(String standName)
 	{
-		if(stands.containsKey(standName))
-			return stands.get(standName);
+		if(ModEntities.getRegisteredStands().containsKey(standName))
+			return ModEntities.getRegisteredStands().get(standName);
 		else
 		{
 			ModMain.LOGGER.warn(standName + " is not a registered Stand !");
 			return null;
 		}
 	}
-	
-	public static HashMap<String, StandInfo> getRegisteredStands()
-	{
-		return stands;
-	}
-	
+
 	public static byte convertStandStat(char value)
 	{
 		switch(Character.toUpperCase(value))

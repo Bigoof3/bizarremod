@@ -92,7 +92,7 @@ public class AerosmithEntity extends GenericStandEntity
 		@Override
 		public Ability[] getAbilities()
 		{
-			return abilities;
+			return this.abilities;
 		}
 	}
 }

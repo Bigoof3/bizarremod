@@ -13,7 +13,7 @@ import xyz.pixelatedw.bizarremod.api.WyHelper;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
-import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
+import xyz.pixelatedw.bizarremod.init.ModEntities;
 import xyz.pixelatedw.bizarremod.init.ModNetwork;
 import xyz.pixelatedw.bizarremod.init.ModParticleEffects;
 import xyz.pixelatedw.bizarremod.packets.server.SStandExistencePacket;
@@ -54,7 +54,7 @@ public class CStandControlPacket
 
 				if(!props.hasStandSummoned())
 				{
-					GenericStandEntity stand = StandLogicHelper.getRegisteredStands().get(message.standName).getStandEntity(player);
+					GenericStandEntity stand = ModEntities.getRegisteredStands().get(message.standName).getStandEntity(player);
 					stand.setRotationYawHead(player.rotationYawHead);
 					
 					props.setStandSummoned(true);

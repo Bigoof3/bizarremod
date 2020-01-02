@@ -82,7 +82,7 @@ public class GreenDayEntity extends GenericStandEntity
 		@Override
 		public Ability[] getAbilities()
 		{
-			return abilities;
+			return this.abilities;
 		}
 
 		@Override
