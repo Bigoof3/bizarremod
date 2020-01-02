@@ -15,22 +15,25 @@ public class MachineGunsAbility extends Ability
 	{
 		this.setMaxCooldown(100);
 		
-		this.useEvent = (player, ability) -> 
+		this.duringCooldownEvent = (player, ability, cooldown) ->
 		{
 			IStandData props = StandDataCapability.get(player);
 			StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
-			
-			BulletEntity bullet = new BulletEntity(player, player.world);
-			
-			bullet.setTexture(info.getStandId());
-			bullet.setDamage(1 + info.getStandEntity(player).getDestructivePower());
-			bullet.setRange(info.getStandEntity(player).getRange() / 2);
-			
-			if(bullet == null || !props.hasStandSummoned())
-				return;
 
-			player.world.addEntity(bullet);
-			bullet.shoot(player, player.rotationPitch, player.rotationYaw, 0, 2 + info.getStandEntity(player).getSpeed(), 4 - info.getStandEntity(player).getPrecision());		
+			if(cooldown > 40 && cooldown % 2 == 0)
+			{				
+				BulletEntity bullet = new BulletEntity(player, player.world);
+				
+				bullet.setTexture(info.getStandId());
+				bullet.setDamage(1 + info.getStandEntity(player).getDestructivePower());
+				bullet.setRange(info.getStandEntity(player).getRange() / 2);
+				
+				if(bullet == null || !props.hasStandSummoned())
+					return;
+				
+				player.world.addEntity(bullet);
+				bullet.shoot(player, player.rotationPitch, player.rotationYaw, 0, 2 + info.getStandEntity(player).getSpeed(), 4 - info.getStandEntity(player).getPrecision());
+			}
 		};
 	}
 	

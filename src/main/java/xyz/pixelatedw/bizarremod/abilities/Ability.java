@@ -6,8 +6,6 @@ import java.util.Arrays;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
 import xyz.pixelatedw.bizarremod.api.WyRenderHelper;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
@@ -19,25 +17,23 @@ public abstract class Ability implements Serializable
 	protected State state = State.STANDBY;
 	protected int cooldown;
 	protected int maxCooldown;
-	protected IUse useEvent;
-	
+	protected IOnUse onUseEvent;
+	protected IDuringCooldown duringCooldownEvent;
+		
 	public abstract String getName();
-	
-	//public abstract void use(PlayerEntity player);
-	
+
 	public void use(PlayerEntity player)
 	{
 		if(player.world.isRemote)
 			return;
 		
-		IStandData props = StandDataCapability.get(player);
-		StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
-		Ability abl = Arrays.stream(info.getAbilities()).parallel().filter(ability -> ability.getName().equalsIgnoreCase(this.getName())).findFirst().orElse(null);
-
+		Ability abl = this.getOriginalAbility(player);
+		
 		if(abl.getState() != Ability.State.STANDBY)
 			return;
 		
-		this.useEvent.onUse(player, abl);
+		if(this.onUseEvent != null)
+			this.onUseEvent.onUse(player, abl);
 		
 		abl.startCooldown();
 	}
@@ -70,15 +66,26 @@ public abstract class Ability implements Serializable
 		this.state = State.COOLDOWN;
 	}
 	
-	public void cooldown()
-	{	
+	public void cooldown(PlayerEntity player)
+	{
 		if(this.state == State.COOLDOWN && this.cooldown > 0)
+		{
 			this.cooldown--;
+			if(this.duringCooldownEvent != null)
+				this.duringCooldownEvent.duringCooldown(player, this.getOriginalAbility(player), this.cooldown);
+		}
 		else
 		{
 			this.cooldown = this.maxCooldown;
 			this.state = State.STANDBY;
 		}
+	}
+	
+	private Ability getOriginalAbility(PlayerEntity player)
+	{
+		IStandData props = StandDataCapability.get(player);
+		StandInfo info = StandLogicHelper.getStandInfo(props.getStand());		
+		return Arrays.stream(info.getAbilities()).parallel().filter(ability -> ability.getName().equalsIgnoreCase(this.getName())).findFirst().orElse(null);
 	}
 	
 	public enum State
@@ -87,9 +94,13 @@ public abstract class Ability implements Serializable
 		COOLDOWN
 	}
 	
-	@OnlyIn(Dist.CLIENT)
-	public interface IUse extends Serializable
+	public interface IOnUse extends Serializable
 	{
 		void onUse(PlayerEntity player, Ability ability);
+	}
+	
+	public interface IDuringCooldown extends Serializable
+	{
+		void duringCooldown(PlayerEntity player, Ability ability, int cooldown);
 	}
 }

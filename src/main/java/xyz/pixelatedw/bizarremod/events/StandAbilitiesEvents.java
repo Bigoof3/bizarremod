@@ -37,7 +37,7 @@ public class StandAbilitiesEvents
 				if (ability instanceof PassiveAbility)
 					((PassiveAbility) ability).tick(player);
 				else
-					ability.cooldown();
+					ability.cooldown(player);
 			}
 		}
 	}
