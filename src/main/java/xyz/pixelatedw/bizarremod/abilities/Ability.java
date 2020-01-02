@@ -29,7 +29,7 @@ public abstract class Ability implements Serializable
 		
 		Ability abl = this.getOriginalAbility(player);
 		
-		if(abl.getState() != Ability.State.STANDBY)
+		if(abl == null || abl.getState() != Ability.State.STANDBY)
 			return;
 		
 		if(this.onUseEvent != null)

@@ -151,7 +151,7 @@ public class StandSelectScreen extends Screen
 
 		Button previousButton = new Button(posX - 20, posY + 200, 90, 20, "Previous", b -> 
 		{
-			if(!b.active)
+			if(this.currentStand == 1)
 				return;
 			
 			this.currentStand--;
@@ -163,6 +163,8 @@ public class StandSelectScreen extends Screen
 			StandInfo currentInfo = (StandInfo) ModEntities.getRegisteredStands().values().toArray()[this.currentStand - 1];
 			props.setStand(currentInfo.getStandId());
 
+			System.out.println(currentInfo.getStandId());
+			
 			if(this.getActiveAbilities(currentInfo).size() >= 1)
 				props.setPrimaryAbility(this.getActiveAbilities(currentInfo).get(0) != null ? this.getActiveAbilities(currentInfo).get(0) : null);
 			if(this.getActiveAbilities(currentInfo).size() >= 2)
@@ -174,7 +176,7 @@ public class StandSelectScreen extends Screen
 				
 		Button nextButton = new Button(posX + 200, posY + 200, 90, 20, "Next", b -> 
 		{
-			if(!b.active)
+			if(this.currentStand >= this.maxStandsInList)
 				return;
 			
 			this.currentStand++;
