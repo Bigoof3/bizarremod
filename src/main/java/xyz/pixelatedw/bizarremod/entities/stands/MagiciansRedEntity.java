@@ -4,6 +4,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import xyz.pixelatedw.bizarremod.Consts;
 import xyz.pixelatedw.bizarremod.abilities.Ability;
+import xyz.pixelatedw.bizarremod.abilities.PunchAbility;
 import xyz.pixelatedw.bizarremod.abilities.magiciansred.CrossFireHurricaneAbility;
 import xyz.pixelatedw.bizarremod.abilities.magiciansred.RedBindAbility;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
@@ -52,9 +53,10 @@ public class MagiciansRedEntity extends GenericStandEntity
 	public static class MagiciansRedStandInfo extends StandInfo
 	{
 		private Ability[] abilities = new Ability[] 
-				{ 
-						new CrossFireHurricaneAbility(),
-						new RedBindAbility()
+				{
+					new PunchAbility(),
+					new CrossFireHurricaneAbility(),
+					new RedBindAbility()
 				};
 
 	@Override
