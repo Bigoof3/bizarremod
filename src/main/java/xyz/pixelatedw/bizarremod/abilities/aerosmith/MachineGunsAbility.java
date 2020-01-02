@@ -24,7 +24,6 @@ public class MachineGunsAbility extends Ability
 			{				
 				BulletEntity bullet = new BulletEntity(player, player.world);
 				
-				bullet.setTexture(info.getStandId());
 				bullet.setDamage(1 + info.getStandEntity(player).getDestructivePower());
 				bullet.setRange(info.getStandEntity(player).getRange() / 2);
 				

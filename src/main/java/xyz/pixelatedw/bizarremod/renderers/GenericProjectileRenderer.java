@@ -18,12 +18,14 @@ public class GenericProjectileRenderer extends EntityRenderer<Entity>
 {
 	private final EntityModel model;
 	private final String texture;
+	private final double scale;
 
-	public GenericProjectileRenderer(EntityRendererManager renderManager, EntityModel model, String texture)
+	public GenericProjectileRenderer(EntityRendererManager renderManager, EntityModel model, String texture, double scale)
 	{
 		super(renderManager);
 		this.model = model;
 		this.texture = texture;
+		this.scale = scale;
 	}
 
 	@Override
@@ -36,7 +38,9 @@ public class GenericProjectileRenderer extends EntityRenderer<Entity>
 		GlStateManager.translatef((float) x, (float) y, (float) z);
 		
 		GlStateManager.rotated(entity.prevRotationYaw +(entity.rotationYaw - entity.prevRotationYaw) * partialTicks - 180.0F, 0.0F, 1.0F, 0.0F);
-		GlStateManager.rotated(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks, 1.0F, 0.0F, 0.0F);
+		GlStateManager.rotated(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks - 180.0F, 1.0F, 0.0F, 0.0F);
+
+		GlStateManager.scaled(this.scale, this.scale, this.scale);
 		
 		this.bindEntityTexture(entity);
 		this.model.render(entity, (float) x, (float) y, (float) z, 0.0F, 0.0F, 0.0625F);
@@ -57,17 +61,24 @@ public class GenericProjectileRenderer extends EntityRenderer<Entity>
 	{
 		private final EntityModel model;
 		private final String texture;
+		private final double scale;
 		
 		public Factory(EntityModel model, String texture)
 		{
+			this(model, texture, 1);
+		}
+		
+		public Factory(EntityModel model, String texture, double scale)
+		{
 			this.model = model;
 			this.texture = texture;
+			this.scale = scale;
 		}
 		
 		@Override
 		public EntityRenderer<? super StandProjectileEntity> createRenderFor(EntityRendererManager manager)
 		{
-			return new GenericProjectileRenderer(manager, this.model, this.texture);
+			return new GenericProjectileRenderer(manager, this.model, this.texture, this.scale);
 		}
 	}
 }

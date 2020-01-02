@@ -68,6 +68,9 @@ public abstract class Ability implements Serializable
 	
 	public void cooldown(PlayerEntity player)
 	{
+		if(player.world.isRemote)
+			return;
+		
 		if(this.state == State.COOLDOWN && this.cooldown > 0)
 		{
 			this.cooldown--;

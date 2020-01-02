@@ -27,8 +27,6 @@ public class StandAbilitiesEvents
 			if (!props.hasStandSummoned())
 				return;
 
-			//System.out.println(props.getPrimaryAbility());
-			
 			StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
 
 			if (info.getAbilities() == null || info.getAbilities().length <= 0)
