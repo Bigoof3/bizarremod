@@ -20,6 +20,8 @@ import xyz.pixelatedw.bizarremod.api.WyRenderHelper;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
+import xyz.pixelatedw.bizarremod.init.ModNetwork;
+import xyz.pixelatedw.bizarremod.packets.client.CSyncStandDataPacket;
 
 @OnlyIn(Dist.CLIENT)
 public class AbilityWheelScreen extends Screen
@@ -39,7 +41,7 @@ public class AbilityWheelScreen extends Screen
 
 		this.standProps = StandDataCapability.get(this.player);
 		this.standInfo = StandLogicHelper.getStandInfo(this.standProps.getStand());
-		
+				
 		this.currentPrimaryAbility = this.standProps.getPrimaryAbility();
 		this.currentSecondaryAbility = this.standProps.getSecondaryAbility();
 	}
@@ -93,6 +95,8 @@ public class AbilityWheelScreen extends Screen
 								this.standProps.setPrimaryAbility(button.ability);
 							else if(type == 1 && (this.standProps.getPrimaryAbility() == null || !this.standProps.getPrimaryAbility().getName().equalsIgnoreCase(button.ability.getName())))
 								this.standProps.setSecondaryAbility(button.ability);
+							
+							ModNetwork.sendToServer(new CSyncStandDataPacket(this.standProps));
 						}, 
 						(ability) -> 
 						{

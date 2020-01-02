@@ -7,19 +7,18 @@ import java.util.stream.Collectors;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.platform.GlStateManager;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.config.GuiUtils;
 import xyz.pixelatedw.bizarremod.Env;
-import xyz.pixelatedw.bizarremod.ModMain;
 import xyz.pixelatedw.bizarremod.abilities.Ability;
 import xyz.pixelatedw.bizarremod.abilities.PassiveAbility;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
@@ -30,7 +29,7 @@ import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
 import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
 import xyz.pixelatedw.bizarremod.init.ModNetwork;
-import xyz.pixelatedw.bizarremod.packets.server.SSyncStandDataPacket;
+import xyz.pixelatedw.bizarremod.packets.client.CSyncStandDataPacket;
 
 @OnlyIn(Dist.CLIENT)
 public class StandSelectScreen extends Screen
@@ -168,8 +167,8 @@ public class StandSelectScreen extends Screen
 			if(this.getActiveAbilities(currentInfo).size() >= 2)
 				props.setSecondaryAbility(this.getActiveAbilities(currentInfo).get(1) != null ? this.getActiveAbilities(currentInfo).get(1) : null);
 			
-			ModNetwork.sendTo(new SSyncStandDataPacket(props), (ServerPlayerEntity)this.player);
-			ModMain.proxy.openScreen(-1, this.player);
+			ModNetwork.sendToServer(new CSyncStandDataPacket(props));
+			Minecraft.getInstance().displayGuiScreen((Screen)null);
 		});
 				
 		Button nextButton = new Button(posX + 200, posY + 200, 90, 20, "Next", b -> 
