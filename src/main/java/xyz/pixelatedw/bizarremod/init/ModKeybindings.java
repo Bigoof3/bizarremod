@@ -47,7 +47,7 @@ public class ModKeybindings
 		
 		World world = Minecraft.getInstance().world;
 		IStandData props = StandDataCapability.get(player);
-
+		
 		if (standControl.isPressed() && !WyHelper.isNullOrEmpty(props.getStand()))
 			ModNetwork.sendToServer(new CStandControlPacket(props.getStand()));
 				

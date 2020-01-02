@@ -13,6 +13,7 @@ import xyz.pixelatedw.bizarremod.Env;
 import xyz.pixelatedw.bizarremod.packets.client.CRequestSyncStandDataPacket;
 import xyz.pixelatedw.bizarremod.packets.client.CStandControlPacket;
 import xyz.pixelatedw.bizarremod.packets.client.CUseAbilityPacket;
+import xyz.pixelatedw.bizarremod.packets.server.SStandExistencePacket;
 import xyz.pixelatedw.bizarremod.packets.server.SSyncStandDataPacket;
 
 public class ModNetwork
@@ -31,6 +32,7 @@ public class ModNetwork
 
 		// Server
 		channel.registerMessage(packet++, SSyncStandDataPacket.class, SSyncStandDataPacket::encode, SSyncStandDataPacket::decode, SSyncStandDataPacket::handle);
+		channel.registerMessage(packet++, SStandExistencePacket.class, SStandExistencePacket::encode, SStandExistencePacket::decode, SStandExistencePacket::handle);
 	}
 
 	public static <MSG> void sendToServer(MSG msg)

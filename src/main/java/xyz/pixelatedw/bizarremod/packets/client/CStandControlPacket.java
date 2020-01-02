@@ -16,6 +16,7 @@ import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
 import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
 import xyz.pixelatedw.bizarremod.init.ModNetwork;
 import xyz.pixelatedw.bizarremod.init.ModParticleEffects;
+import xyz.pixelatedw.bizarremod.packets.server.SStandExistencePacket;
 import xyz.pixelatedw.bizarremod.packets.server.SSyncStandDataPacket;
 
 public class CStandControlPacket
@@ -60,6 +61,8 @@ public class CStandControlPacket
 					stand.onSummon(player);
 					world.addEntity(stand);
 					ModParticleEffects.SUMMON_STAND.spawn(world, stand.posX, stand.posY + 1.0, stand.posZ, 0, 0, 0);
+					
+					ModNetwork.sendToAll(new SStandExistencePacket(player.getUniqueID(), stand.getEntityId()));
 				}
 				else
 				{
