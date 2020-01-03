@@ -1,7 +1,5 @@
 package xyz.pixelatedw.bizarremod.entities.projectiles;
 
-import java.util.function.Consumer;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -27,7 +25,7 @@ public class StandProjectileEntity extends ThrowableEntity
 	private double range = 1;
 	protected int ticks;
 	protected int maxticks;
-	private Consumer<RayTraceResult> onImpactFunc;
+	protected IOnImpact onImpactEvent = (result) -> {};
 	
 	public StandProjectileEntity(EntityType type, World world)
 	{
@@ -91,8 +89,8 @@ public class StandProjectileEntity extends ThrowableEntity
 				this.remove();
 		}
 		
-		if(result != null && this.onImpactFunc != null)
-			this.onImpactFunc.accept(result);
+		if(result != null)
+			this.onImpactEvent.onImpact(result);
 	}
 
 	@Override
@@ -121,11 +119,6 @@ public class StandProjectileEntity extends ThrowableEntity
 		return this.damage;
 	}
 
-	public void setImpactLogic(Consumer<RayTraceResult> onImpactFunc)
-	{
-		this.onImpactFunc = onImpactFunc;
-	}
-	
 	public void setTexture(String texture)
 	{
 		this.dataManager.set(TEXTURE, texture);
@@ -148,5 +141,10 @@ public class StandProjectileEntity extends ThrowableEntity
 	public IPacket<?> createSpawnPacket()
 	{
 		return NetworkHooks.getEntitySpawningPacket(this);
+	}
+	
+	public interface IOnImpact
+	{
+		void onImpact(RayTraceResult result);
 	}
 }

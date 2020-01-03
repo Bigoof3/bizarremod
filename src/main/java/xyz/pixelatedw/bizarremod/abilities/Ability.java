@@ -17,8 +17,9 @@ public abstract class Ability implements Serializable
 	protected State state = State.STANDBY;
 	protected int cooldown;
 	protected int maxCooldown;
-	protected IOnUse onUseEvent;
-	protected IDuringCooldown duringCooldownEvent;
+	// Setting the defaults so that no crash occurs and so they will be null safe.
+	protected IOnUse onUseEvent = (player, ability) -> {};
+	protected IDuringCooldown duringCooldownEvent = (player, ability, cooldown) -> {};
 		
 	public abstract String getName();
 
@@ -32,8 +33,7 @@ public abstract class Ability implements Serializable
 		if(abl == null || abl.getState() != Ability.State.STANDBY)
 			return;
 		
-		if(this.onUseEvent != null)
-			this.onUseEvent.onUse(player, abl);
+		this.onUseEvent.onUse(player, abl);
 		
 		abl.startCooldown();
 	}
@@ -74,8 +74,7 @@ public abstract class Ability implements Serializable
 		if(this.state == State.COOLDOWN && this.cooldown > 0)
 		{
 			this.cooldown--;
-			if(this.duringCooldownEvent != null)
-				this.duringCooldownEvent.duringCooldown(player, this.getOriginalAbility(player), this.cooldown);
+			this.duringCooldownEvent.duringCooldown(player, this.getOriginalAbility(player), this.cooldown);
 		}
 		else
 		{

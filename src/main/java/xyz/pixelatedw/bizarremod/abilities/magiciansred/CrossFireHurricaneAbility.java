@@ -1,6 +1,7 @@
 package xyz.pixelatedw.bizarremod.abilities.magiciansred;
 
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.TextFormatting;
 import xyz.pixelatedw.bizarremod.abilities.Ability;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
@@ -15,25 +16,7 @@ public class CrossFireHurricaneAbility extends Ability
 	{
 		this.setMaxCooldown(81);
 		
-		this.duringCooldownEvent = (player, ability, cooldown) ->
-		{
-			IStandData props = StandDataCapability.get(player);
-			StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
-
-			if(cooldown >= 60 && cooldown % 10 == 0)
-			{
-				AnkhEntity ankh = new AnkhEntity(player, player.world);
-				
-				ankh.setDamage(2 + info.getStandEntity(player).getDestructivePower());
-				ankh.setRange(3 + info.getStandEntity(player).getRange());
-
-				if(ankh == null || !props.hasStandSummoned())
-					return;
-								
-				player.world.addEntity(ankh);
-				ankh.shoot(player, player.rotationPitch, player.rotationYaw, 0, 2 + info.getStandEntity(player).getSpeed(), 4 - info.getStandEntity(player).getPrecision());
-			}
-		};
+		this.duringCooldownEvent = this::duringCooldown;
 	}
 	
 	@Override
@@ -52,4 +35,23 @@ public class CrossFireHurricaneAbility extends Ability
 		this.drawLine("from its mouth.", posX + 190, posY + 110);
 	}
 
+	protected void duringCooldown(PlayerEntity player, Ability ability, int cooldown)
+	{
+		IStandData props = StandDataCapability.get(player);
+		StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
+
+		if(cooldown >= 60 && cooldown % 10 == 0)
+		{
+			AnkhEntity ankh = new AnkhEntity(player, player.world);
+			
+			ankh.setDamage(2 + info.getStandEntity(player).getDestructivePower());
+			ankh.setRange(3 + info.getStandEntity(player).getRange());
+
+			if(ankh == null || !props.hasStandSummoned())
+				return;
+							
+			player.world.addEntity(ankh);
+			ankh.shoot(player, player.rotationPitch, player.rotationYaw, 0, 2 + info.getStandEntity(player).getSpeed(), 4 - info.getStandEntity(player).getPrecision());
+		}	
+	}
 }

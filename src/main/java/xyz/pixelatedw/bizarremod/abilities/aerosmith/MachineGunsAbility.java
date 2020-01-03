@@ -1,6 +1,7 @@
 package xyz.pixelatedw.bizarremod.abilities.aerosmith;
 
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.TextFormatting;
 import xyz.pixelatedw.bizarremod.abilities.Ability;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
@@ -15,25 +16,7 @@ public class MachineGunsAbility extends Ability
 	{
 		this.setMaxCooldown(100);
 		
-		this.duringCooldownEvent = (player, ability, cooldown) ->
-		{
-			IStandData props = StandDataCapability.get(player);
-			StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
-
-			if(cooldown > 40 && cooldown % 2 == 0)
-			{				
-				BulletEntity bullet = new BulletEntity(player, player.world);
-				
-				bullet.setDamage(1 + info.getStandEntity(player).getDestructivePower());
-				bullet.setRange(info.getStandEntity(player).getRange() / 2);
-				
-				if(bullet == null || !props.hasStandSummoned())
-					return;
-				
-				player.world.addEntity(bullet);
-				bullet.shoot(player, player.rotationPitch, player.rotationYaw, 0, 2 + info.getStandEntity(player).getSpeed(), 4 - info.getStandEntity(player).getPrecision());
-			}
-		};
+		this.duringCooldownEvent = this::duringCooldown;
 	}
 	
 	@Override
@@ -53,4 +36,23 @@ public class MachineGunsAbility extends Ability
 		this.drawLine("infinite ammunition.", posX + 190, posY + 125);
 	}
 
+	protected void duringCooldown(PlayerEntity player, Ability ability, int cooldown)
+	{
+		IStandData props = StandDataCapability.get(player);
+		StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
+
+		if(cooldown > 40 && cooldown % 2 == 0)
+		{				
+			BulletEntity bullet = new BulletEntity(player, player.world);
+			
+			bullet.setDamage(1 + info.getStandEntity(player).getDestructivePower());
+			bullet.setRange(info.getStandEntity(player).getRange() / 2);
+			
+			if(bullet == null || !props.hasStandSummoned())
+				return;
+			
+			player.world.addEntity(bullet);
+			bullet.shoot(player, player.rotationPitch, player.rotationYaw, 0, 2 + info.getStandEntity(player).getSpeed(), 4 - info.getStandEntity(player).getPrecision());
+		}		
+	}
 }
