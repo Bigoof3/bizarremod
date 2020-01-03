@@ -72,7 +72,16 @@ public class StandProjectileEntity extends ThrowableEntity
 
 			if (entityHit.getEntity() instanceof LivingEntity)
 			{
-				LivingEntity hitEntity = (LivingEntity) entityHit.getEntity();
+				LivingEntity hitEntity = (LivingEntity) entityHit.getEntity();				
+				
+				if(hitEntity instanceof GenericStandEntity)
+				{
+					GenericStandEntity stand = (GenericStandEntity) hitEntity;
+					
+					if(stand.getOwner() == this.owner)
+						return;
+				}
+				
 				hitEntity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), (float) this.getDamage());
 				
 				if(!(hitEntity instanceof GenericStandEntity))

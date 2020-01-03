@@ -16,7 +16,7 @@ public class CrossFireHurricaneAbility extends Ability
 	{
 		this.setMaxCooldown(81);
 		
-		this.duringCooldownEvent = this::duringCooldown;
+		this.duringCooldownEvent = this::duringCooldownEvent;
 	}
 	
 	@Override
@@ -35,7 +35,7 @@ public class CrossFireHurricaneAbility extends Ability
 		this.drawLine("from its mouth.", posX + 190, posY + 110);
 	}
 
-	protected void duringCooldown(PlayerEntity player, Ability ability, int cooldown)
+	protected void duringCooldownEvent(PlayerEntity player, Ability ability, int cooldown)
 	{
 		IStandData props = StandDataCapability.get(player);
 		StandInfo info = StandLogicHelper.getStandInfo(props.getStand());

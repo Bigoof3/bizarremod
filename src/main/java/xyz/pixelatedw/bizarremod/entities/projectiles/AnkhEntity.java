@@ -22,7 +22,7 @@ public class AnkhEntity extends StandProjectileEntity
 	{
 		super(ModEntities.ANKH, livingEntity, world);
 		
-		this.onImpactEvent = this::onImpact;
+		this.onImpactEvent = this::onImpactEvent;
 	}
 
 	@Override
@@ -33,8 +33,7 @@ public class AnkhEntity extends StandProjectileEntity
 		super.tick();
 	}
 		
-	@Override
-	protected void onImpact(RayTraceResult result)
+	protected void onImpactEvent(RayTraceResult result)
 	{
 		if (result.getType() == Type.ENTITY)
 		{
@@ -46,7 +45,7 @@ public class AnkhEntity extends StandProjectileEntity
 		{
 			BlockRayTraceResult blockHit = (BlockRayTraceResult) result;
 
-			this.world.setBlockState(blockHit.getPos(), Blocks.FIRE.getDefaultState());
+			this.world.setBlockState(blockHit.getPos().up(), Blocks.FIRE.getDefaultState());
 		}
 	}
 }

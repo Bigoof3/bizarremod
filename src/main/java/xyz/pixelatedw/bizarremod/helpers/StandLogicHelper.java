@@ -27,7 +27,7 @@ public class StandLogicHelper
 			case 'D': return 1;
 			case 'E': return 0;
 			
-			case 'I': return 5;
+			case 'I': return 127;
 			case 'N': return -2;
 			case '?': return -1;
 			

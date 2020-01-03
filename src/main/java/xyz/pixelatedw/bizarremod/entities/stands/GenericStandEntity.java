@@ -16,10 +16,10 @@ import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
 
 public abstract class GenericStandEntity extends CreatureEntity
 {
-	// 4-0 -> A-E;
-	// 5 -> Inifinity;
-	// 6 -> Null;
-	// 7 -> ?
+	// 0-4 -> E-A;
+	// 127 -> Inifinity;
+	// -2 -> Null;
+	// -1 -> ?
 	protected static final DataParameter<Byte> DESTRUCTIVE_POWER = EntityDataManager.createKey(GenericStandEntity.class, DataSerializers.BYTE);
 	protected static final DataParameter<Byte> SPEED = EntityDataManager.createKey(GenericStandEntity.class, DataSerializers.BYTE);
 	protected static final DataParameter<Byte> RANGE = EntityDataManager.createKey(GenericStandEntity.class, DataSerializers.BYTE);

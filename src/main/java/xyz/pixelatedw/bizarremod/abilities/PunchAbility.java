@@ -13,7 +13,7 @@ public class PunchAbility extends Ability
 {
 	public PunchAbility()
 	{
-		this.onUseEvent = this::onUse;
+		this.onUseEvent = this::onUseEvent;
 	}
 	
 	@Override
@@ -31,7 +31,7 @@ public class PunchAbility extends Ability
 		this.drawLine("Allows the Stand to attack with it's punch", posX + 190, posY + 95);
 	}
 	
-	protected void onUse(PlayerEntity player, Ability ability)
+	protected void onUseEvent(PlayerEntity player, Ability ability)
 	{
 		IStandData props = StandDataCapability.get(player);
 		StandInfo info = StandLogicHelper.getStandInfo(props.getStand());

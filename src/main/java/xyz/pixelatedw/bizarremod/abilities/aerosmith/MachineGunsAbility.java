@@ -16,7 +16,7 @@ public class MachineGunsAbility extends Ability
 	{
 		this.setMaxCooldown(100);
 		
-		this.duringCooldownEvent = this::duringCooldown;
+		this.duringCooldownEvent = this::duringCooldownEvent;
 	}
 	
 	@Override
@@ -36,7 +36,7 @@ public class MachineGunsAbility extends Ability
 		this.drawLine("infinite ammunition.", posX + 190, posY + 125);
 	}
 
-	protected void duringCooldown(PlayerEntity player, Ability ability, int cooldown)
+	protected void duringCooldownEvent(PlayerEntity player, Ability ability, int cooldown)
 	{
 		IStandData props = StandDataCapability.get(player);
 		StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
