@@ -29,10 +29,12 @@ public class PunchRenderer extends EntityRenderer<StandProjectileEntity>
 		GlStateManager.pushMatrix();
 		GlStateManager.disableLighting();
 		
-		GlStateManager.translatef((float) x + 0.1F, (float) y + 0.35F, (float) z);
+		GlStateManager.translatef((float) x + 0.1F, (float) y, (float) z);
 		
-		GlStateManager.rotated(entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks - 180.0F, 0.0F, 1.0F, 0.0F);
-		GlStateManager.rotated(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks - 180.0F, 1.0F, 0.0F, 0.0F);
+		GlStateManager.rotated(entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks - 90.0F, 0.0F, 1.0F, 0.0F);
+		GlStateManager.rotated(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks - 180.0F, 0.0F, 0.0F, 1.0F);
+			
+		GlStateManager.rotatef(90.0F, 0.0F, 1.0F, 0.0F);
 		
 		this.bindEntityTexture(entity);
 		this.punch.render(entity, (float) x, (float) y, (float) z, 0.0F, 0.0F, 0.0625F);
