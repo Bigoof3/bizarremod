@@ -29,8 +29,6 @@ import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
 import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
-import xyz.pixelatedw.bizarremod.init.ModNetwork;
-import xyz.pixelatedw.bizarremod.packets.client.CSyncStandDataPacket;
 
 @OnlyIn(Dist.CLIENT)
 public class StandSelectScreen extends Screen
@@ -162,15 +160,13 @@ public class StandSelectScreen extends Screen
 		{
 			StandInfo currentInfo = (StandInfo) ModEntities.getRegisteredStands().values().toArray()[this.currentStand - 1];
 			props.setStand(currentInfo.getStandId());
-
-			System.out.println(currentInfo.getStandId());
 			
 			if(this.getActiveAbilities(currentInfo).size() >= 1)
 				props.setPrimaryAbility(this.getActiveAbilities(currentInfo).get(0) != null ? this.getActiveAbilities(currentInfo).get(0) : null);
 			if(this.getActiveAbilities(currentInfo).size() >= 2)
 				props.setSecondaryAbility(this.getActiveAbilities(currentInfo).get(1) != null ? this.getActiveAbilities(currentInfo).get(1) : null);
-			
-			ModNetwork.sendToServer(new CSyncStandDataPacket(props));
+						
+			//ModNetwork.sendToServer(new CSyncStandDataPacket(props));
 			Minecraft.getInstance().displayGuiScreen((Screen)null);
 		});
 				

@@ -43,7 +43,7 @@ public class AbilityWheelScreen extends Screen
 		this.standInfo = StandLogicHelper.getStandInfo(this.standProps.getStand());
 				
 		this.currentPrimaryAbility = this.standProps.getPrimaryAbility();
-		this.currentSecondaryAbility = this.standProps.getSecondaryAbility();
+		this.currentSecondaryAbility = this.standProps.getSecondaryAbility();	
 	}
 
 	@Override

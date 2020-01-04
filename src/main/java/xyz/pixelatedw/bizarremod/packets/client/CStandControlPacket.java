@@ -20,25 +20,16 @@ import xyz.pixelatedw.bizarremod.packets.server.SStandExistencePacket;
 import xyz.pixelatedw.bizarremod.packets.server.SSyncStandDataPacket;
 
 public class CStandControlPacket
-{
-	private String standName = "";
-	
+{	
 	public CStandControlPacket() {}
-	
-	public CStandControlPacket(String standName)
-	{
-		this.standName = standName;
-	}
 
 	public void encode(PacketBuffer buffer)
 	{
-		buffer.writeString(this.standName);
 	}
 	
 	public static CStandControlPacket decode(PacketBuffer buffer)
 	{
 		CStandControlPacket msg = new CStandControlPacket();
-		msg.standName = buffer.readString();
 		return msg;
 	}
 
@@ -52,9 +43,12 @@ public class CStandControlPacket
 				World world = player.world;
 				IStandData props = StandDataCapability.get(player);
 
+				if(WyHelper.isNullOrEmpty(props.getStand()))
+					return;
+				
 				if(!props.hasStandSummoned())
 				{
-					GenericStandEntity stand = ModEntities.getRegisteredStands().get(message.standName).getStandEntity(player);
+					GenericStandEntity stand = ModEntities.getRegisteredStands().get(props.getStand()).getStandEntity(player);
 					stand.setRotationYawHead(player.rotationYawHead);
 					
 					props.setStandSummoned(true);

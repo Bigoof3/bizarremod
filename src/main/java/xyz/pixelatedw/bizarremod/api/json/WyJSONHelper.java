@@ -98,7 +98,7 @@ public class WyJSONHelper
 
 		if (langFolder.exists())
 		{
-			try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(Consts.PROJECT_RESOURCES_FOLDER + "/assets/" + Env.PROJECT_ID + "/lang/en_US.json"), "UTF-8")))
+			try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(Consts.PROJECT_RESOURCES_FOLDER + "/assets/" + Env.PROJECT_ID + "/lang/en_us.json"), "UTF-8")))
 			{
 				writer.write("{\n");
 				while (i.hasNext())

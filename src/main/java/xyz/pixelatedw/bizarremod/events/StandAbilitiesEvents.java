@@ -28,7 +28,7 @@ public class StandAbilitiesEvents
 		{
 			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
 			IStandData props = StandDataCapability.get(player);
-
+			
 			if (!props.hasStandSummoned())
 				return;
 

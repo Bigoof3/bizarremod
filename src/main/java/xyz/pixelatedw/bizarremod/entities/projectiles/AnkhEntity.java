@@ -1,8 +1,10 @@
 package xyz.pixelatedw.bizarremod.entities.projectiles;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
@@ -45,7 +47,11 @@ public class AnkhEntity extends StandProjectileEntity
 		{
 			BlockRayTraceResult blockHit = (BlockRayTraceResult) result;
 
-			this.world.setBlockState(blockHit.getPos().up(), Blocks.FIRE.getDefaultState());
+			BlockState state = Blocks.FIRE.getDefaultState();
+			BlockPos pos = blockHit.getPos().up();
+
+			if(this.world.getBlockState(pos).getBlock() == Blocks.AIR && state.isValidPosition(this.world, pos))
+				this.world.setBlockState(pos, state);
 		}
 	}
 }

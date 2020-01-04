@@ -14,7 +14,6 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import xyz.pixelatedw.bizarremod.Consts;
 import xyz.pixelatedw.bizarremod.Env;
-import xyz.pixelatedw.bizarremod.api.WyHelper;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.packets.client.CStandControlPacket;
@@ -48,8 +47,8 @@ public class ModKeybindings
 		World world = Minecraft.getInstance().world;
 		IStandData props = StandDataCapability.get(player);
 		
-		if (standControl.isPressed() && !WyHelper.isNullOrEmpty(props.getStand()))
-			ModNetwork.sendToServer(new CStandControlPacket(props.getStand()));
+		if (standControl.isPressed())
+			ModNetwork.sendToServer(new CStandControlPacket());
 				
 		if (abilityWheel.isPressed() && props.hasStandSummoned())
 			Minecraft.getInstance().displayGuiScreen(new AbilityWheelScreen());
