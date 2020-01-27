@@ -4,6 +4,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import xyz.pixelatedw.bizarremod.Consts;
 import xyz.pixelatedw.bizarremod.abilities.Ability;
+import xyz.pixelatedw.bizarremod.abilities.silverchariot.ArmorOffAbility;
+import xyz.pixelatedw.bizarremod.abilities.silverchariot.RapierStabAbility;
+import xyz.pixelatedw.bizarremod.abilities.silverchariot.ShootingSwordAbility;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
 
@@ -51,6 +54,9 @@ public class SilverChariotEntity extends GenericStandEntity
 	{
 		private Ability[] abilities = new Ability[] 
 				{
+					new RapierStabAbility(),
+					new ArmorOffAbility(),
+					new ShootingSwordAbility()
 				};
 
 		@Override
