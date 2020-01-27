@@ -4,23 +4,20 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import xyz.pixelatedw.bizarremod.Consts;
 import xyz.pixelatedw.bizarremod.abilities.Ability;
-import xyz.pixelatedw.bizarremod.abilities.PunchAbility;
-import xyz.pixelatedw.bizarremod.abilities.magiciansred.CrossFireHurricaneAbility;
-import xyz.pixelatedw.bizarremod.abilities.magiciansred.RedBindAbility;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
 
-public class MagiciansRedEntity extends GenericStandEntity
+public class SilverChariotEntity extends GenericStandEntity
 {
 
-	public MagiciansRedEntity(World world, PlayerEntity owner)
+	public SilverChariotEntity(World world, PlayerEntity owner)
 	{
-		super(ModEntities.MAGICIAN_RED, world, owner);
+		super(ModEntities.SILVER_CHARIOT, world, owner);
 	}
 	
-	public MagiciansRedEntity(World world)
+	public SilverChariotEntity(World world)
 	{
-		super(ModEntities.MAGICIAN_RED, world);
+		super(ModEntities.SILVER_CHARIOT, world);
 	}
 
 	@Override
@@ -33,42 +30,39 @@ public class MagiciansRedEntity extends GenericStandEntity
 	protected void registerData()
 	{
 		super.registerData();
-		this.setDestructivePower('B');
-		this.setSpeed('B');
+		this.setDestructivePower('C');
+		this.setSpeed('A');
 		this.setRange('C');
 		this.setPersistance('B');
-		this.setPrecision('C');
-		this.setDevelopmentPotential('D');
+		this.setPrecision('B');
+		this.setDevelopmentPotential('C');
 	}
 
 	@Override
 	public String getStandName()
 	{
-		return "Magician's Red";
+		return "Silver Chariot";
 	}
 
 	@Override
 	public void onCancel(PlayerEntity owner) {}
 	
-	public static class MagiciansRedStandInfo extends StandInfo
+	public static class SilverChariotStandInfo extends StandInfo
 	{
 		private Ability[] abilities = new Ability[] 
 				{
-					new PunchAbility(),
-					new CrossFireHurricaneAbility(),
-					new RedBindAbility()
 				};
 
 		@Override
 		public String getStandId()
 		{
-			return Consts.STAND_ID_MAGICIANS_RED;
+			return Consts.STAND_ID_SILVER_CHARIOT;
 		}
 		
 		@Override
 		public GenericStandEntity getStandEntity(PlayerEntity owner)
 		{
-			GenericStandEntity stand = new MagiciansRedEntity(owner.world, owner);
+			GenericStandEntity stand = new SilverChariotEntity(owner.world, owner);
 	
 			return stand;
 		}

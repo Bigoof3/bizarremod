@@ -82,7 +82,7 @@ public abstract class Ability implements Serializable
 			this.state = State.STANDBY;
 		}
 	}
-	
+
 	private Ability getOriginalAbility(PlayerEntity player)
 	{
 		IStandData props = StandDataCapability.get(player);
