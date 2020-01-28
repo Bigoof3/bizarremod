@@ -1,6 +1,9 @@
 package xyz.pixelatedw.bizarremod.entities.stands;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.world.World;
 import xyz.pixelatedw.bizarremod.Consts;
 import xyz.pixelatedw.bizarremod.abilities.Ability;
@@ -12,6 +15,7 @@ import xyz.pixelatedw.bizarremod.init.ModEntities;
 
 public class SilverChariotEntity extends GenericStandEntity
 {
+	protected static final DataParameter<Boolean> ARMOR_STATE = EntityDataManager.createKey(SilverChariotEntity.class, DataSerializers.BOOLEAN);
 
 	public SilverChariotEntity(World world, PlayerEntity owner)
 	{
@@ -39,6 +43,8 @@ public class SilverChariotEntity extends GenericStandEntity
 		this.setPersistance('B');
 		this.setPrecision('B');
 		this.setDevelopmentPotential('C');
+		
+		this.dataManager.register(ARMOR_STATE, true);
 	}
 
 	@Override
@@ -47,6 +53,16 @@ public class SilverChariotEntity extends GenericStandEntity
 		return "Silver Chariot";
 	}
 
+	public boolean hasArmor()
+	{
+		return this.dataManager.get(ARMOR_STATE);
+	}
+	
+	public void removeArmor()
+	{
+		this.dataManager.set(ARMOR_STATE, false);
+	}
+	
 	@Override
 	public void onCancel(PlayerEntity owner) {}
 	

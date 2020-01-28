@@ -1,14 +1,21 @@
 package xyz.pixelatedw.bizarremod.abilities.silverchariot;
 
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.TextFormatting;
 import xyz.pixelatedw.bizarremod.abilities.Ability;
+import xyz.pixelatedw.bizarremod.api.StandInfo;
+import xyz.pixelatedw.bizarremod.api.WyHelper;
+import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
+import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
+import xyz.pixelatedw.bizarremod.entities.stands.SilverChariotEntity;
+import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
 
 public class ArmorOffAbility extends Ability
 {
 	public ArmorOffAbility()
 	{
-		
+		this.onUseEvent = this::onUseEvent;
 	}
 	
 	@Override
@@ -27,4 +34,18 @@ public class ArmorOffAbility extends Ability
 		this.drawLine("but grealy lowers it's defense.", posX + 190, posY + 110);
 	}
 
+	protected void onUseEvent(PlayerEntity player, Ability ability)
+	{
+		IStandData props = StandDataCapability.get(player);
+		StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
+		
+		for(SilverChariotEntity entity : WyHelper.getNearbyEntities(player.getPosition(), player.world, 20, SilverChariotEntity.class))
+		{
+			if(entity.getOwner() == player)
+			{
+				entity.removeArmor();
+				break;
+			}
+		}
+	}
 }
