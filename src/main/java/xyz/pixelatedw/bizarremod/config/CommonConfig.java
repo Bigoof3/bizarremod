@@ -13,6 +13,7 @@ public class CommonConfig
 	public static CommonConfig instance;
 
 	private BooleanValue visibleStands;
+	private BooleanValue visibleStandsInFirstPerson;
 	private BooleanValue oneStand;
 	private BooleanValue shounenScream;
 	
@@ -27,8 +28,14 @@ public class CommonConfig
 	public CommonConfig(ForgeConfigSpec.Builder builder)
 	{
 		this.visibleStands = builder.comment("Regular humans will be able to see Stands\n Default: false").define("Visible Stands", false);
+		this.visibleStandsInFirstPerson = builder.comment("Stand Owners are able to see their stand in first person mode\n Default: true").define("Visible Stands in First Person", false);
 		this.oneStand = builder.comment("Stands are unqiue and only one of each can exist\n Default: true").define("One Stand", true);
 		this.shounenScream = builder.comment("Users will scream (audio + text) the name of their Stand or ability used\n Default: false").define("Shounen Scream", false);
+	}
+	
+	public boolean isVisibleStandsInFirstPersonEnabled()
+	{
+		return this.visibleStandsInFirstPerson.get();
 	}
 	
 	public boolean isShounenScreamEnabled()
