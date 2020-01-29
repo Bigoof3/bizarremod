@@ -54,7 +54,7 @@ public class CStandControlPacket
 					props.setStandSummoned(true);
 					stand.onSummon(player);
 					world.addEntity(stand);
-					ModParticleEffects.SUMMON_STAND.spawn(world, stand.posX, stand.posY + 1.0, stand.posZ, 0, 0, 0);
+					ModParticleEffects.SUMMON_STAND.spawn(world, stand.posX, stand.posY + 0.7, stand.posZ, 0, 0, 0);
 					
 					ModNetwork.sendToAll(new SStandExistencePacket(player.getUniqueID(), stand.getEntityId()));
 				}

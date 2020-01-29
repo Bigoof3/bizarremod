@@ -113,7 +113,7 @@ public abstract class GenericStandEntity extends CreatureEntity
 		double distX = this.posX - entity.posX;
 		double distY = this.posY - entity.posY;
 		double distZ = this.posZ - entity.posZ;
-		float speed = 0.2F;
+		float speed = 0.4F;
 
 		if(distY > -1 && distY < 1)
 			distY = 0;
@@ -138,6 +138,8 @@ public abstract class GenericStandEntity extends CreatureEntity
 			powZ += speed / 2;
 		
 		this.setMotion(this.getMotion().add(powX, 0, powZ));
+		this.setMotion(this.getMotion().getX(), 0, this.getMotion().getZ());
+
 		if(distY != 0)
 			this.setPosition(this.posX, entity.posY + 0.3, this.posZ);
 	}
