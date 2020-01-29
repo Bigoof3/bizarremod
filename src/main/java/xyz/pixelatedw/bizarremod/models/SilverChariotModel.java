@@ -1,7 +1,5 @@
 package xyz.pixelatedw.bizarremod.models;
 
-import com.mojang.blaze3d.platform.GlStateManager;
-
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import xyz.pixelatedw.bizarremod.entities.stands.SilverChariotEntity;
@@ -247,16 +245,7 @@ public class SilverChariotModel extends BipedModel<SilverChariotEntity>
 		{
 			RendererModel model = this.armorModels[i];
 
-			GlStateManager.color4f(0F, 1F, 1F, 0.5F);
-			model.render(scale);
-			/*if(entity.hasArmor())
-			{
-				model.isHidden = false;
-			}
-			else
-			{
-				model.isHidden = true;
-			}*/
+			model.isHidden = false;
 		}
 	}
 
@@ -280,7 +269,7 @@ public class SilverChariotModel extends BipedModel<SilverChariotEntity>
 		{
 			RendererModel model = this.armorModels[i];
 			
-			if(!entity.hasArmor())
+			if(!entity.hasArmor() && !model.isHidden)
 			{
 				model.rotationPointY += 0.15F;
 				switch(i % 3)
@@ -298,6 +287,9 @@ public class SilverChariotModel extends BipedModel<SilverChariotEntity>
 						model.rotateAngleX -= 0.007F;
 						break;
 				}
+				
+				if(model.rotationPointY >= this.bipedLeftLeg.rotationPointY + 44)
+					model.isHidden = true;
 			}
 			else
 			{
