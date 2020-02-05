@@ -3,11 +3,11 @@ package xyz.pixelatedw.bizarremod.entities.stands;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import xyz.pixelatedw.bizarremod.Consts;
-import xyz.pixelatedw.bizarremod.abilities.Ability;
-import xyz.pixelatedw.bizarremod.abilities.PunchAbility;
 import xyz.pixelatedw.bizarremod.abilities.magiciansred.CrossFireHurricaneAbility;
 import xyz.pixelatedw.bizarremod.abilities.magiciansred.RedBindAbility;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
+import xyz.pixelatedw.bizarremod.api.abilities.Ability;
+import xyz.pixelatedw.bizarremod.api.abilities.PunchProjectileAbility;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
 
 public class MagiciansRedEntity extends GenericStandEntity
@@ -54,9 +54,9 @@ public class MagiciansRedEntity extends GenericStandEntity
 	{
 		private Ability[] abilities = new Ability[] 
 				{
-					new PunchAbility(),
-					new CrossFireHurricaneAbility(),
-					new RedBindAbility()
+					new PunchProjectileAbility(),
+					CrossFireHurricaneAbility.INSTANCE,
+					RedBindAbility.INSTANCE
 				};
 
 		@Override

@@ -2,27 +2,27 @@ package xyz.pixelatedw.bizarremod.abilities.greenday;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import xyz.pixelatedw.bizarremod.abilities.PassiveAbility;
 import xyz.pixelatedw.bizarremod.api.WyHelper;
+import xyz.pixelatedw.bizarremod.api.abilities.PassiveAbility;
 import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
 import xyz.pixelatedw.bizarremod.init.ModPotionEffects;
 
 public class MoldInfestationAbility extends PassiveAbility
 {
 
-	@Override
-	public String getName()
+	public MoldInfestationAbility()
 	{
-		return "Mold Infestation";
+		super("Mold Infestation");
 	}
-	
+		
 	@Override
-	public void tick(LivingEntity user)
+	public void tick(PlayerEntity user)
 	{
 		for(LivingEntity entity : WyHelper.getNearbyEntities(user.getPosition(), user.world, 50, LivingEntity.class))
 		{

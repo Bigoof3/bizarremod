@@ -9,8 +9,8 @@ import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-import xyz.pixelatedw.bizarremod.abilities.Ability;
 import xyz.pixelatedw.bizarremod.api.WyHelper;
+import xyz.pixelatedw.bizarremod.api.abilities.Ability;
 
 public class StandDataCapability
 {
@@ -34,10 +34,23 @@ public class StandDataCapability
 
 				try
 				{
-					if(instance.getPrimaryAbility() != null)
-						props.putByteArray("primaryAbility", WyHelper.serialize(instance.getPrimaryAbility()));
-					if(instance.getSecondaryAbility() != null)
-						props.putByteArray("secondaryAbility", WyHelper.serialize(instance.getSecondaryAbility()));
+					if (instance.getPreviouslyUsedAbility() != null)
+						props.putByteArray("previouslyUsedAbility", WyHelper.serialize(instance.getPreviouslyUsedAbility()));
+
+					for (int i = 0; i < instance.getHotbarAbilities().length; i++)
+					{
+						Ability ability = instance.getHotbarAbilities()[i];
+						if (ability != null)
+							props.putString("hotbar_ability_" + i, ability.getName());
+					}
+
+					int i = 0;
+					for (Ability abl : instance.getAbilities())
+					{
+						props.putByteArray("ability_" + i, WyHelper.serialize(abl));
+						i++;
+					}
+					props.putInt("abilitiesOwned", i);
 				}
 				catch (IOException e)
 				{
@@ -58,10 +71,18 @@ public class StandDataCapability
 				
 				try
 				{
-					if(props.getByteArray("primaryAbility").length > 5)
-						instance.setPrimaryAbility((Ability) WyHelper.deserialize(props.getByteArray("primaryAbility")));
-					if(props.getByteArray("secondaryAbility").length > 5)
-						instance.setSecondaryAbility((Ability) WyHelper.deserialize(props.getByteArray("secondaryAbility")));
+					instance.setPreviouslyUsedAbility((Ability) WyHelper.deserialize(props.getByteArray("previouslyUsedAbility")));
+
+					int total = props.getInt("abilitiesOwned");
+					
+					instance.clearAbilities();
+					for (int i = 0; i < total; i++)
+						instance.addAbility((Ability) WyHelper.deserialize(props.getByteArray("ability_" + i)));
+					
+					for (int i = 0; i < instance.getHotbarAbilities().length; i++)
+					{
+						instance.setAbilityInHotbar(i, instance.getAbility(props.getString("hotbar_ability_" + i)));
+					}
 				}
 				catch (ClassNotFoundException | IOException e)
 				{
@@ -77,4 +98,5 @@ public class StandDataCapability
 	{
 		return entity.getCapability(INSTANCE, null).orElse(new StandDataBase());
 	}
+	
 }

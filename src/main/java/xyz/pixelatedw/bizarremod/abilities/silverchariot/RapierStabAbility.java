@@ -2,19 +2,13 @@ package xyz.pixelatedw.bizarremod.abilities.silverchariot;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.text.TextFormatting;
-import xyz.pixelatedw.bizarremod.abilities.Ability;
+import xyz.pixelatedw.bizarremod.api.abilities.Ability;
 
 public class RapierStabAbility extends Ability
 {
 	public RapierStabAbility()
 	{
-		
-	}
-	
-	@Override
-	public String getName()
-	{
-		return "Rapier Stab";
+		super("Rapier Stab");
 	}
 
 	@Override

@@ -1,22 +1,14 @@
 package xyz.pixelatedw.bizarremod.abilities.aerosmith;
 
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.TextFormatting;
-import xyz.pixelatedw.bizarremod.abilities.Ability;
+import xyz.pixelatedw.bizarremod.api.abilities.Ability;
 
 public class CabonDioxideRadarAbility extends Ability
 {
-	@Override
-	public String getName()
+	public CabonDioxideRadarAbility()
 	{
-		return "Carbon Dioxide Radio";
-	}
-	
-	@Override
-	public void use(PlayerEntity player)
-	{
-		
+		super("Carbon Dioxide Radio");
 	}
 
 	@Override

@@ -3,8 +3,8 @@ package xyz.pixelatedw.bizarremod.abilities.aerosmith;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.TextFormatting;
-import xyz.pixelatedw.bizarremod.abilities.Ability;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
+import xyz.pixelatedw.bizarremod.api.abilities.Ability;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.projectiles.BulletEntity;
@@ -14,15 +14,10 @@ public class MachineGunsAbility extends Ability
 {
 	public MachineGunsAbility()
 	{
+		super("Machine Guns");
 		this.setMaxCooldown(100);
 		
 		this.duringCooldownEvent = this::duringCooldownEvent;
-	}
-	
-	@Override
-	public String getName()
-	{
-		return "Machine Guns";
 	}
 
 	@Override
@@ -36,7 +31,7 @@ public class MachineGunsAbility extends Ability
 		this.drawLine("infinite ammunition.", posX + 190, posY + 125);
 	}
 
-	protected void duringCooldownEvent(PlayerEntity player, Ability ability, int cooldown)
+	protected void duringCooldownEvent(PlayerEntity player, int cooldown)
 	{
 		IStandData props = StandDataCapability.get(player);
 		StandInfo info = StandLogicHelper.getStandInfo(props.getStand());

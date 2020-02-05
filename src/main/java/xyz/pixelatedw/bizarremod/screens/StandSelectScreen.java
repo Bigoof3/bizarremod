@@ -19,16 +19,18 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.config.GuiUtils;
 import xyz.pixelatedw.bizarremod.Env;
-import xyz.pixelatedw.bizarremod.abilities.Ability;
-import xyz.pixelatedw.bizarremod.abilities.PassiveAbility;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
 import xyz.pixelatedw.bizarremod.api.WyHelper;
 import xyz.pixelatedw.bizarremod.api.WyRenderHelper;
+import xyz.pixelatedw.bizarremod.api.abilities.Ability;
+import xyz.pixelatedw.bizarremod.api.abilities.PassiveAbility;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
 import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
+import xyz.pixelatedw.bizarremod.init.ModNetwork;
+import xyz.pixelatedw.bizarremod.packets.client.CSyncStandDataPacket;
 
 @OnlyIn(Dist.CLIENT)
 public class StandSelectScreen extends Screen
@@ -161,12 +163,15 @@ public class StandSelectScreen extends Screen
 			StandInfo currentInfo = (StandInfo) ModEntities.getRegisteredStands().values().toArray()[this.currentStand - 1];
 			props.setStand(currentInfo.getStandId());
 			
+			for(Ability abl : currentInfo.getAbilities())
+				props.addAbility(abl);
+
 			if(this.getActiveAbilities(currentInfo).size() >= 1)
-				props.setPrimaryAbility(this.getActiveAbilities(currentInfo).get(0) != null ? this.getActiveAbilities(currentInfo).get(0) : null);
+				props.setAbilityInHotbar(0, this.getActiveAbilities(currentInfo).get(0) != null ? this.getActiveAbilities(currentInfo).get(0) : null);
 			if(this.getActiveAbilities(currentInfo).size() >= 2)
-				props.setSecondaryAbility(this.getActiveAbilities(currentInfo).get(1) != null ? this.getActiveAbilities(currentInfo).get(1) : null);
-						
-			//ModNetwork.sendToServer(new CSyncStandDataPacket(props));
+				props.setAbilityInHotbar(1, this.getActiveAbilities(currentInfo).get(1) != null ? this.getActiveAbilities(currentInfo).get(1) : null);
+			
+			ModNetwork.sendToServer(new CSyncStandDataPacket(props));
 			Minecraft.getInstance().displayGuiScreen((Screen)null);
 		});
 				

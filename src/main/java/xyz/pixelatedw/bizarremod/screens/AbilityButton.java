@@ -6,8 +6,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import xyz.pixelatedw.bizarremod.abilities.Ability;
 import xyz.pixelatedw.bizarremod.api.WyRenderHelper;
+import xyz.pixelatedw.bizarremod.api.abilities.Ability;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.init.ModResourceLocations;
 
@@ -82,10 +82,10 @@ public class AbilityButton extends Button
 
 		GlStateManager.translated(-this.translate / 1.5, -(this.translate * 2), 0);
 		
-		if(this.standProps.getPrimaryAbility() != null && this.standProps.getPrimaryAbility().getName().equalsIgnoreCase(this.ability.getName()))
+		if(this.standProps.getHotbarAbilities()[0] != null && this.standProps.getHotbarAbilities()[0].equals(this.ability))
 			WyRenderHelper.drawIcon(ModResourceLocations.LEFT_MOUSE_USED, this.x + 16, this.y + 40, 32, 32);
 		
-		if(this.standProps.getSecondaryAbility() != null && this.standProps.getSecondaryAbility().getName().equalsIgnoreCase(this.ability.getName()))
+		if(this.standProps.getHotbarAbilities()[1] != null && this.standProps.getHotbarAbilities()[1].equals(this.ability))
 			WyRenderHelper.drawIcon(ModResourceLocations.RIGHT_MOUSE_USED, this.x + 16, this.y + 40, 32, 32);
 		
 		GlStateManager.disableBlend();

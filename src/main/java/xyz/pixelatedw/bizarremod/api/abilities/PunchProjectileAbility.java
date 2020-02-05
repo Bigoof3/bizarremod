@@ -1,4 +1,4 @@
-package xyz.pixelatedw.bizarremod.abilities;
+package xyz.pixelatedw.bizarremod.api.abilities;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.PlayerEntity;
@@ -9,17 +9,12 @@ import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.projectiles.PunchEntity;
 import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
 
-public class PunchAbility extends Ability
+public class PunchProjectileAbility extends Ability
 {
-	public PunchAbility()
+	public PunchProjectileAbility()
 	{
+		super("Punch");
 		this.onUseEvent = this::onUseEvent;
-	}
-	
-	@Override
-	public String getName()
-	{
-		return "Punch";
 	}
 
 	@Override
@@ -31,7 +26,7 @@ public class PunchAbility extends Ability
 		this.drawLine("Allows the Stand to attack with it's punch", posX + 190, posY + 95);
 	}
 	
-	protected void onUseEvent(PlayerEntity player, Ability ability)
+	protected boolean onUseEvent(PlayerEntity player)
 	{
 		IStandData props = StandDataCapability.get(player);
 		StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
@@ -43,9 +38,11 @@ public class PunchAbility extends Ability
 		punch.setRange(info.getStandEntity(player).getRange() / 2);
 		
 		if(punch == null || !props.hasStandSummoned())
-			return;
+			return false;
 
 		player.world.addEntity(punch);
 		punch.shoot(player, player.rotationPitch, player.rotationYaw, 0, 2 + (info.getStandEntity(player).getSpeed() / 3), 4 - info.getStandEntity(player).getPrecision());
+		
+		return true;
 	}
 }

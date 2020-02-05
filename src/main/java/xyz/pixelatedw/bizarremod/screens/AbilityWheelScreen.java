@@ -12,11 +12,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import xyz.pixelatedw.bizarremod.abilities.Ability;
-import xyz.pixelatedw.bizarremod.abilities.PassiveAbility;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
 import xyz.pixelatedw.bizarremod.api.WyHelper;
 import xyz.pixelatedw.bizarremod.api.WyRenderHelper;
+import xyz.pixelatedw.bizarremod.api.abilities.Ability;
+import xyz.pixelatedw.bizarremod.api.abilities.PassiveAbility;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
@@ -42,8 +42,8 @@ public class AbilityWheelScreen extends Screen
 		this.standProps = StandDataCapability.get(this.player);
 		this.standInfo = StandLogicHelper.getStandInfo(this.standProps.getStand());
 				
-		this.currentPrimaryAbility = this.standProps.getPrimaryAbility();
-		this.currentSecondaryAbility = this.standProps.getSecondaryAbility();	
+		this.currentPrimaryAbility = this.standProps.getHotbarAbilities()[0];
+		this.currentSecondaryAbility = this.standProps.getHotbarAbilities()[1];	
 	}
 
 	@Override
@@ -91,11 +91,11 @@ public class AbilityWheelScreen extends Screen
 				this.addButton(new AbilityButton((posX + 95) + x, (posY + 95) + y, this.getActiveAbilities().get(i), this.standProps,
 						(button, type) ->
 						{
-							if(type == 0 && (this.standProps.getSecondaryAbility() == null || !this.standProps.getSecondaryAbility().getName().equalsIgnoreCase(button.ability.getName())))
-								this.standProps.setPrimaryAbility(button.ability);
-							else if(type == 1 && (this.standProps.getPrimaryAbility() == null || !this.standProps.getPrimaryAbility().getName().equalsIgnoreCase(button.ability.getName())))
-								this.standProps.setSecondaryAbility(button.ability);
-							
+							if(type == 0 && (this.standProps.getHotbarAbilities()[1] == null || !this.standProps.getHotbarAbilities()[1].equals(button.ability)))
+								this.standProps.setAbilityInHotbar(0, button.ability);
+							else if(type == 1 && (this.standProps.getHotbarAbilities()[0] == null || !this.standProps.getHotbarAbilities()[0].equals(button.ability)))
+								this.standProps.setAbilityInHotbar(1, button.ability);
+												
 							ModNetwork.sendToServer(new CSyncStandDataPacket(this.standProps));
 						}, 
 						(ability) -> 
@@ -111,10 +111,10 @@ public class AbilityWheelScreen extends Screen
 	@Override
 	public void tick()
 	{
-		if(this.currentPrimaryAbility != this.standProps.getPrimaryAbility())
+		if(this.currentPrimaryAbility != this.standProps.getHotbarAbilities()[0])
 			Minecraft.getInstance().displayGuiScreen((Screen)null);
 		
-		if(this.currentSecondaryAbility != this.standProps.getSecondaryAbility())
+		if(this.currentSecondaryAbility != this.standProps.getHotbarAbilities()[1])
 			Minecraft.getInstance().displayGuiScreen((Screen)null);
 	}
 

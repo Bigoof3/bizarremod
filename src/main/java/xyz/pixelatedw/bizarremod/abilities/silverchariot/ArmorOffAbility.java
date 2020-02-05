@@ -3,9 +3,9 @@ package xyz.pixelatedw.bizarremod.abilities.silverchariot;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.TextFormatting;
-import xyz.pixelatedw.bizarremod.abilities.Ability;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
 import xyz.pixelatedw.bizarremod.api.WyHelper;
+import xyz.pixelatedw.bizarremod.api.abilities.Ability;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.stands.SilverChariotEntity;
@@ -15,15 +15,10 @@ public class ArmorOffAbility extends Ability
 {
 	public ArmorOffAbility()
 	{
+		super("Armor Off");
 		this.onUseEvent = this::onUseEvent;
 	}
 	
-	@Override
-	public String getName()
-	{
-		return "Armor Off";
-	}
-
 	@Override
 	public void renderDescription(FontRenderer fontObj, int posX, int posY)
 	{
@@ -34,7 +29,7 @@ public class ArmorOffAbility extends Ability
 		this.drawLine("but grealy lowers it's defense.", posX + 190, posY + 110);
 	}
 
-	protected void onUseEvent(PlayerEntity player, Ability ability)
+	protected boolean onUseEvent(PlayerEntity player)
 	{
 		IStandData props = StandDataCapability.get(player);
 		StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
@@ -47,5 +42,7 @@ public class ArmorOffAbility extends Ability
 				break;
 			}
 		}
+		
+		return true;
 	}
 }

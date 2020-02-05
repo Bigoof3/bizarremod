@@ -3,11 +3,11 @@ package xyz.pixelatedw.bizarremod.entities.stands;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import xyz.pixelatedw.bizarremod.Consts;
-import xyz.pixelatedw.bizarremod.abilities.Ability;
 import xyz.pixelatedw.bizarremod.abilities.aerosmith.BombAbility;
 import xyz.pixelatedw.bizarremod.abilities.aerosmith.CabonDioxideRadarAbility;
 import xyz.pixelatedw.bizarremod.abilities.aerosmith.MachineGunsAbility;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
+import xyz.pixelatedw.bizarremod.api.abilities.Ability;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
 
 public class AerosmithEntity extends GenericStandEntity

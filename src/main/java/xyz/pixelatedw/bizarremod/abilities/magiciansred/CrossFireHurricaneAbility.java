@@ -3,8 +3,8 @@ package xyz.pixelatedw.bizarremod.abilities.magiciansred;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.TextFormatting;
-import xyz.pixelatedw.bizarremod.abilities.Ability;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
+import xyz.pixelatedw.bizarremod.api.abilities.Ability;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.projectiles.AnkhEntity;
@@ -12,17 +12,14 @@ import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
 
 public class CrossFireHurricaneAbility extends Ability
 {
+	public static final CrossFireHurricaneAbility INSTANCE = new CrossFireHurricaneAbility();
+	
 	public CrossFireHurricaneAbility()
 	{
+		super("Cross Fire Hurricane");
 		this.setMaxCooldown(81);
 		
 		this.duringCooldownEvent = this::duringCooldownEvent;
-	}
-	
-	@Override
-	public String getName()
-	{
-		return "Cross Fire Hurricane";
 	}
 
 	@Override
@@ -35,11 +32,11 @@ public class CrossFireHurricaneAbility extends Ability
 		this.drawLine("from its mouth.", posX + 190, posY + 110);
 	}
 
-	protected void duringCooldownEvent(PlayerEntity player, Ability ability, int cooldown)
+	protected void duringCooldownEvent(PlayerEntity player, int cooldown)
 	{
 		IStandData props = StandDataCapability.get(player);
 		StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
-
+		System.out.println("@@@");
 		if(cooldown >= 60 && cooldown % 10 == 0)
 		{
 			AnkhEntity ankh = new AnkhEntity(player, player.world);

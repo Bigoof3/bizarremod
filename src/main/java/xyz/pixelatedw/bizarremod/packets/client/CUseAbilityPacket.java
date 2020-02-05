@@ -7,16 +7,17 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkEvent;
-import xyz.pixelatedw.bizarremod.abilities.Ability;
 import xyz.pixelatedw.bizarremod.api.WyHelper;
+import xyz.pixelatedw.bizarremod.api.abilities.Ability;
 
 public class CUseAbilityPacket
 {
 	private Ability ability;
+	private int button;
 	
 	public CUseAbilityPacket() {}
 	
-	public CUseAbilityPacket(Ability ability)
+	public CUseAbilityPacket(Ability ability, int button)
 	{
 		this.ability = ability;
 	}
@@ -26,6 +27,7 @@ public class CUseAbilityPacket
 		try
 		{
 			buffer.writeByteArray(WyHelper.serialize(this.ability));
+			buffer.writeInt(this.button);
 		}
 		catch (IOException e)
 		{
@@ -39,6 +41,7 @@ public class CUseAbilityPacket
 		try
 		{
 			msg.ability = (Ability) WyHelper.deserialize(buffer.readByteArray());
+			msg.button = buffer.readInt();
 		}
 		catch (ClassNotFoundException | IOException e)
 		{
