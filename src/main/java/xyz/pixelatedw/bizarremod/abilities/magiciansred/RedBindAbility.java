@@ -19,8 +19,6 @@ import xyz.pixelatedw.wypi.abilities.ContinuousAbility;
 
 public class RedBindAbility extends ContinuousAbility implements IStandAbility
 {
-	public static final RedBindAbility INSTANCE = new RedBindAbility();
-
 	private static final RedBindEffect RED_BIND_EFFECT = new RedBindEffect();
 	
 	public RedBindAbility()

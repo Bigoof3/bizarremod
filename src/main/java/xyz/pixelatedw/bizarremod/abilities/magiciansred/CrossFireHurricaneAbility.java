@@ -13,9 +13,7 @@ import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
 import xyz.pixelatedw.wypi.abilities.Ability;
 
 public class CrossFireHurricaneAbility extends Ability implements IStandAbility
-{
-	public static final CrossFireHurricaneAbility INSTANCE = new CrossFireHurricaneAbility();
-	
+{	
 	public CrossFireHurricaneAbility()
 	{
 		super("Cross Fire Hurricane", AbilityCategory.ALL);

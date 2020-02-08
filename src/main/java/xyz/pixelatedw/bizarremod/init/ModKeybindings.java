@@ -19,12 +19,10 @@ import xyz.pixelatedw.bizarremod.packets.client.CStandControlPacket;
 import xyz.pixelatedw.bizarremod.packets.client.CUseAbilityPacket;
 import xyz.pixelatedw.bizarremod.screens.AbilityWheelScreen;
 import xyz.pixelatedw.wypi.APIConfig;
-import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
 import xyz.pixelatedw.wypi.abilities.Ability;
 import xyz.pixelatedw.wypi.data.ability.AbilityDataCapability;
 import xyz.pixelatedw.wypi.data.ability.IAbilityData;
 import xyz.pixelatedw.wypi.network.WyNetwork;
-import xyz.pixelatedw.wypi.network.packets.client.CSyncAbilityDataPacket;
 
 @Mod.EventBusSubscriber(modid = APIConfig.PROJECT_ID)
 public class ModKeybindings
@@ -73,14 +71,10 @@ public class ModKeybindings
 		IStandData props = StandDataCapability.get(player);
 		IAbilityData abilityProps = AbilityDataCapability.get(player);
 		
-		if(event.getAction() == GLFW.GLFW_PRESS && heldItem.isEmpty() && !Minecraft.getInstance().isGamePaused() && Minecraft.getInstance().currentScreen == null)
+		if(event.getAction() == GLFW.GLFW_PRESS && heldItem.isEmpty() && !Minecraft.getInstance().isGamePaused() && Minecraft.getInstance().currentScreen == null && props.hasStandSummoned())
 		{
 			Ability first = abilityProps.getEquippedAbility(0);
 			Ability second = abilityProps.getEquippedAbility(1);
-			
-			System.out.println(first);
-			System.out.println(abilityProps.getUnlockedAbilities(AbilityCategory.ALL).size());
-			WyNetwork.sendToServer(new CSyncAbilityDataPacket(abilityProps));
 			
 			if(event.getButton() == 0 && first != null)
 			{

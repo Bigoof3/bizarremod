@@ -6,9 +6,9 @@ import xyz.pixelatedw.bizarremod.api.abilities.IStandAbility;
 import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
 import xyz.pixelatedw.wypi.abilities.Ability;
 
-public class CabonDioxideRadarAbility extends Ability implements IStandAbility
+public class CarbonDioxideRadarAbility extends Ability implements IStandAbility
 {
-	public CabonDioxideRadarAbility()
+	public CarbonDioxideRadarAbility()
 	{
 		super("Carbon Dioxide Radio", AbilityCategory.ALL);
 	}

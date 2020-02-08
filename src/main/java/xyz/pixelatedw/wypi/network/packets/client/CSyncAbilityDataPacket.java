@@ -8,7 +8,6 @@ import net.minecraft.nbt.INBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkEvent;
-import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
 import xyz.pixelatedw.wypi.data.ability.AbilityDataCapability;
 import xyz.pixelatedw.wypi.data.ability.IAbilityData;
 
@@ -46,10 +45,6 @@ public class CSyncAbilityDataPacket
 				IAbilityData props = AbilityDataCapability.get(player);
 				
 				AbilityDataCapability.INSTANCE.getStorage().readNBT(AbilityDataCapability.INSTANCE, props, null, message.data);
-				
-				System.out.println(props.getEquippedAbility(0));
-				System.out.println(props.getEquippedAbility(1));
-				System.out.println(props.getUnlockedAbilities(AbilityCategory.ALL).size());
 			});	
 		}
 		ctx.get().setPacketHandled(true);

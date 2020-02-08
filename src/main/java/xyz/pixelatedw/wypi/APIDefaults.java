@@ -65,7 +65,7 @@ public class APIDefaults
 
 	@Mod.EventBusSubscriber(modid = APIConfig.PROJECT_ID)
 	public static class AbilityEvents
-	{
+	{		
 		@SubscribeEvent
 		public static void onLivingUpdate(LivingUpdateEvent event)
 		{
@@ -73,7 +73,6 @@ public class APIDefaults
 			{
 				PlayerEntity player = (PlayerEntity) event.getEntityLiving();
 				IAbilityData props = AbilityDataCapability.get(player);
-				//System.out.println(props.getUnlockedAbilities(AbilityCategory.ALL).size());
 				
 				for (Ability ability : props.getUnlockedAbilities(AbilityCategory.ALL))
 				{

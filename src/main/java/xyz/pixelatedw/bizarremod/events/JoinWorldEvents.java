@@ -9,7 +9,11 @@ import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.packets.server.SSyncStandDataPacket;
 import xyz.pixelatedw.wypi.APIConfig;
+import xyz.pixelatedw.wypi.WyHelper;
+import xyz.pixelatedw.wypi.data.ability.AbilityDataCapability;
+import xyz.pixelatedw.wypi.data.ability.IAbilityData;
 import xyz.pixelatedw.wypi.network.WyNetwork;
+import xyz.pixelatedw.wypi.network.packets.server.SSyncAbilityDataPacket;
 
 @Mod.EventBusSubscriber(modid = APIConfig.PROJECT_ID)
 public class JoinWorldEvents
@@ -20,12 +24,20 @@ public class JoinWorldEvents
 		if(event.getEntity() instanceof PlayerEntity)
 		{
 			PlayerEntity player = (PlayerEntity) event.getEntity();
-			IStandData props = StandDataCapability.get(player);
-
-			props.setStandSummoned(false);
+			IStandData standProps = StandDataCapability.get(player);
+			IAbilityData abilityProps = AbilityDataCapability.get(player);
+			
+			if(WyHelper.isNullOrEmpty(standProps.getStand()))
+				return;
+			
+			standProps.setStandSummoned(false);
 						
 			if(!player.world.isRemote)
-				WyNetwork.sendTo(new SSyncStandDataPacket(props), (ServerPlayerEntity)player);
+			{
+				WyNetwork.sendTo(new SSyncStandDataPacket(standProps), (ServerPlayerEntity)player);
+				WyNetwork.sendTo(new SSyncAbilityDataPacket(player.getEntityId(), abilityProps), (ServerPlayerEntity)player);
+			}
+
 		}
 	}
 }

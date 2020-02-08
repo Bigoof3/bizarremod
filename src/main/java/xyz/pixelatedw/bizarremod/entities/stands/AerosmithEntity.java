@@ -3,10 +3,8 @@ package xyz.pixelatedw.bizarremod.entities.stands;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import xyz.pixelatedw.bizarremod.Consts;
-import xyz.pixelatedw.bizarremod.abilities.aerosmith.BombAbility;
-import xyz.pixelatedw.bizarremod.abilities.aerosmith.CabonDioxideRadarAbility;
-import xyz.pixelatedw.bizarremod.abilities.aerosmith.MachineGunsAbility;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
+import xyz.pixelatedw.bizarremod.init.ModAbilities;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
 import xyz.pixelatedw.wypi.abilities.Ability;
 
@@ -63,10 +61,10 @@ public class AerosmithEntity extends GenericStandEntity
 	{
 
 		private Ability[] abilities = new Ability[] 
-					{ 
-						new MachineGunsAbility(),
-						new BombAbility(),
-						new CabonDioxideRadarAbility()
+					{
+						ModAbilities.MACHINE_GUNS,
+						ModAbilities.BOMB,
+						ModAbilities.CARBON_DIOXIDE_RADAR
 					};
 		
 		@Override
