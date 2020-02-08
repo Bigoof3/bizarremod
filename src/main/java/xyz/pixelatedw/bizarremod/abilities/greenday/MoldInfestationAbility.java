@@ -9,6 +9,8 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import xyz.pixelatedw.bizarremod.api.abilities.IStandAbility;
+import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
+import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
 import xyz.pixelatedw.bizarremod.init.ModPotionEffects;
 import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
@@ -26,6 +28,11 @@ public class MoldInfestationAbility extends PassiveAbility implements IStandAbil
 	@Override
 	public void tick(PlayerEntity user)
 	{
+		IStandData standProps = StandDataCapability.get(user);
+		
+		if(!standProps.hasStandSummoned())
+			return;
+		
 		for(LivingEntity entity : WyHelper.getEntitiesNear(user.getPosition(), user.world, 50, LivingEntity.class))
 		{
 			if(entity instanceof GenericStandEntity || entity == user)

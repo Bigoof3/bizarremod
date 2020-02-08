@@ -47,7 +47,7 @@ public abstract class Ability extends ForgeRegistryEntry<Ability>
 		{
 			this.startCooldown();
 			IAbilityData props = AbilityDataCapability.get(player);
-			WyNetwork.sendTo(new SSyncAbilityDataPacket(player.getEntityId(), props), (ServerPlayerEntity)player);
+			WyNetwork.sendTo(new SSyncAbilityDataPacket(props), (ServerPlayerEntity)player);
 		}
 	}
 	
@@ -135,7 +135,7 @@ public abstract class Ability extends ForgeRegistryEntry<Ability>
 	{
 		return this.name;
 	}
-	
+
 	public AbilityCategory getCategory()
 	{
 		return this.category;
@@ -160,7 +160,7 @@ public abstract class Ability extends ForgeRegistryEntry<Ability>
 			this.cooldown = this.maxCooldown;				
 			this.state = State.STANDBY;
 			IAbilityData props = AbilityDataCapability.get(player);
-			WyNetwork.sendTo(new SSyncAbilityDataPacket(player.getEntityId(), props), (ServerPlayerEntity)player);
+			WyNetwork.sendTo(new SSyncAbilityDataPacket(props), (ServerPlayerEntity)player);
 		}
 	}
 	
@@ -199,7 +199,7 @@ public abstract class Ability extends ForgeRegistryEntry<Ability>
 		}
 		return null;
 	}
-	
+
 	/*
 	 *	Enums
 	 */
@@ -222,7 +222,7 @@ public abstract class Ability extends ForgeRegistryEntry<Ability>
 	{
 		boolean onUse(PlayerEntity player);
 	}
-	
+
 	public interface IDuringCooldown extends Serializable
 	{
 		void duringCooldown(PlayerEntity player, int cooldown);

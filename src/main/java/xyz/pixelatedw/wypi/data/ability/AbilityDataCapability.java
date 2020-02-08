@@ -70,6 +70,9 @@ public class AbilityDataCapability
 
 				try
 				{
+					instance.clearEquippedAbilities(AbilityCategory.ALL);
+					instance.clearUnlockedAbilities(AbilityCategory.ALL);
+
 					ListNBT unlockedAbilities = props.getList("unlocked_abilities", Constants.NBT.TAG_COMPOUND);
 					for (int i = 0; i < unlockedAbilities.size(); i++)
 					{

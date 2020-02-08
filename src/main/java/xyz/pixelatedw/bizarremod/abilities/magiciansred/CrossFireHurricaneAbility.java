@@ -10,16 +10,17 @@ import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.projectiles.AnkhEntity;
 import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
 import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
-import xyz.pixelatedw.wypi.abilities.Ability;
+import xyz.pixelatedw.wypi.abilities.RepeaterAbility;
 
-public class CrossFireHurricaneAbility extends Ability implements IStandAbility
+public class CrossFireHurricaneAbility extends RepeaterAbility implements IStandAbility
 {	
 	public CrossFireHurricaneAbility()
 	{
 		super("Cross Fire Hurricane", AbilityCategory.ALL);
-		this.setMaxCooldown(81);
+		this.setMaxCooldown(10);
+		this.setMaxRepearCount(3, 3);
 		
-		this.duringCooldownEvent = this::duringCooldownEvent;
+		this.onUseEvent = this::onUseEvent;
 	}
 
 	@Override
@@ -32,23 +33,19 @@ public class CrossFireHurricaneAbility extends Ability implements IStandAbility
 		this.drawLine("from its mouth.", posX + 190, posY + 110);
 	}
 
-	protected void duringCooldownEvent(PlayerEntity player, int cooldown)
+	protected boolean onUseEvent(PlayerEntity player)
 	{
 		IStandData props = StandDataCapability.get(player);
 		StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
 		
-		if(cooldown >= 60 && cooldown % 10 == 0)
-		{
-			AnkhEntity ankh = new AnkhEntity(player, player.world);
+		AnkhEntity ankh = new AnkhEntity(player, player.world);
 			
-			ankh.setDamage(2 + info.getStandEntity(player).getDestructivePower());
-			ankh.setRange(3 + info.getStandEntity(player).getRange());
+		ankh.setDamage(2 + info.getStandEntity(player).getDestructivePower());
+		ankh.setRange(3 + info.getStandEntity(player).getRange());
 
-			if(ankh == null || !props.hasStandSummoned())
-				return;
-							
-			player.world.addEntity(ankh);
-			ankh.shoot(player, player.rotationPitch, player.rotationYaw, 0, 2 + info.getStandEntity(player).getSpeed(), 4 - info.getStandEntity(player).getPrecision());
-		}	
+		player.world.addEntity(ankh);
+		ankh.shoot(player, player.rotationPitch, player.rotationYaw, 0, 2 + info.getStandEntity(player).getSpeed(), 4 - info.getStandEntity(player).getPrecision());
+		
+		return true;
 	}
 }

@@ -41,7 +41,7 @@ public abstract class ContinuousAbility extends Ability
 			{
 				this.startContinuity();
 				IAbilityData props = AbilityDataCapability.get(player);
-				WyNetwork.sendTo(new SSyncAbilityDataPacket(player.getEntityId(), props), (ServerPlayerEntity) player);
+				WyNetwork.sendTo(new SSyncAbilityDataPacket(props), (ServerPlayerEntity) player);
 			}
 		}
 		else
@@ -51,7 +51,7 @@ public abstract class ContinuousAbility extends Ability
 				this.continueTime = 0;
 				this.startCooldown();
 				IAbilityData props = AbilityDataCapability.get(player);
-				WyNetwork.sendTo(new SSyncAbilityDataPacket(player.getEntityId(), props), (ServerPlayerEntity) player);
+				WyNetwork.sendTo(new SSyncAbilityDataPacket(props), (ServerPlayerEntity) player);
 			}
 		}
 	}
@@ -98,7 +98,7 @@ public abstract class ContinuousAbility extends Ability
 		this.startCooldown();
 		this.onEndContinuityEvent.onEndContinuity(player);
 		IAbilityData props = AbilityDataCapability.get(player);
-		WyNetwork.sendTo(new SSyncAbilityDataPacket(player.getEntityId(), props), (ServerPlayerEntity) player);
+		WyNetwork.sendTo(new SSyncAbilityDataPacket(props), (ServerPlayerEntity) player);
 	}
 	
 	/*

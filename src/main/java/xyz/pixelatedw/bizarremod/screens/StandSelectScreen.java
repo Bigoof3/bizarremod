@@ -1,13 +1,11 @@
 package xyz.pixelatedw.bizarremod.screens;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.platform.GlStateManager;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.client.gui.widget.Widget;
@@ -45,12 +43,18 @@ public class StandSelectScreen extends Screen
 	private int maxStandsInList;
 	private int page = 0;
 	private List<Widget> abilityButtons = Lists.newArrayList();
+	private IAbilityData abilityProps;
+	private IStandData standProps;
+
 	
 	public StandSelectScreen(PlayerEntity player)
 	{
 		super(new StringTextComponent(""));
 		this.player = player;
 		this.maxStandsInList = ModEntities.getRegisteredStands().size();
+		
+		this.abilityProps = AbilityDataCapability.get(this.player);
+		this.standProps = StandDataCapability.get(this.player);
 	}
 
 	@Override
@@ -145,8 +149,6 @@ public class StandSelectScreen extends Screen
 	{
 		int posX = (this.width - 256) / 2;
 		int posY = (this.height - 256) / 2;
-		IStandData props = StandDataCapability.get(this.player);
-		IAbilityData abilityProps = AbilityDataCapability.get(this.player);
 		StandInfo info = (StandInfo) ModEntities.getRegisteredStands().values().toArray()[this.currentStand - 1];
 
 		if(this.currentAbility >= info.getAbilities().length)
@@ -166,23 +168,20 @@ public class StandSelectScreen extends Screen
 		Button chooseButton = new Button(posX + 90, posY + 200, 90, 20, "Choose", b -> 
 		{
 			StandInfo currentInfo = (StandInfo) ModEntities.getRegisteredStands().values().toArray()[this.currentStand - 1];
-			props.setStand(currentInfo.getStandId());
+			this.standProps.setStand(currentInfo.getStandId());
 			
+			this.abilityProps.clearEquippedAbilities(AbilityCategory.ALL);
+			this.abilityProps.clearUnlockedAbilities(AbilityCategory.ALL);
+						
 			for(Ability abl : currentInfo.getAbilities())
-				abilityProps.addUnlockedAbility(abl);
+				this.abilityProps.addUnlockedAbility(abl);
 
 			if(this.getActiveAbilities(currentInfo).size() >= 1)
-				abilityProps.setEquippedAbility(0, this.getActiveAbilities(currentInfo).get(0) != null ? this.getActiveAbilities(currentInfo).get(0) : null);
+				this.abilityProps.setEquippedAbility(0, this.getActiveAbilities(currentInfo).get(0) != null ? this.getActiveAbilities(currentInfo).get(0) : null);
 			if(this.getActiveAbilities(currentInfo).size() >= 2)
-				abilityProps.setEquippedAbility(1, this.getActiveAbilities(currentInfo).get(1) != null ? this.getActiveAbilities(currentInfo).get(1) : null);
-			
-			System.out.println(abilityProps.getEquippedAbility(0));
-			System.out.println(abilityProps.getEquippedAbility(1));
-			System.out.println(abilityProps.getUnlockedAbilities(AbilityCategory.ALL).size());
-			
-			WyNetwork.sendToServer(new CSyncStandDataPacket(props));
-			WyNetwork.sendToServer(new CSyncAbilityDataPacket(abilityProps));
-			Minecraft.getInstance().displayGuiScreen((Screen)null);
+				this.abilityProps.setEquippedAbility(1, this.getActiveAbilities(currentInfo).get(1) != null ? this.getActiveAbilities(currentInfo).get(1) : null);
+
+			this.onClose();
 		});
 				
 		Button nextButton = new Button(posX + 200, posY + 200, 90, 20, "Next", b -> 
@@ -265,7 +264,15 @@ public class StandSelectScreen extends Screen
 		this.addButton(statsButton);
 		this.addButton(optionsButton);
 	}
-	
+
+	@Override
+	public void onClose()
+	{
+		WyNetwork.sendToServer(new CSyncStandDataPacket(this.standProps));
+		WyNetwork.sendToServer(new CSyncAbilityDataPacket(this.abilityProps));
+		super.onClose();
+	}
+
 	private ResourceLocation getIcon(StandInfo currentStandInfo)
 	{
 		return new ResourceLocation(APIConfig.PROJECT_ID, "textures/ui/icons/" + currentStandInfo.getStandId() + ".png");
@@ -273,7 +280,7 @@ public class StandSelectScreen extends Screen
 	
 	private List<Ability> getActiveAbilities(StandInfo standInfo)
 	{
-		return Arrays.stream(standInfo.getAbilities()).parallel().filter(ability -> !(ability instanceof PassiveAbility)).collect(Collectors.toList());
+		return this.abilityProps.getUnlockedAbilities(AbilityCategory.ALL).parallelStream().filter(ability -> !(ability instanceof PassiveAbility)).collect(Collectors.toList());
 	}
 
 }

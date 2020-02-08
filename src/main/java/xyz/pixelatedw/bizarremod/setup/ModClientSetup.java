@@ -22,7 +22,7 @@ public class ModClientSetup
 	public static void clientSetup(FMLClientSetupEvent event)
 	{
 		APIDefaults.initI18n();
-		ModKeybindings.init();
+		new ModKeybindings();
 		
 		ModRenderers.registerRenderers();
 				

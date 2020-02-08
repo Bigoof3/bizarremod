@@ -20,22 +20,22 @@ public class JoinWorldEvents
 {
 	@SubscribeEvent
 	public static void onEntityJoinWorld(EntityJoinWorldEvent event)
-	{		
-		if(event.getEntity() instanceof PlayerEntity)
+	{
+		if (event.getEntity() instanceof PlayerEntity)
 		{
 			PlayerEntity player = (PlayerEntity) event.getEntity();
 			IStandData standProps = StandDataCapability.get(player);
 			IAbilityData abilityProps = AbilityDataCapability.get(player);
-			
-			if(WyHelper.isNullOrEmpty(standProps.getStand()))
+
+			if (WyHelper.isNullOrEmpty(standProps.getStand()))
 				return;
-			
+
 			standProps.setStandSummoned(false);
-						
-			if(!player.world.isRemote)
+
+			if (!player.world.isRemote)
 			{
-				WyNetwork.sendTo(new SSyncStandDataPacket(standProps), (ServerPlayerEntity)player);
-				WyNetwork.sendTo(new SSyncAbilityDataPacket(player.getEntityId(), abilityProps), (ServerPlayerEntity)player);
+				WyNetwork.sendTo(new SSyncStandDataPacket(standProps), (ServerPlayerEntity) player);
+				WyNetwork.sendTo(new SSyncAbilityDataPacket(abilityProps), (ServerPlayerEntity) player);
 			}
 
 		}

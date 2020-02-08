@@ -24,7 +24,7 @@ public class RedBindAbility extends ContinuousAbility implements IStandAbility
 	public RedBindAbility()
 	{
 		super("Red Bind", AbilityCategory.ALL);
-		this.setMaxCooldown(30);
+		this.setMaxCooldown(20);
 		this.setThreshold(20);
 
 		this.duringContinuity = this::duringContinuity;

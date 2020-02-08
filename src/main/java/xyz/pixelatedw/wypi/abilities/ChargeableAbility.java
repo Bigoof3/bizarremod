@@ -41,7 +41,7 @@ public abstract class ChargeableAbility extends Ability
 		{	
 			this.startCharging();
 			IAbilityData props = AbilityDataCapability.get(player);
-			WyNetwork.sendTo(new SSyncAbilityDataPacket(player.getEntityId(), props), (ServerPlayerEntity)player);
+			WyNetwork.sendTo(new SSyncAbilityDataPacket(props), (ServerPlayerEntity)player);
 		}
 	}
 	
@@ -87,7 +87,7 @@ public abstract class ChargeableAbility extends Ability
 				this.chargeTime = this.maxChargeTime;
 				this.startCooldown();
 				IAbilityData props = AbilityDataCapability.get(player);
-				WyNetwork.sendTo(new SSyncAbilityDataPacket(player.getEntityId(), props), (ServerPlayerEntity) player);
+				WyNetwork.sendTo(new SSyncAbilityDataPacket(props), (ServerPlayerEntity) player);
 			}
 		}
 	}

@@ -102,8 +102,9 @@ public class AbilityWheelScreen extends Screen
 								this.abilityProps.addEquippedAbility(button.ability);
 							else if(type == 1 && (first == null || !first.equals(button.ability)))
 								this.abilityProps.addEquippedAbility(button.ability);
-												
+																		
 							WyNetwork.sendToServer(new CSyncStandDataPacket(this.standProps));
+							Minecraft.getInstance().displayGuiScreen((Screen)null);
 						}, 
 						(ability) -> 
 						{

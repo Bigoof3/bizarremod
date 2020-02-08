@@ -62,7 +62,7 @@ public abstract class RepeaterAbility extends Ability
 			this.repeaterCount = this.maxRepeaterCount;
 			this.startStandby();
 			IAbilityData props = AbilityDataCapability.get(player);
-			WyNetwork.sendTo(new SSyncAbilityDataPacket(player.getEntityId(), props), (ServerPlayerEntity)player);
+			WyNetwork.sendTo(new SSyncAbilityDataPacket(props), (ServerPlayerEntity)player);
 		}
 	}
 }
