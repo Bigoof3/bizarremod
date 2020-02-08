@@ -15,7 +15,6 @@ import xyz.pixelatedw.bizarremod.api.StandInfo;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
-import xyz.pixelatedw.bizarremod.packets.client.CSyncStandDataPacket;
 import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
 import xyz.pixelatedw.wypi.WyHelper;
 import xyz.pixelatedw.wypi.abilities.Ability;
@@ -23,6 +22,7 @@ import xyz.pixelatedw.wypi.abilities.PassiveAbility;
 import xyz.pixelatedw.wypi.data.ability.AbilityDataCapability;
 import xyz.pixelatedw.wypi.data.ability.IAbilityData;
 import xyz.pixelatedw.wypi.network.WyNetwork;
+import xyz.pixelatedw.wypi.network.packets.client.CSyncAbilityDataPacket;
 
 @OnlyIn(Dist.CLIENT)
 public class AbilityWheelScreen extends Screen
@@ -99,12 +99,11 @@ public class AbilityWheelScreen extends Screen
 							Ability second = this.abilityProps.getEquippedAbility(1);
 							
 							if(type == 0 && (second == null || !second.equals(button.ability)))
-								this.abilityProps.addEquippedAbility(button.ability);
+								this.abilityProps.setEquippedAbility(0, button.ability);
 							else if(type == 1 && (first == null || !first.equals(button.ability)))
-								this.abilityProps.addEquippedAbility(button.ability);
-																		
-							WyNetwork.sendToServer(new CSyncStandDataPacket(this.standProps));
-							Minecraft.getInstance().displayGuiScreen((Screen)null);
+								this.abilityProps.setEquippedAbility(1, button.ability);
+
+							WyNetwork.sendToServer(new CSyncAbilityDataPacket(this.abilityProps));
 						}, 
 						(ability) -> 
 						{

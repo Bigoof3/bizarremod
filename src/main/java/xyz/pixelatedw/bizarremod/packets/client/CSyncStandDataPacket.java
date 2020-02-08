@@ -46,7 +46,7 @@ public class CSyncStandDataPacket
 				World world = player.world;
 				IStandData props = StandDataCapability.get(player);
 				
-				StandDataCapability.INSTANCE.getStorage().readNBT(StandDataCapability.INSTANCE, props, null, message.data);				
+				StandDataCapability.INSTANCE.getStorage().readNBT(StandDataCapability.INSTANCE, props, null, message.data);
 			});			
 		}
 		ctx.get().setPacketHandled(true);

@@ -17,8 +17,8 @@ public class CrossFireHurricaneAbility extends RepeaterAbility implements IStand
 	public CrossFireHurricaneAbility()
 	{
 		super("Cross Fire Hurricane", AbilityCategory.ALL);
-		this.setMaxCooldown(10);
-		this.setMaxRepearCount(3, 3);
+		this.setMaxCooldown(3);
+		this.setMaxRepearCount(3, 5);
 		
 		this.onUseEvent = this::onUseEvent;
 	}
@@ -27,9 +27,9 @@ public class CrossFireHurricaneAbility extends RepeaterAbility implements IStand
 	public void renderDescription(FontRenderer fontObj, int posX, int posY)
 	{
 		this.drawLine("- " + this.getName() + " -", posX + 185, posY + 60);
-		this.drawLine(TextFormatting.GREEN + " Active", posX + 183, posY + 72);
+		this.drawLine(TextFormatting.LIGHT_PURPLE + " Active (Repeater)", posX + 183, posY + 72);
 		
-		this.drawLine("Magician's Red can fire a few ankhs of flame", posX + 190, posY + 95);
+		this.drawLine("Magician's Red fires a few ankhs of flame", posX + 190, posY + 95);
 		this.drawLine("from its mouth.", posX + 190, posY + 110);
 	}
 

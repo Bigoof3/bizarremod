@@ -34,9 +34,12 @@ public abstract class ContinuousAbility extends Ability
 	{
 		if(player.world.isRemote)
 			return;	
-				
+		
 		if(!this.isContinuous())
 		{
+			if(!this.isOnStandby())
+				return;
+			
 			if (this.onStartContinuityEvent.onStartContinuity(player))
 			{
 				this.startContinuity();
@@ -63,7 +66,7 @@ public abstract class ContinuousAbility extends Ability
 	 */	
 	public void setThreshold(int threshold)
 	{
-		this.threshold = threshold;
+		this.threshold = threshold * 20;
 	}
 	
 	public void startContinuity()

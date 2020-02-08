@@ -39,7 +39,7 @@ public abstract class Ability extends ForgeRegistryEntry<Ability>
 	{
 		if(player.world.isRemote)
 			return;
-		
+				
 		if(!this.isOnStandby())
 			return;			
 		

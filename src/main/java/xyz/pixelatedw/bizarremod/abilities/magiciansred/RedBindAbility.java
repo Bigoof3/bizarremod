@@ -34,7 +34,7 @@ public class RedBindAbility extends ContinuousAbility implements IStandAbility
 	public void renderDescription(FontRenderer fontObj, int posX, int posY)
 	{
 		this.drawLine("- " + this.getName() + " -", posX + 185, posY + 60);
-		this.drawLine(TextFormatting.GREEN + " Active", posX + 183, posY + 72);
+		this.drawLine(TextFormatting.YELLOW + " Active (Continuous)", posX + 183, posY + 72);
 
 		this.drawLine("Magician's Red can use his flame to tie his opponent.", posX + 190, posY + 95);
 		this.drawLine("By putting a flame too close to the opponent's face,", posX + 190, posY + 110);
@@ -53,9 +53,13 @@ public class RedBindAbility extends ContinuousAbility implements IStandAbility
 
 		for (LivingEntity target : list)
 		{
-			System.out.println(target.getPosition().getY());
+			if(target.world.getBlockState(target.getPosition().down(3)).isAir())
+				continue;
+			
 			target.setMotion(0, 0.1, 0);
 			target.fallDistance = 0;
+			
+			RED_BIND_EFFECT.spawn(player.world, target.posX, target.posY + 0.5, target.posZ, 0, 0, 0);
 		}
 	}
 }
