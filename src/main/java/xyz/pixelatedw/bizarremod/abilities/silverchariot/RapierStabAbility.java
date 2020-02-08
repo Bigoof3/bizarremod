@@ -2,13 +2,15 @@ package xyz.pixelatedw.bizarremod.abilities.silverchariot;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.text.TextFormatting;
-import xyz.pixelatedw.bizarremod.api.abilities.Ability;
+import xyz.pixelatedw.bizarremod.api.abilities.IStandAbility;
+import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
+import xyz.pixelatedw.wypi.abilities.Ability;
 
-public class RapierStabAbility extends Ability
+public class RapierStabAbility extends Ability implements IStandAbility
 {
 	public RapierStabAbility()
 	{
-		super("Rapier Stab");
+		super("Rapier Stab", AbilityCategory.ALL);
 	}
 
 	@Override

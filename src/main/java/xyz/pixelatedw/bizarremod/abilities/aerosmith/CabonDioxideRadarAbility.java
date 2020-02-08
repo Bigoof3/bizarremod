@@ -2,13 +2,15 @@ package xyz.pixelatedw.bizarremod.abilities.aerosmith;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.text.TextFormatting;
-import xyz.pixelatedw.bizarremod.api.abilities.Ability;
+import xyz.pixelatedw.bizarremod.api.abilities.IStandAbility;
+import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
+import xyz.pixelatedw.wypi.abilities.Ability;
 
-public class CabonDioxideRadarAbility extends Ability
+public class CabonDioxideRadarAbility extends Ability implements IStandAbility
 {
 	public CabonDioxideRadarAbility()
 	{
-		super("Carbon Dioxide Radio");
+		super("Carbon Dioxide Radio", AbilityCategory.ALL);
 	}
 
 	@Override

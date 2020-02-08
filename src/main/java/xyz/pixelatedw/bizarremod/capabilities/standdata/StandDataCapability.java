@@ -1,7 +1,5 @@
 package xyz.pixelatedw.bizarremod.capabilities.standdata;
 
-import java.io.IOException;
-
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
@@ -9,8 +7,6 @@ import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-import xyz.pixelatedw.bizarremod.api.WyHelper;
-import xyz.pixelatedw.bizarremod.api.abilities.Ability;
 
 public class StandDataCapability
 {
@@ -31,31 +27,6 @@ public class StandDataCapability
 				props.putString("stand", instance.getStand());
 				
 				props.putBoolean("hasStandSummoned", instance.hasStandSummoned());
-
-				try
-				{
-					if (instance.getPreviouslyUsedAbility() != null)
-						props.putByteArray("previouslyUsedAbility", WyHelper.serialize(instance.getPreviouslyUsedAbility()));
-
-					for (int i = 0; i < instance.getHotbarAbilities().length; i++)
-					{
-						Ability ability = instance.getHotbarAbilities()[i];
-						if (ability != null)
-							props.putString("hotbar_ability_" + i, ability.getName());
-					}
-
-					int i = 0;
-					for (Ability abl : instance.getAbilities())
-					{
-						props.putByteArray("ability_" + i, WyHelper.serialize(abl));
-						i++;
-					}
-					props.putInt("abilitiesOwned", i);
-				}
-				catch (IOException e)
-				{
-					e.printStackTrace();
-				}
 				
 				return props;
 			}
@@ -68,26 +39,6 @@ public class StandDataCapability
 				instance.setStand(props.getString("stand"));
 				
 				instance.setStandSummoned(props.getBoolean("hasStandSummoned"));
-				
-				try
-				{
-					instance.setPreviouslyUsedAbility((Ability) WyHelper.deserialize(props.getByteArray("previouslyUsedAbility")));
-
-					int total = props.getInt("abilitiesOwned");
-					
-					instance.clearAbilities();
-					for (int i = 0; i < total; i++)
-						instance.addAbility((Ability) WyHelper.deserialize(props.getByteArray("ability_" + i)));
-					
-					for (int i = 0; i < instance.getHotbarAbilities().length; i++)
-					{
-						instance.setAbilityInHotbar(i, instance.getAbility(props.getString("hotbar_ability_" + i)));
-					}
-				}
-				catch (ClassNotFoundException | IOException e)
-				{
-					e.printStackTrace();
-				}
 			}
 
 		}, StandDataBase::new);

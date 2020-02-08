@@ -5,17 +5,17 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
-import xyz.pixelatedw.bizarremod.Env;
-import xyz.pixelatedw.bizarremod.api.WyRegistry;
-import xyz.pixelatedw.bizarremod.api.json.models.item.JSONModelSimple3DItem;
 import xyz.pixelatedw.bizarremod.items.ItemStandArrow;
+import xyz.pixelatedw.wypi.APIConfig;
+import xyz.pixelatedw.wypi.WyRegistry;
+import xyz.pixelatedw.wypi.json.models.item.JSONModelSimple3DItem;
 
 public class ModItems
 {
 
 	public static Item STAND_ARROW = new ItemStandArrow();
 
-	@Mod.EventBusSubscriber(modid = Env.PROJECT_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+	@Mod.EventBusSubscriber(modid = APIConfig.PROJECT_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 	public static class Registry
 	{
 		

@@ -6,19 +6,21 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import xyz.pixelatedw.bizarremod.Env;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataBase;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataProvider;
+import xyz.pixelatedw.wypi.APIConfig;
+import xyz.pixelatedw.wypi.APIDefaults;
 
 public class ModCapabilities
 {
 	public static void init()
 	{
+		APIDefaults.initCapabilities();
 		StandDataCapability.register();
 	}
 
-	@Mod.EventBusSubscriber(modid = Env.PROJECT_ID)
+	@Mod.EventBusSubscriber(modid = APIConfig.PROJECT_ID)
 	public static class Registry
 	{
 		@SubscribeEvent
@@ -27,7 +29,7 @@ public class ModCapabilities
 			if(event.getObject() instanceof LivingEntity)
 			{
 				final StandDataBase abilityData = new StandDataBase();
-				event.addCapability(new ResourceLocation(Env.PROJECT_ID, "stand_data"), new StandDataProvider());
+				event.addCapability(new ResourceLocation(APIConfig.PROJECT_ID, "stand_data"), new StandDataProvider());
 			}
 		}
 	}

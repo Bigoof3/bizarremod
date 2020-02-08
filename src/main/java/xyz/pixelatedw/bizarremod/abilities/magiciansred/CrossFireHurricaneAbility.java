@@ -4,19 +4,21 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.TextFormatting;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
-import xyz.pixelatedw.bizarremod.api.abilities.Ability;
+import xyz.pixelatedw.bizarremod.api.abilities.IStandAbility;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.projectiles.AnkhEntity;
 import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
+import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
+import xyz.pixelatedw.wypi.abilities.Ability;
 
-public class CrossFireHurricaneAbility extends Ability
+public class CrossFireHurricaneAbility extends Ability implements IStandAbility
 {
 	public static final CrossFireHurricaneAbility INSTANCE = new CrossFireHurricaneAbility();
 	
 	public CrossFireHurricaneAbility()
 	{
-		super("Cross Fire Hurricane");
+		super("Cross Fire Hurricane", AbilityCategory.ALL);
 		this.setMaxCooldown(81);
 		
 		this.duringCooldownEvent = this::duringCooldownEvent;
@@ -36,7 +38,7 @@ public class CrossFireHurricaneAbility extends Ability
 	{
 		IStandData props = StandDataCapability.get(player);
 		StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
-		System.out.println("@@@");
+		
 		if(cooldown >= 60 && cooldown % 10 == 0)
 		{
 			AnkhEntity ankh = new AnkhEntity(player, player.world);

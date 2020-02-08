@@ -11,8 +11,8 @@ import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkEvent;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
-import xyz.pixelatedw.bizarremod.init.ModNetwork;
 import xyz.pixelatedw.bizarremod.packets.server.SSyncStandDataPacket;
+import xyz.pixelatedw.wypi.network.WyNetwork;
 
 public class CRequestSyncStandDataPacket
 {
@@ -42,7 +42,7 @@ public class CRequestSyncStandDataPacket
 				World world = player.world;
 				IStandData props = StandDataCapability.get(player);
 
-				ModNetwork.sendTo(new SSyncStandDataPacket(props), (ServerPlayerEntity) player);
+				WyNetwork.sendTo(new SSyncStandDataPacket(props), (ServerPlayerEntity) player);
 			});			
 		}
 		ctx.get().setPacketHandled(true);

@@ -18,19 +18,23 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.config.GuiUtils;
-import xyz.pixelatedw.bizarremod.Env;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
-import xyz.pixelatedw.bizarremod.api.WyHelper;
-import xyz.pixelatedw.bizarremod.api.WyRenderHelper;
-import xyz.pixelatedw.bizarremod.api.abilities.Ability;
-import xyz.pixelatedw.bizarremod.api.abilities.PassiveAbility;
+import xyz.pixelatedw.bizarremod.api.abilities.IStandAbility;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
 import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
-import xyz.pixelatedw.bizarremod.init.ModNetwork;
 import xyz.pixelatedw.bizarremod.packets.client.CSyncStandDataPacket;
+import xyz.pixelatedw.wypi.APIConfig;
+import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
+import xyz.pixelatedw.wypi.WyHelper;
+import xyz.pixelatedw.wypi.abilities.Ability;
+import xyz.pixelatedw.wypi.abilities.PassiveAbility;
+import xyz.pixelatedw.wypi.data.ability.AbilityDataCapability;
+import xyz.pixelatedw.wypi.data.ability.IAbilityData;
+import xyz.pixelatedw.wypi.network.WyNetwork;
+import xyz.pixelatedw.wypi.network.packets.client.CSyncAbilityDataPacket;
 
 @OnlyIn(Dist.CLIENT)
 public class StandSelectScreen extends Screen
@@ -67,7 +71,7 @@ public class StandSelectScreen extends Screen
 		GenericStandEntity stand = info.getStandEntity(this.player);
 		InventoryScreen.drawEntityOnScreen(posX + 0, posY + 190, 50, 0.0F, 0.0F, stand);
 		this.drawCenteredString(this.minecraft.fontRenderer, stand.getStandName(), posX, posY + 182, -1);
-		WyRenderHelper.drawIcon(this.getIcon(info), posX - 60, posY + 168, 32, 32);
+		WyHelper.drawIcon(this.getIcon(info), posX - 60, posY + 168, 32, 32);
 		// Stats section	
 		// #TODO The fancy stats circle would be cool, opengl style	
 		if(this.page == 0 && info.getAbilities() != null)
@@ -76,7 +80,7 @@ public class StandSelectScreen extends Screen
 			{
 				if(this.currentAbility == i)
 				{
-					Ability ability = info.getAbilities()[i];
+					IStandAbility ability = (IStandAbility) info.getAbilities()[i];
 					ability.renderDescription(this.minecraft.fontRenderer, posX, posY);
 				}
 			}
@@ -142,6 +146,7 @@ public class StandSelectScreen extends Screen
 		int posX = (this.width - 256) / 2;
 		int posY = (this.height - 256) / 2;
 		IStandData props = StandDataCapability.get(this.player);
+		IAbilityData abilityProps = AbilityDataCapability.get(this.player);
 		StandInfo info = (StandInfo) ModEntities.getRegisteredStands().values().toArray()[this.currentStand - 1];
 
 		if(this.currentAbility >= info.getAbilities().length)
@@ -164,14 +169,19 @@ public class StandSelectScreen extends Screen
 			props.setStand(currentInfo.getStandId());
 			
 			for(Ability abl : currentInfo.getAbilities())
-				props.addAbility(abl);
+				abilityProps.addUnlockedAbility(abl);
 
 			if(this.getActiveAbilities(currentInfo).size() >= 1)
-				props.setAbilityInHotbar(0, this.getActiveAbilities(currentInfo).get(0) != null ? this.getActiveAbilities(currentInfo).get(0) : null);
+				abilityProps.setEquippedAbility(0, this.getActiveAbilities(currentInfo).get(0) != null ? this.getActiveAbilities(currentInfo).get(0) : null);
 			if(this.getActiveAbilities(currentInfo).size() >= 2)
-				props.setAbilityInHotbar(1, this.getActiveAbilities(currentInfo).get(1) != null ? this.getActiveAbilities(currentInfo).get(1) : null);
+				abilityProps.setEquippedAbility(1, this.getActiveAbilities(currentInfo).get(1) != null ? this.getActiveAbilities(currentInfo).get(1) : null);
 			
-			ModNetwork.sendToServer(new CSyncStandDataPacket(props));
+			System.out.println(abilityProps.getEquippedAbility(0));
+			System.out.println(abilityProps.getEquippedAbility(1));
+			System.out.println(abilityProps.getUnlockedAbilities(AbilityCategory.ALL).size());
+			
+			WyNetwork.sendToServer(new CSyncStandDataPacket(props));
+			WyNetwork.sendToServer(new CSyncAbilityDataPacket(abilityProps));
 			Minecraft.getInstance().displayGuiScreen((Screen)null);
 		});
 				
@@ -258,7 +268,7 @@ public class StandSelectScreen extends Screen
 	
 	private ResourceLocation getIcon(StandInfo currentStandInfo)
 	{
-		return new ResourceLocation(Env.PROJECT_ID, "textures/ui/icons/" + currentStandInfo.getStandId() + ".png");
+		return new ResourceLocation(APIConfig.PROJECT_ID, "textures/ui/icons/" + currentStandInfo.getStandId() + ".png");
 	}
 	
 	private List<Ability> getActiveAbilities(StandInfo standInfo)

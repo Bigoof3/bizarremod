@@ -2,13 +2,15 @@ package xyz.pixelatedw.bizarremod.abilities.aerosmith;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.text.TextFormatting;
-import xyz.pixelatedw.bizarremod.api.abilities.Ability;
+import xyz.pixelatedw.bizarremod.api.abilities.IStandAbility;
+import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
+import xyz.pixelatedw.wypi.abilities.Ability;
 
-public class BombAbility extends Ability
+public class BombAbility extends Ability implements IStandAbility
 {
 	public BombAbility()
 	{
-		super("Bomb");
+		super("Bomb", AbilityCategory.ALL);
 	}
 
 	@Override

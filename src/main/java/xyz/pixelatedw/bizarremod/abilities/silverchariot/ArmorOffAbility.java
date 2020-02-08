@@ -4,18 +4,20 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.TextFormatting;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
-import xyz.pixelatedw.bizarremod.api.WyHelper;
-import xyz.pixelatedw.bizarremod.api.abilities.Ability;
+import xyz.pixelatedw.bizarremod.api.abilities.IStandAbility;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.stands.SilverChariotEntity;
 import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
+import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
+import xyz.pixelatedw.wypi.WyHelper;
+import xyz.pixelatedw.wypi.abilities.Ability;
 
-public class ArmorOffAbility extends Ability
+public class ArmorOffAbility extends Ability implements IStandAbility
 {
 	public ArmorOffAbility()
 	{
-		super("Armor Off");
+		super("Armor Off", AbilityCategory.ALL);
 		this.onUseEvent = this::onUseEvent;
 	}
 	
@@ -34,7 +36,7 @@ public class ArmorOffAbility extends Ability
 		IStandData props = StandDataCapability.get(player);
 		StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
 		
-		for(SilverChariotEntity entity : WyHelper.getNearbyEntities(player.getPosition(), player.world, 20, SilverChariotEntity.class))
+		for(SilverChariotEntity entity : WyHelper.getEntitiesNear(player.getPosition(), player.world, 20, SilverChariotEntity.class))
 		{
 			if(entity.getOwner() == player)
 			{

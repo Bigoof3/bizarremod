@@ -8,12 +8,14 @@ import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.projectiles.PunchEntity;
 import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
+import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
+import xyz.pixelatedw.wypi.abilities.Ability;
 
-public class PunchProjectileAbility extends Ability
+public class PunchProjectileAbility extends Ability implements IStandAbility
 {
 	public PunchProjectileAbility()
 	{
-		super("Punch");
+		super("Punch", AbilityCategory.ALL);
 		this.onUseEvent = this::onUseEvent;
 	}
 
@@ -42,7 +44,6 @@ public class PunchProjectileAbility extends Ability
 
 		player.world.addEntity(punch);
 		punch.shoot(player, player.rotationPitch, player.rotationYaw, 0, 2 + (info.getStandEntity(player).getSpeed() / 3), 4 - info.getStandEntity(player).getPrecision());
-		
 		return true;
 	}
 }

@@ -9,7 +9,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 import xyz.pixelatedw.bizarremod.Consts;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
-import xyz.pixelatedw.bizarremod.api.WyRegistry;
 import xyz.pixelatedw.bizarremod.entities.projectiles.AnkhEntity;
 import xyz.pixelatedw.bizarremod.entities.projectiles.BulletEntity;
 import xyz.pixelatedw.bizarremod.entities.projectiles.PunchEntity;
@@ -21,6 +20,7 @@ import xyz.pixelatedw.bizarremod.entities.stands.MagiciansRedEntity;
 import xyz.pixelatedw.bizarremod.entities.stands.MagiciansRedEntity.MagiciansRedStandInfo;
 import xyz.pixelatedw.bizarremod.entities.stands.SilverChariotEntity;
 import xyz.pixelatedw.bizarremod.entities.stands.SilverChariotEntity.SilverChariotStandInfo;
+import xyz.pixelatedw.wypi.WyRegistry;
 
 public class ModEntities
 {

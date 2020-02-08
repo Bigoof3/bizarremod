@@ -3,8 +3,8 @@ package xyz.pixelatedw.bizarremod.particles.effects;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import xyz.pixelatedw.bizarremod.api.WyHelper;
 import xyz.pixelatedw.bizarremod.particles.data.GenericParticleData;
+import xyz.pixelatedw.wypi.WyHelper;
 
 public class RedBindEffect extends ParticleEffect
 {

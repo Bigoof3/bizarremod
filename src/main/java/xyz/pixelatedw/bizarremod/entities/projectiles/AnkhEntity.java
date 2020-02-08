@@ -10,8 +10,8 @@ import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
-import xyz.pixelatedw.bizarremod.api.WyHelper;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
+import xyz.pixelatedw.wypi.WyHelper;
 
 public class AnkhEntity extends StandProjectileEntity
 {

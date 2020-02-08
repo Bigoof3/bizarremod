@@ -8,23 +8,25 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import xyz.pixelatedw.bizarremod.api.WyHelper;
-import xyz.pixelatedw.bizarremod.api.abilities.PassiveAbility;
+import xyz.pixelatedw.bizarremod.api.abilities.IStandAbility;
 import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
 import xyz.pixelatedw.bizarremod.init.ModPotionEffects;
+import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
+import xyz.pixelatedw.wypi.WyHelper;
+import xyz.pixelatedw.wypi.abilities.PassiveAbility;
 
-public class MoldInfestationAbility extends PassiveAbility
+public class MoldInfestationAbility extends PassiveAbility implements IStandAbility
 {
 
 	public MoldInfestationAbility()
 	{
-		super("Mold Infestation");
+		super("Mold Infestation", AbilityCategory.ALL);
 	}
 		
 	@Override
 	public void tick(PlayerEntity user)
 	{
-		for(LivingEntity entity : WyHelper.getNearbyEntities(user.getPosition(), user.world, 50, LivingEntity.class))
+		for(LivingEntity entity : WyHelper.getEntitiesNear(user.getPosition(), user.world, 50, LivingEntity.class))
 		{
 			if(entity instanceof GenericStandEntity || entity == user)
 				continue;

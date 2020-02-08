@@ -10,8 +10,8 @@ import xyz.pixelatedw.bizarremod.abilities.silverchariot.ArmorOffAbility;
 import xyz.pixelatedw.bizarremod.abilities.silverchariot.RapierStabAbility;
 import xyz.pixelatedw.bizarremod.abilities.silverchariot.ShootingSwordAbility;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
-import xyz.pixelatedw.bizarremod.api.abilities.Ability;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
+import xyz.pixelatedw.wypi.abilities.Ability;
 
 public class SilverChariotEntity extends GenericStandEntity
 {

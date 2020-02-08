@@ -7,15 +7,17 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.TextFormatting;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
-import xyz.pixelatedw.bizarremod.api.WyHelper;
-import xyz.pixelatedw.bizarremod.api.abilities.ContinuousAbility;
+import xyz.pixelatedw.bizarremod.api.abilities.IStandAbility;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
 import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
 import xyz.pixelatedw.bizarremod.particles.effects.RedBindEffect;
+import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
+import xyz.pixelatedw.wypi.WyHelper;
+import xyz.pixelatedw.wypi.abilities.ContinuousAbility;
 
-public class RedBindAbility extends ContinuousAbility
+public class RedBindAbility extends ContinuousAbility implements IStandAbility
 {
 	public static final RedBindAbility INSTANCE = new RedBindAbility();
 
@@ -23,7 +25,7 @@ public class RedBindAbility extends ContinuousAbility
 	
 	public RedBindAbility()
 	{
-		super("Red Bind");
+		super("Red Bind", AbilityCategory.ALL);
 		this.setMaxCooldown(30);
 		this.setThreshold(20);
 
@@ -47,7 +49,7 @@ public class RedBindAbility extends ContinuousAbility
 		IStandData props = StandDataCapability.get(player);
 		StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
 
-		List<LivingEntity> list = WyHelper.getNearbyEntities(player.getPosition(), player.world, 10, LivingEntity.class);
+		List<LivingEntity> list = WyHelper.getEntitiesNear(player.getPosition(), player.world, 10, LivingEntity.class);
 		list.remove(player);
 		list.removeIf(entity -> entity instanceof GenericStandEntity);
 

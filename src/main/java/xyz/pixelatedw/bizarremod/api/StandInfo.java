@@ -1,8 +1,8 @@
 package xyz.pixelatedw.bizarremod.api;
 
 import net.minecraft.entity.player.PlayerEntity;
-import xyz.pixelatedw.bizarremod.api.abilities.Ability;
 import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
+import xyz.pixelatedw.wypi.abilities.Ability;
 
 public abstract class StandInfo
 {

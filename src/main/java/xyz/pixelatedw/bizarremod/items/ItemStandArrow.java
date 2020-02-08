@@ -14,12 +14,12 @@ import net.minecraft.world.World;
 import xyz.pixelatedw.bizarremod.Consts;
 import xyz.pixelatedw.bizarremod.ModMain;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
-import xyz.pixelatedw.bizarremod.api.WyHelper;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
-import xyz.pixelatedw.bizarremod.init.ModNetwork;
 import xyz.pixelatedw.bizarremod.packets.server.SSyncStandDataPacket;
+import xyz.pixelatedw.wypi.WyHelper;
+import xyz.pixelatedw.wypi.network.WyNetwork;
 
 public class ItemStandArrow extends Item
 {
@@ -48,7 +48,7 @@ public class ItemStandArrow extends Item
 				props.setStand(info.getStandId());
 				player.getHeldItem(hand).setCount(0);
 				
-				ModNetwork.sendTo(new SSyncStandDataPacket(props), (ServerPlayerEntity)player);
+				WyNetwork.sendTo(new SSyncStandDataPacket(props), (ServerPlayerEntity)player);
 			}
 			
 			return new ActionResult<>(ActionResultType.SUCCESS, player.getHeldItem(hand));

@@ -10,8 +10,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
-import xyz.pixelatedw.bizarremod.Env;
 import xyz.pixelatedw.bizarremod.entities.projectiles.StandProjectileEntity;
+import xyz.pixelatedw.wypi.APIConfig;
 
 @OnlyIn(Dist.CLIENT)
 public class GenericProjectileRenderer extends EntityRenderer<Entity>
@@ -54,7 +54,7 @@ public class GenericProjectileRenderer extends EntityRenderer<Entity>
 	@Override
 	protected ResourceLocation getEntityTexture(Entity entity)
 	{
-		return new ResourceLocation(Env.PROJECT_ID, "textures/models/stands/projectiles/" + this.texture + ".png");
+		return new ResourceLocation(APIConfig.PROJECT_ID, "textures/models/stands/projectiles/" + this.texture + ".png");
 	}
 
 	public static class Factory implements IRenderFactory<StandProjectileEntity>

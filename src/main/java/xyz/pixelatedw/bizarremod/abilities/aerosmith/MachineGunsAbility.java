@@ -4,17 +4,19 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.TextFormatting;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
-import xyz.pixelatedw.bizarremod.api.abilities.Ability;
+import xyz.pixelatedw.bizarremod.api.abilities.IStandAbility;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.projectiles.BulletEntity;
 import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
+import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
+import xyz.pixelatedw.wypi.abilities.Ability;
 
-public class MachineGunsAbility extends Ability
+public class MachineGunsAbility extends Ability implements IStandAbility
 {
 	public MachineGunsAbility()
 	{
-		super("Machine Guns");
+		super("Machine Guns", AbilityCategory.ALL);
 		this.setMaxCooldown(100);
 		
 		this.duringCooldownEvent = this::duringCooldownEvent;

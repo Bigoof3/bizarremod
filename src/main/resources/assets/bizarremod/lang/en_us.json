@@ -1,4 +1,7 @@
 {
+	"ability.item.another_item_in_hand": "Cannot equip while holding another item in hand!",
+	"ability.item.empty_stack": "Cannot equip because it's an empty stack!",
+
 	"effect.bizarremod.green_day_mold": "Green Day Mold",
 
 	"entity.bizarremod.aerosmith": "Aerosmith",

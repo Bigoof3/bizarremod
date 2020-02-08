@@ -6,9 +6,9 @@ import xyz.pixelatedw.bizarremod.Consts;
 import xyz.pixelatedw.bizarremod.abilities.magiciansred.CrossFireHurricaneAbility;
 import xyz.pixelatedw.bizarremod.abilities.magiciansred.RedBindAbility;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
-import xyz.pixelatedw.bizarremod.api.abilities.Ability;
 import xyz.pixelatedw.bizarremod.api.abilities.PunchProjectileAbility;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
+import xyz.pixelatedw.wypi.abilities.Ability;
 
 public class MagiciansRedEntity extends GenericStandEntity
 {

@@ -6,62 +6,15 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import xyz.pixelatedw.bizarremod.Env;
-import xyz.pixelatedw.bizarremod.api.StandInfo;
-import xyz.pixelatedw.bizarremod.api.abilities.Ability;
-import xyz.pixelatedw.bizarremod.api.abilities.ChargeableAbility;
-import xyz.pixelatedw.bizarremod.api.abilities.ContinuousAbility;
-import xyz.pixelatedw.bizarremod.api.abilities.PassiveAbility;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
-import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
+import xyz.pixelatedw.wypi.APIConfig;
 
-@Mod.EventBusSubscriber(modid = Env.PROJECT_ID)
+@Mod.EventBusSubscriber(modid = APIConfig.PROJECT_ID)
 public class StandAbilitiesEvents
 {
-
-	@SubscribeEvent
-	public static void onLivingUpdate(LivingUpdateEvent event)
-	{
-		if (event.getEntityLiving() instanceof PlayerEntity)
-		{
-			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-			IStandData props = StandDataCapability.get(player);
-
-			if (!props.hasStandSummoned())
-				return;
-
-			StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
-
-			if (info.getAbilities() == null || info.getAbilities().length <= 0)
-				return;
-			
-			for (Ability ability : props.getAbilities())
-			{
-				if (ability instanceof PassiveAbility)
-					((PassiveAbility) props.getAbility(ability)).tick(player);
-			}
-
-			for (Ability ability : props.getHotbarAbilities())
-			{
-				if (ability == null)
-					continue;
-
-				if (ability instanceof ChargeableAbility && ability.isCharging())
-					((ChargeableAbility) props.getAbility(ability)).charging(player);
-
-				if (ability instanceof ContinuousAbility && ability.isContinuous())
-					((ContinuousAbility) props.getAbility(ability)).tick(player);
-				
-				if (ability.isOnCooldown())
-					props.getAbility(ability).cooldown(player);
-			}
-		}
-	}
-
 	@SuppressWarnings("resource")
 	@SubscribeEvent
 	public static void onRenderUI(RenderGameOverlayEvent.Pre event)
