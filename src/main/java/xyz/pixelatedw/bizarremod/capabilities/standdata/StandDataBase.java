@@ -1,13 +1,10 @@
 package xyz.pixelatedw.bizarremod.capabilities.standdata;
 
-import xyz.pixelatedw.bizarremod.abilities.Ability;
-
 public class StandDataBase implements IStandData
 {
 
 	private String stand = "";
 	private boolean hasStandSummoned = false;
-	private Ability primaryAbility, secondaryAbility;
 	
 	@Override
 	public boolean hasStandSummoned()
@@ -32,29 +29,4 @@ public class StandDataBase implements IStandData
 	{
 		this.stand = standName;
 	}
-
-	@Override
-	public Ability getPrimaryAbility()
-	{
-		return this.primaryAbility;
-	}
-
-	@Override
-	public void setPrimaryAbility(Ability ability)
-	{
-		this.primaryAbility = ability;
-	}
-
-	@Override
-	public Ability getSecondaryAbility()
-	{
-		return this.secondaryAbility;
-	}
-
-	@Override
-	public void setSecondaryAbility(Ability ability)
-	{
-		this.secondaryAbility = ability;
-	}
-
 }

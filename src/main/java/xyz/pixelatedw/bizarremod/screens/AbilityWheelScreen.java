@@ -1,6 +1,5 @@
 package xyz.pixelatedw.bizarremod.screens;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,16 +11,18 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import xyz.pixelatedw.bizarremod.abilities.Ability;
-import xyz.pixelatedw.bizarremod.abilities.PassiveAbility;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
-import xyz.pixelatedw.bizarremod.api.WyHelper;
-import xyz.pixelatedw.bizarremod.api.WyRenderHelper;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
-import xyz.pixelatedw.bizarremod.init.ModNetwork;
-import xyz.pixelatedw.bizarremod.packets.client.CSyncStandDataPacket;
+import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
+import xyz.pixelatedw.wypi.WyHelper;
+import xyz.pixelatedw.wypi.abilities.Ability;
+import xyz.pixelatedw.wypi.abilities.PassiveAbility;
+import xyz.pixelatedw.wypi.data.ability.AbilityDataCapability;
+import xyz.pixelatedw.wypi.data.ability.IAbilityData;
+import xyz.pixelatedw.wypi.network.WyNetwork;
+import xyz.pixelatedw.wypi.network.packets.client.CSyncAbilityDataPacket;
 
 @OnlyIn(Dist.CLIENT)
 public class AbilityWheelScreen extends Screen
@@ -30,6 +31,7 @@ public class AbilityWheelScreen extends Screen
 	private PlayerEntity player;
 	private final StandInfo standInfo;
 	private final IStandData standProps;
+	private final IAbilityData abilityProps;
 	private String hoveredAbilityName;
 	private Ability currentPrimaryAbility, currentSecondaryAbility;
 
@@ -41,9 +43,11 @@ public class AbilityWheelScreen extends Screen
 
 		this.standProps = StandDataCapability.get(this.player);
 		this.standInfo = StandLogicHelper.getStandInfo(this.standProps.getStand());
-				
-		this.currentPrimaryAbility = this.standProps.getPrimaryAbility();
-		this.currentSecondaryAbility = this.standProps.getSecondaryAbility();	
+
+		this.abilityProps = AbilityDataCapability.get(this.player);		
+		
+		this.currentPrimaryAbility = this.abilityProps.getEquippedAbility(0);
+		this.currentSecondaryAbility = this.abilityProps.getEquippedAbility(1);	
 	}
 
 	@Override
@@ -55,9 +59,9 @@ public class AbilityWheelScreen extends Screen
 		int posY = this.height / 2;
 
 		if(this.getActiveAbilities().size() > 0)
-			WyRenderHelper.drawCenteredString(this.minecraft.fontRenderer, WyHelper.isNullOrEmpty(this.hoveredAbilityName) ? "" : this.hoveredAbilityName, posX, posY - 20, -1);
+			WyHelper.drawCenteredString(this.minecraft.fontRenderer, WyHelper.isNullOrEmpty(this.hoveredAbilityName) ? "" : this.hoveredAbilityName, posX, posY - 20, -1);
 		else
-			WyRenderHelper.drawCenteredString(this.minecraft.fontRenderer, "No active Abilities available", posX, posY - 20, -1);
+			WyHelper.drawCenteredString(this.minecraft.fontRenderer, "No active Abilities available", posX, posY - 20, -1);
 
 		super.render(x, y, f);
 	}
@@ -88,15 +92,18 @@ public class AbilityWheelScreen extends Screen
 				if (x == 0 && y == 0)
 					continue;
 
-				this.addButton(new AbilityButton((posX + 95) + x, (posY + 95) + y, this.getActiveAbilities().get(i), this.standProps,
+				this.addButton(new AbilityButton((posX + 95) + x, (posY + 95) + y, this.getActiveAbilities().get(i), this.abilityProps,
 						(button, type) ->
 						{
-							if(type == 0 && (this.standProps.getSecondaryAbility() == null || !this.standProps.getSecondaryAbility().getName().equalsIgnoreCase(button.ability.getName())))
-								this.standProps.setPrimaryAbility(button.ability);
-							else if(type == 1 && (this.standProps.getPrimaryAbility() == null || !this.standProps.getPrimaryAbility().getName().equalsIgnoreCase(button.ability.getName())))
-								this.standProps.setSecondaryAbility(button.ability);
+							Ability first = this.abilityProps.getEquippedAbility(0);
+							Ability second = this.abilityProps.getEquippedAbility(1);
 							
-							ModNetwork.sendToServer(new CSyncStandDataPacket(this.standProps));
+							if(type == 0 && (second == null || !second.equals(button.ability)))
+								this.abilityProps.setEquippedAbility(0, button.ability);
+							else if(type == 1 && (first == null || !first.equals(button.ability)))
+								this.abilityProps.setEquippedAbility(1, button.ability);
+
+							WyNetwork.sendToServer(new CSyncAbilityDataPacket(this.abilityProps));
 						}, 
 						(ability) -> 
 						{
@@ -111,10 +118,10 @@ public class AbilityWheelScreen extends Screen
 	@Override
 	public void tick()
 	{
-		if(this.currentPrimaryAbility != this.standProps.getPrimaryAbility())
+		if(this.currentPrimaryAbility != this.abilityProps.getEquippedAbility(0))
 			Minecraft.getInstance().displayGuiScreen((Screen)null);
 		
-		if(this.currentSecondaryAbility != this.standProps.getSecondaryAbility())
+		if(this.currentSecondaryAbility != this.abilityProps.getEquippedAbility(1))
 			Minecraft.getInstance().displayGuiScreen((Screen)null);
 	}
 
@@ -126,6 +133,6 @@ public class AbilityWheelScreen extends Screen
 
 	private List<Ability> getActiveAbilities()
 	{
-		return Arrays.stream(this.standInfo.getAbilities()).parallel().filter(ability -> !(ability instanceof PassiveAbility)).collect(Collectors.toList());
+		return this.abilityProps.getUnlockedAbilities(AbilityCategory.ALL).parallelStream().filter(ability -> !(ability instanceof PassiveAbility)).collect(Collectors.toList());
 	}
 }

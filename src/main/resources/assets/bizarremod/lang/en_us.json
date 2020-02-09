@@ -1,13 +1,28 @@
 {
+	"ability.bizarremod.armor_off": "Armor Off",
+	"ability.bizarremod.bomb": "Bomb",
+	"ability.bizarremod.carbon_dioxide_radar": "Carbon Dioxide Radar",
+	"ability.bizarremod.cross_fire_hurricane": "Cross Fire Hurricane",
+	"ability.bizarremod.machine_guns": "Machine Guns",
+	"ability.bizarremod.mold_infestation": "Mold Infestation",
+	"ability.bizarremod.punch": "Punch",
+	"ability.bizarremod.rapier_stab": "Rapier Stab",
+	"ability.bizarremod.red_bind": "Red Bind",
+	"ability.bizarremod.shooting_sword": "Shooting Sword",
+	"ability.item.another_item_in_hand": "Cannot equip while holding another item in hand!",
+	"ability.item.empty_stack": "Cannot equip because it's an empty stack!",
+
 	"effect.bizarremod.green_day_mold": "Green Day Mold",
 
 	"entity.bizarremod.aerosmith": "Aerosmith",
 	"entity.bizarremod.ankh": "Ankh",
+	"entity.bizarremod.bomb": "Bomb",
 	"entity.bizarremod.bullet": "Bullet",
 	"entity.bizarremod.green_day": "Green Day",
 	"entity.bizarremod.magicians_red": "Magicians Red",
 	"entity.bizarremod.punch": "Punch",
 	"entity.bizarremod.silver_chariot": "Silver Chariot",
 
+	"item.bizarremod.silver_chariots_rapier": "Silver Chariot's Rapier",
 	"item.bizarremod.stand_arrow": "Stand Arrow"
 }

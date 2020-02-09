@@ -1,49 +1,35 @@
 package xyz.pixelatedw.bizarremod.packets.client;
 
-import java.io.IOException;
 import java.util.function.Supplier;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkEvent;
-import xyz.pixelatedw.bizarremod.abilities.Ability;
-import xyz.pixelatedw.bizarremod.api.WyHelper;
+import xyz.pixelatedw.wypi.abilities.Ability;
+import xyz.pixelatedw.wypi.data.ability.AbilityDataCapability;
+import xyz.pixelatedw.wypi.data.ability.IAbilityData;
 
 public class CUseAbilityPacket
 {
-	private Ability ability;
+	private int slot;
 	
 	public CUseAbilityPacket() {}
 	
-	public CUseAbilityPacket(Ability ability)
+	public CUseAbilityPacket(int slot)
 	{
-		this.ability = ability;
+		this.slot = slot;
 	}
 
 	public void encode(PacketBuffer buffer)
 	{
-		try
-		{
-			buffer.writeByteArray(WyHelper.serialize(this.ability));
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
+		buffer.writeInt(this.slot);
 	}
 	
 	public static CUseAbilityPacket decode(PacketBuffer buffer)
 	{
 		CUseAbilityPacket msg = new CUseAbilityPacket();
-		try
-		{
-			msg.ability = (Ability) WyHelper.deserialize(buffer.readByteArray());
-		}
-		catch (ClassNotFoundException | IOException e)
-		{
-			e.printStackTrace();
-		}
+		msg.slot = buffer.readInt();
 		return msg;
 	}
 
@@ -54,8 +40,12 @@ public class CUseAbilityPacket
 			ctx.get().enqueueWork(() ->
 			{
 				PlayerEntity player = ctx.get().getSender();
+				IAbilityData abilityProps = AbilityDataCapability.get(player);
 
-				message.ability.use(player);
+				Ability abl = abilityProps.getEquippedAbility(message.slot);
+				
+				if(abl != null)
+					abl.use(player);
 			});			
 		}
 		ctx.get().setPacketHandled(true);

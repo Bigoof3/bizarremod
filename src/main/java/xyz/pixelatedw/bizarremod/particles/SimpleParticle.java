@@ -20,8 +20,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import xyz.pixelatedw.bizarremod.api.WyHelper;
 import xyz.pixelatedw.bizarremod.particles.data.GenericParticleData;
+import xyz.pixelatedw.wypi.WyHelper;
 
 @OnlyIn(Dist.CLIENT)
 public class SimpleParticle extends TexturedParticle

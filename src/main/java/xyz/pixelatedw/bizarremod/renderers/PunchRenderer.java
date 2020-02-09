@@ -8,12 +8,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
-import xyz.pixelatedw.bizarremod.Env;
-import xyz.pixelatedw.bizarremod.entities.projectiles.StandProjectileEntity;
+import xyz.pixelatedw.bizarremod.entities.projectiles.PunchEntity;
 import xyz.pixelatedw.bizarremod.models.FistModel;
+import xyz.pixelatedw.wypi.APIConfig;
 
 @OnlyIn(Dist.CLIENT)
-public class PunchRenderer extends EntityRenderer<StandProjectileEntity>
+public class PunchRenderer extends EntityRenderer<PunchEntity>
 {
 	private FistModel punch = new FistModel();
 
@@ -23,7 +23,7 @@ public class PunchRenderer extends EntityRenderer<StandProjectileEntity>
 	}
 
 	@Override
-	public void doRender(StandProjectileEntity entity, double x, double y, double z, float entityYaw, float partialTicks)
+	public void doRender(PunchEntity entity, double x, double y, double z, float entityYaw, float partialTicks)
 	{
 		GlStateManager.color4f(1, 1, 1, 1);
 		GlStateManager.pushMatrix();
@@ -46,15 +46,15 @@ public class PunchRenderer extends EntityRenderer<StandProjectileEntity>
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(StandProjectileEntity entity)
+	protected ResourceLocation getEntityTexture(PunchEntity entity)
 	{
-		return new ResourceLocation(Env.PROJECT_ID, "textures/models/stands/punches/" + entity.getTexture() + ".png");
+		return new ResourceLocation(APIConfig.PROJECT_ID, "textures/models/stands/punches/" + entity.getTexture() + ".png");
 	}
 
-	public static class Factory implements IRenderFactory<StandProjectileEntity>
+	public static class Factory implements IRenderFactory<PunchEntity>
 	{
 		@Override
-		public EntityRenderer<? super StandProjectileEntity> createRenderFor(EntityRendererManager manager)
+		public EntityRenderer<? super PunchEntity> createRenderFor(EntityRendererManager manager)
 		{
 			return new PunchRenderer(manager);
 		}

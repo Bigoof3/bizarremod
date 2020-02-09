@@ -1,18 +1,18 @@
 {
 	"parent": "item/generated",
 	"textures": {
-		"layer0": "bizarremod:items/standarrow"
+		"layer0": "bizarremod:items/stand_arrow"
 	},
 	"display": {
 		"thirdperson_righthand": {
 			"rotation": [ 0.0, -90.0, 55.0 ],
             "translation": [ 0.0, 2.0, -0.1 ],
-            "scale": [ 0.7, 0.7, 0.7 ]
+            "scale": [ 0.8, 0.8, 0.8 ]
         },
         "thirdperson_lefthand": {
 			"rotation": [ 0.0, -90.0, 55.0 ],
             "translation": [ 0.0, 2.0, -0.1 ],
-            "scale": [ 0.7, 0.7, 0.7 ]
+            "scale": [ 0.8, 0.8, 0.8 ]
         },
         "firstperson_righthand": {
 			"rotation": [ 0.0, -90.0, 40.0 ],

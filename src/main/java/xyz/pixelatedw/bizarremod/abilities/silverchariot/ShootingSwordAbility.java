@@ -2,21 +2,17 @@ package xyz.pixelatedw.bizarremod.abilities.silverchariot;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.text.TextFormatting;
-import xyz.pixelatedw.bizarremod.abilities.Ability;
+import xyz.pixelatedw.bizarremod.api.abilities.IStandAbility;
+import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
+import xyz.pixelatedw.wypi.abilities.Ability;
 
-public class ShootingSwordAbility extends Ability
+public class ShootingSwordAbility extends Ability implements IStandAbility
 {
 	public ShootingSwordAbility()
 	{
-		
+		super("Shooting Sword", AbilityCategory.ALL);
 	}
 	
-	@Override
-	public String getName()
-	{
-		return "Shooting Sword";
-	}
-
 	@Override
 	public void renderDescription(FontRenderer fontObj, int posX, int posY)
 	{

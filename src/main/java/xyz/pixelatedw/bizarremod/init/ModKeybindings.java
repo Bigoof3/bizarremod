@@ -13,27 +13,29 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import xyz.pixelatedw.bizarremod.Consts;
-import xyz.pixelatedw.bizarremod.Env;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.packets.client.CStandControlPacket;
 import xyz.pixelatedw.bizarremod.packets.client.CUseAbilityPacket;
 import xyz.pixelatedw.bizarremod.screens.AbilityWheelScreen;
+import xyz.pixelatedw.wypi.APIConfig;
+import xyz.pixelatedw.wypi.abilities.Ability;
+import xyz.pixelatedw.wypi.data.ability.AbilityDataCapability;
+import xyz.pixelatedw.wypi.data.ability.IAbilityData;
+import xyz.pixelatedw.wypi.network.WyNetwork;
 
-@Mod.EventBusSubscriber(modid = Env.PROJECT_ID)
+@Mod.EventBusSubscriber(modid = APIConfig.PROJECT_ID)
 public class ModKeybindings
 {
-
-	public static KeyBinding standControl;
-	public static KeyBinding abilityWheel;
+	private static ModKeybindings instance;
+	
+	public static final KeyBinding STAND_CONTROL = new KeyBinding(Consts.CONTROLS_KEY_STAND_CONTROL, GLFW.GLFW_KEY_Z, Consts.CONTROLS_CATEGORY);
+	public static final KeyBinding ABILITY_WHEEL = new KeyBinding(Consts.CONTROLS_KEY_ABILITY_WHEEL, GLFW.GLFW_KEY_R, Consts.CONTROLS_CATEGORY);
 
 	public static void init()
 	{
-		standControl = new KeyBinding(Consts.CONTROLS_KEY_STAND_CONTROL, GLFW.GLFW_KEY_Z, Consts.CONTROLS_CATEGORY);
-		ClientRegistry.registerKeyBinding(standControl);
-		
-		abilityWheel = new KeyBinding(Consts.CONTROLS_KEY_ABILITY_WHEEL, GLFW.GLFW_KEY_X, Consts.CONTROLS_CATEGORY);
-		ClientRegistry.registerKeyBinding(abilityWheel);
+		ClientRegistry.registerKeyBinding(STAND_CONTROL);	
+		ClientRegistry.registerKeyBinding(ABILITY_WHEEL);
 	}
 
 	@SubscribeEvent
@@ -46,11 +48,12 @@ public class ModKeybindings
 		
 		World world = Minecraft.getInstance().world;
 		IStandData props = StandDataCapability.get(player);
+		IAbilityData abilityProps = AbilityDataCapability.get(player);
 		
-		if (standControl.isPressed())
-			ModNetwork.sendToServer(new CStandControlPacket());
+		if (STAND_CONTROL.isPressed())
+			WyNetwork.sendToServer(new CStandControlPacket());
 				
-		if (abilityWheel.isPressed() && props.hasStandSummoned())
+		if (ABILITY_WHEEL.isPressed() && props.hasStandSummoned())
 			Minecraft.getInstance().displayGuiScreen(new AbilityWheelScreen());
 	}
 	
@@ -65,19 +68,17 @@ public class ModKeybindings
 		World world = Minecraft.getInstance().world;
 		ItemStack heldItem = player.getHeldItemMainhand();
 		IStandData props = StandDataCapability.get(player);
-
-		if(event.getAction() == GLFW.GLFW_PRESS && heldItem.isEmpty() && !Minecraft.getInstance().isGamePaused() && Minecraft.getInstance().currentScreen == null)
+		IAbilityData abilityProps = AbilityDataCapability.get(player);
+		
+		if(event.getAction() == GLFW.GLFW_PRESS && heldItem.isEmpty() && !Minecraft.getInstance().isGamePaused() && Minecraft.getInstance().currentScreen == null && props.hasStandSummoned())
 		{
-			if(event.getButton() == 0 && props.getPrimaryAbility() != null)
-			{
-				ModNetwork.sendToServer(new CUseAbilityPacket(props.getPrimaryAbility()));
-				props.getPrimaryAbility().use(player);
-			}
-			else if(event.getButton() == 1 && props.getSecondaryAbility() != null)
-			{
-				ModNetwork.sendToServer(new CUseAbilityPacket(props.getSecondaryAbility()));
-				props.getSecondaryAbility().use(player);
-			}
+			Ability first = abilityProps.getEquippedAbility(0);
+			Ability second = abilityProps.getEquippedAbility(1);
+
+			if(event.getButton() == 0 && first != null)
+				WyNetwork.sendToServer(new CUseAbilityPacket(0));
+			else if(event.getButton() == 1 && second != null)
+				WyNetwork.sendToServer(new CUseAbilityPacket(1));
 		}
 	}
 }

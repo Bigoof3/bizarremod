@@ -1,18 +1,19 @@
 package xyz.pixelatedw.bizarremod.entities.projectiles;
 
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
+import xyz.pixelatedw.wypi.abilities.projectiles.AbilityProjectileEntity;
 
-public class BulletEntity extends StandProjectileEntity
+public class BulletEntity extends AbilityProjectileEntity
 {
 	public BulletEntity(World world)
 	{
 		super(ModEntities.BULLET, world);
 	}
 
-	public BulletEntity(LivingEntity livingEntity, World world)
+	public BulletEntity(PlayerEntity player, World world)
 	{
-		super(ModEntities.BULLET, livingEntity, world);
+		super(ModEntities.BULLET, world, player);
 	}
 }

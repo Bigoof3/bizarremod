@@ -1,7 +1,5 @@
 package xyz.pixelatedw.bizarremod.capabilities.standdata;
 
-import java.io.IOException;
-
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
@@ -9,8 +7,6 @@ import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-import xyz.pixelatedw.bizarremod.abilities.Ability;
-import xyz.pixelatedw.bizarremod.api.WyHelper;
 
 public class StandDataCapability
 {
@@ -31,18 +27,6 @@ public class StandDataCapability
 				props.putString("stand", instance.getStand());
 				
 				props.putBoolean("hasStandSummoned", instance.hasStandSummoned());
-
-				try
-				{
-					if(instance.getPrimaryAbility() != null)
-						props.putByteArray("primaryAbility", WyHelper.serialize(instance.getPrimaryAbility()));
-					if(instance.getSecondaryAbility() != null)
-						props.putByteArray("secondaryAbility", WyHelper.serialize(instance.getSecondaryAbility()));
-				}
-				catch (IOException e)
-				{
-					e.printStackTrace();
-				}
 				
 				return props;
 			}
@@ -55,18 +39,6 @@ public class StandDataCapability
 				instance.setStand(props.getString("stand"));
 				
 				instance.setStandSummoned(props.getBoolean("hasStandSummoned"));
-				
-				try
-				{
-					if(props.getByteArray("primaryAbility").length > 5)
-						instance.setPrimaryAbility((Ability) WyHelper.deserialize(props.getByteArray("primaryAbility")));
-					if(props.getByteArray("secondaryAbility").length > 5)
-						instance.setSecondaryAbility((Ability) WyHelper.deserialize(props.getByteArray("secondaryAbility")));
-				}
-				catch (ClassNotFoundException | IOException e)
-				{
-					e.printStackTrace();
-				}
 			}
 
 		}, StandDataBase::new);
@@ -77,4 +49,5 @@ public class StandDataCapability
 	{
 		return entity.getCapability(INSTANCE, null).orElse(new StandDataBase());
 	}
+	
 }

@@ -9,15 +9,15 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkEvent;
 import xyz.pixelatedw.bizarremod.ModMain;
-import xyz.pixelatedw.bizarremod.api.WyHelper;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
-import xyz.pixelatedw.bizarremod.init.ModNetwork;
 import xyz.pixelatedw.bizarremod.init.ModParticleEffects;
 import xyz.pixelatedw.bizarremod.packets.server.SStandExistencePacket;
 import xyz.pixelatedw.bizarremod.packets.server.SSyncStandDataPacket;
+import xyz.pixelatedw.wypi.WyHelper;
+import xyz.pixelatedw.wypi.network.WyNetwork;
 
 public class CStandControlPacket
 {	
@@ -56,13 +56,13 @@ public class CStandControlPacket
 					world.addEntity(stand);
 					ModParticleEffects.SUMMON_STAND.spawn(world, stand.posX, stand.posY + 0.7, stand.posZ, 0, 0, 0);
 					
-					ModNetwork.sendToAll(new SStandExistencePacket(player.getUniqueID(), stand.getEntityId()));
+					WyNetwork.sendToAll(new SStandExistencePacket(player.getUniqueID(), stand.getEntityId()));
 				}
 				else
 				{
 					try
 					{
-						GenericStandEntity target = WyHelper.<GenericStandEntity>getNearbyEntities(player.getPosition(), player.world, 5, GenericStandEntity.class).get(0);
+						GenericStandEntity target = WyHelper.<GenericStandEntity>getEntitiesNear(player.getPosition(), player.world, 5, GenericStandEntity.class).get(0);
 						
 						if(target.getOwner() == player)
 						{
@@ -78,7 +78,7 @@ public class CStandControlPacket
 					}
 				}
 				
-				ModNetwork.sendTo(new SSyncStandDataPacket(props), (ServerPlayerEntity)player);
+				WyNetwork.sendTo(new SSyncStandDataPacket(props), (ServerPlayerEntity)player);
 			});			
 		}
 		ctx.get().setPacketHandled(true);

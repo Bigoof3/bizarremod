@@ -6,10 +6,6 @@ public class Consts
 	public static final int
 	
 	GUI_CREATIVE_STAND_SELECT = 0;
-	
-	public static String 
-	
-	PROJECT_RESOURCES_FOLDER;
 
 	public static final String 
 	

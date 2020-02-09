@@ -6,10 +6,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import xyz.pixelatedw.bizarremod.abilities.Ability;
-import xyz.pixelatedw.bizarremod.api.WyRenderHelper;
-import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.init.ModResourceLocations;
+import xyz.pixelatedw.wypi.WyHelper;
+import xyz.pixelatedw.wypi.abilities.Ability;
+import xyz.pixelatedw.wypi.data.ability.IAbilityData;
 
 @OnlyIn(Dist.CLIENT)
 public class AbilityButton extends Button
@@ -17,17 +17,18 @@ public class AbilityButton extends Button
 	protected final ISelectable onSelect;
 	protected final IHoverable onHover;
 	protected final Ability ability;
-	protected final IStandData standProps;
+	protected final IAbilityData abilityProps;
+
 	private int smoothScaling = 0;
 	private int translate = 0;
 
-	public AbilityButton(int x, int y, Ability ability, IStandData standProps, ISelectable onSelect, IHoverable onHover)
+	public AbilityButton(int x, int y, Ability ability, IAbilityData props, ISelectable onSelect, IHoverable onHover)
 	{
 		super(x, y, 64, 64, "", (button) ->
 		{
 		});
 		this.ability = ability;
-		this.standProps = standProps;
+		this.abilityProps = props;
 		this.onSelect = onSelect;
 		this.onHover = onHover;
 	}
@@ -78,15 +79,18 @@ public class AbilityButton extends Button
 
 		GlStateManager.translated(this.translate / 1.5, (this.translate * 2), 0);
 
-		WyRenderHelper.drawIcon(ModResourceLocations.ABILITY_SLOT, this.x, this.y, size, size);
+		WyHelper.drawIcon(ModResourceLocations.ABILITY_SLOT, this.x, this.y, size, size);
 
 		GlStateManager.translated(-this.translate / 1.5, -(this.translate * 2), 0);
 		
-		if(this.standProps.getPrimaryAbility() != null && this.standProps.getPrimaryAbility().getName().equalsIgnoreCase(this.ability.getName()))
-			WyRenderHelper.drawIcon(ModResourceLocations.LEFT_MOUSE_USED, this.x + 16, this.y + 40, 32, 32);
+		Ability first = this.abilityProps.getEquippedAbility(0);
+		Ability second = this.abilityProps.getEquippedAbility(1);
 		
-		if(this.standProps.getSecondaryAbility() != null && this.standProps.getSecondaryAbility().getName().equalsIgnoreCase(this.ability.getName()))
-			WyRenderHelper.drawIcon(ModResourceLocations.RIGHT_MOUSE_USED, this.x + 16, this.y + 40, 32, 32);
+		if(first != null && first.equals(this.ability))
+			WyHelper.drawIcon(ModResourceLocations.LEFT_MOUSE_USED, this.x + 16, this.y + 40, 32, 32);
+		
+		if(second != null && second.equals(this.ability))
+			WyHelper.drawIcon(ModResourceLocations.RIGHT_MOUSE_USED, this.x + 16, this.y + 40, 32, 32);
 		
 		GlStateManager.disableBlend();
 		GlStateManager.enableDepthTest();
