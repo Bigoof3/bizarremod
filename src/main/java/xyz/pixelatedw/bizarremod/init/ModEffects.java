@@ -1,19 +1,21 @@
 package xyz.pixelatedw.bizarremod.init;
 
 import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
-import xyz.pixelatedw.bizarremod.api.StandEffect;
+import net.minecraftforge.registries.ObjectHolder;
+import xyz.pixelatedw.bizarremod.effects.GreenDayMoldEffect;
 import xyz.pixelatedw.wypi.APIConfig;
 import xyz.pixelatedw.wypi.WyRegistry;
 
-public class ModPotionEffects
+@Mod.EventBusSubscriber(modid = APIConfig.PROJECT_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@ObjectHolder(APIConfig.PROJECT_ID)
+public class ModEffects
 {
 
-	public static final Effect GREEN_DAY_MOLD = new StandEffect(EffectType.HARMFUL, 5149489);
+	public static final Effect GREEN_DAY_MOLD = null;
 	
 	@Mod.EventBusSubscriber(modid = APIConfig.PROJECT_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 	public static class Registry
@@ -26,7 +28,7 @@ public class ModPotionEffects
 			
 			event.getRegistry().registerAll
 			(
-				WyRegistry.registerEffect("Green Day Mold", GREEN_DAY_MOLD)
+				WyRegistry.registerEffect("Green Day Mold", new GreenDayMoldEffect())
 			);
 		}
 	}

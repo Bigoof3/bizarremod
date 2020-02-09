@@ -8,7 +8,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import xyz.pixelatedw.bizarremod.init.ModPotionEffects;
+import xyz.pixelatedw.bizarremod.init.ModEffects;
 import xyz.pixelatedw.bizarremod.init.ModResourceLocations;
 import xyz.pixelatedw.wypi.APIConfig;
 import xyz.pixelatedw.wypi.WyHelper;
@@ -23,11 +23,11 @@ public class GreenDayEvents
 		LivingEntity entity = event.getEntity();
 		LivingRenderer renderer = event.getRenderer();
 		
-		if(!entity.isPotionActive(ModPotionEffects.GREEN_DAY_MOLD))
+		if(!entity.isPotionActive(ModEffects.GREEN_DAY_MOLD))
 			return;
 		
-		if(entity.getActivePotionEffect(ModPotionEffects.GREEN_DAY_MOLD).getDuration() <= 0)
-			entity.removePotionEffect(ModPotionEffects.GREEN_DAY_MOLD);
+		if(entity.getActivePotionEffect(ModEffects.GREEN_DAY_MOLD).getDuration() <= 0)
+			entity.removePotionEffect(ModEffects.GREEN_DAY_MOLD);
 		
 		GlStateManager.pushMatrix();
 		{

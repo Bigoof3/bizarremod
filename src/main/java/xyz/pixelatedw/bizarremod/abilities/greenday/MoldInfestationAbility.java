@@ -12,7 +12,7 @@ import xyz.pixelatedw.bizarremod.api.abilities.IStandAbility;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
-import xyz.pixelatedw.bizarremod.init.ModPotionEffects;
+import xyz.pixelatedw.bizarremod.init.ModEffects;
 import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
 import xyz.pixelatedw.wypi.WyHelper;
 import xyz.pixelatedw.wypi.abilities.PassiveAbility;
@@ -53,9 +53,7 @@ public class MoldInfestationAbility extends PassiveAbility implements IStandAbil
 				continue;
 
 			if(entity.getPosition().compareTo(new Vec3i(entity.posX, entity.prevPosY, entity.posZ)) < 0.0)
-			{
-				entity.addPotionEffect(new EffectInstance(ModPotionEffects.GREEN_DAY_MOLD, 200, 1));
-			}
+				entity.addPotionEffect(new EffectInstance(ModEffects.GREEN_DAY_MOLD, 300, 0));
 		}
 	}
 

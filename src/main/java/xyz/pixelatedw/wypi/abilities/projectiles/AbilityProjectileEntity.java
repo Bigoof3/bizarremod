@@ -57,7 +57,7 @@ public class AbilityProjectileEntity extends ThrowableEntity
 		super(type, player, world);
 		this.maxLife = life;
 		
-		this.setLocationAndAngles(player.posX, (player.posY + player.getEyeHeight()) - 0.25, player.posZ, player.rotationYaw, player.rotationPitch);
+		this.setLocationAndAngles(player.posX, player.posY + player.getEyeHeight(), player.posZ, player.rotationYaw, player.rotationPitch);
 		double motionX = -MathHelper.sin(this.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float) Math.PI) * 0.4;
 		double motionZ = MathHelper.cos(this.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float) Math.PI) * 0.4;
 		double motionY = -MathHelper.sin((this.rotationPitch) / 180.0F * (float) Math.PI) * 0.4;
