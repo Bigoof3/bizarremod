@@ -23,6 +23,8 @@ public class MoldInfestationAbility extends PassiveAbility implements IStandAbil
 	public MoldInfestationAbility()
 	{
 		super("Mold Infestation", AbilityCategory.ALL);
+		
+		this.duringPassive = this::duringPassive;
 	}
 	
 	@Override
@@ -38,8 +40,7 @@ public class MoldInfestationAbility extends PassiveAbility implements IStandAbil
 		this.drawLine("victims lowers their current altitude.", posX + 190, posY + 140);
 	}
 	
-	@Override
-	public void tick(PlayerEntity user)
+	private void duringPassive(PlayerEntity user)
 	{
 		IStandData standProps = StandDataCapability.get(user);
 		

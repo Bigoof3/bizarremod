@@ -3,8 +3,6 @@ package xyz.pixelatedw.wypi.abilities.projectiles;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -13,6 +11,7 @@ import net.minecraft.network.IPacket;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.MathHelper;
@@ -33,14 +32,15 @@ public class AbilityProjectileEntity extends ThrowableEntity
 	private int maxLife = 64;
 	private double collisionSize = 1;
 	private float damage = 1;
+	private float gravity = 0.0001F;
 	private boolean isPhysical = false;
 	private boolean canPassThroughBlocks = false;
 	
 	// Setting the defaults so that no crash occurs and so they will be null safe.
-	protected IOnEntityImpact onEntityImpactEvent = (hitEntity) -> { this.onBlockImpactEvent.onImpact(null); };
-	protected IOnBlockImpact onBlockImpactEvent = (hit) -> { };
-	protected IOnTick onTickEvent = () -> {};
-	protected IWithEffects withEffects = () -> { return new EffectInstance[0]; };
+	public IOnEntityImpact onEntityImpactEvent = (hitEntity) -> { this.onBlockImpactEvent.onImpact(hitEntity.getPosition()); };
+	public IOnBlockImpact onBlockImpactEvent = (hit) -> { };
+	public IOnTick onTickEvent = () -> {};
+	public IWithEffects withEffects = () -> { return new EffectInstance[0]; };
 
 	public AbilityProjectileEntity(EntityType type, World world)
 	{
@@ -57,16 +57,13 @@ public class AbilityProjectileEntity extends ThrowableEntity
 		super(type, player, world);
 		this.maxLife = life;
 		
-		this.setLocationAndAngles(player.posX, player.posY + player.getEyeHeight(), player.posZ, player.rotationYaw, player.rotationPitch);
+		this.setLocationAndAngles(player.posX, (player.posY + player.getEyeHeight()) - 0.25, player.posZ, player.rotationYaw, player.rotationPitch);
 		double motionX = -MathHelper.sin(this.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float) Math.PI) * 0.4;
 		double motionZ = MathHelper.cos(this.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float) Math.PI) * 0.4;
 		double motionY = -MathHelper.sin((this.rotationPitch) / 180.0F * (float) Math.PI) * 0.4;
 		this.setMotion(new Vec3d(motionX, motionY, motionZ));
 		this.shoot(player, player.rotationPitch, player.rotationYaw, 0, 2f, 1);
 	}
-
-	@Deprecated
-	public void tasksImapct(RayTraceResult hit) {};
 
 	@Override
 	public void tick()
@@ -157,17 +154,24 @@ public class AbilityProjectileEntity extends ThrowableEntity
 				
 				if (!this.canPassThroughBlocks)
 				{										
-					this.onBlockImpactEvent.onImpact(blockHit);
+					this.onBlockImpactEvent.onImpact(blockHit.getPos());
 					this.remove();
 				}
 			}
 		}
 	}
+	
+	@Override
+	public void remove()
+	{
+		
+		super.remove();
+	}
 
 	@Override
 	protected float getGravityVelocity()
 	{
-		return 0.001F;
+		return this.gravity;
 	}
 
 	@Override
@@ -224,6 +228,11 @@ public class AbilityProjectileEntity extends ThrowableEntity
 		this.damage = damage;
 	}
 	
+	public void setGravity(float gravity)
+	{
+		this.gravity = gravity;
+	}
+	
 	/*
 	 *	Interfaces
 	 */
@@ -234,7 +243,7 @@ public class AbilityProjectileEntity extends ThrowableEntity
 	
 	public interface IOnBlockImpact extends Serializable
 	{
-		void onImpact(@Nullable BlockRayTraceResult hit);
+		void onImpact(BlockPos hitPos);
 	}
 	
 	public interface IOnTick extends Serializable

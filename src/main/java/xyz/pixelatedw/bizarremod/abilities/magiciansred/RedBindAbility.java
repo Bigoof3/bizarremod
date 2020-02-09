@@ -42,6 +42,7 @@ public class RedBindAbility extends ContinuousAbility implements IStandAbility
 		this.drawLine("of suffocating them.", posX + 190, posY + 140);
 	}
 
+	@SuppressWarnings("deprecation")
 	protected void duringContinuity(PlayerEntity player, int passiveTimer)
 	{
 		IStandData props = StandDataCapability.get(player);

@@ -175,7 +175,7 @@ public class StandSelectScreen extends Screen
 						
 			for(Ability abl : currentInfo.getAbilities())
 				this.abilityProps.addUnlockedAbility(abl);
-
+			
 			if(this.getActiveAbilities(currentInfo).size() >= 1)
 				this.abilityProps.setEquippedAbility(0, this.getActiveAbilities(currentInfo).get(0) != null ? this.getActiveAbilities(currentInfo).get(0) : null);
 			if(this.getActiveAbilities(currentInfo).size() >= 2)

@@ -126,7 +126,6 @@ public class AbilityDataBase implements IAbilityData
 	public boolean setEquippedAbility(int slot, Ability abl)
 	{
 		Ability ogAbl = this.getEquippedAbility(abl);
-		System.out.println(ogAbl);
 		if (ogAbl == null)
 		{
 			if(this.equippedAbilities.size() > slot)

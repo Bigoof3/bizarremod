@@ -10,6 +10,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import xyz.pixelatedw.bizarremod.Consts;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
 import xyz.pixelatedw.bizarremod.entities.projectiles.AnkhEntity;
+import xyz.pixelatedw.bizarremod.entities.projectiles.BombEntity;
 import xyz.pixelatedw.bizarremod.entities.projectiles.BulletEntity;
 import xyz.pixelatedw.bizarremod.entities.projectiles.PunchEntity;
 import xyz.pixelatedw.bizarremod.entities.stands.AerosmithEntity;
@@ -27,6 +28,7 @@ public class ModEntities
 
 	public static final EntityType PUNCH = WyRegistry.registerEntityType("punch", PunchEntity::new, 1, 1);
 	public static final EntityType BULLET = WyRegistry.registerEntityType("bullet", BulletEntity::new, 1, 1);
+	public static final EntityType BOMB = WyRegistry.registerEntityType("bomb", BombEntity::new, 1, 1);
 	public static final EntityType ANKH = WyRegistry.registerEntityType("ankh", AnkhEntity::new, 1, 1);
 
 	public static final EntityType GREEN_DAY = WyRegistry.registerEntityType(Consts.STAND_ID_GREEN_DAY, GreenDayEntity::new);
@@ -49,7 +51,7 @@ public class ModEntities
 			(
 				GREEN_DAY, AEROSMITH, MAGICIAN_RED, SILVER_CHARIOT,
 				
-				PUNCH, BULLET, ANKH
+				PUNCH, BULLET, BOMB, ANKH
 			);
 			
 			stands.put(Consts.STAND_ID_GREEN_DAY, new GreenDayStandInfo());

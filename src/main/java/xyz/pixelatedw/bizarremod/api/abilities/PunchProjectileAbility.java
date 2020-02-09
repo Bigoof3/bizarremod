@@ -34,16 +34,14 @@ public class PunchProjectileAbility extends Ability implements IStandAbility
 		StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
 
 		PunchEntity punch = new PunchEntity(player, player.world);
+		punch.shoot(player, player.rotationPitch, player.rotationYaw, 0, 2 + (info.getStandEntity(player).getSpeed() / 3), 4 - info.getStandEntity(player).getPrecision());
 		
 		punch.setTexture(info.getStandId());
 		punch.setDamage(1 + info.getStandEntity(player).getDestructivePower());
-		punch.setRange(info.getStandEntity(player).getRange() / 2);
-		
-		if(punch == null || !props.hasStandSummoned())
-			return false;
+		punch.setMaxLife(info.getStandEntity(player).getRange() / 2);
 
 		player.world.addEntity(punch);
-		punch.shoot(player, player.rotationPitch, player.rotationYaw, 0, 2 + (info.getStandEntity(player).getSpeed() / 3), 4 - info.getStandEntity(player).getPrecision());
+		
 		return true;
 	}
 }

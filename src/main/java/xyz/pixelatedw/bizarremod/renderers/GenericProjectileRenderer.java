@@ -10,8 +10,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
-import xyz.pixelatedw.bizarremod.entities.projectiles.StandProjectileEntity;
 import xyz.pixelatedw.wypi.APIConfig;
+import xyz.pixelatedw.wypi.abilities.projectiles.AbilityProjectileEntity;
 
 @OnlyIn(Dist.CLIENT)
 public class GenericProjectileRenderer extends EntityRenderer<Entity>
@@ -57,7 +57,7 @@ public class GenericProjectileRenderer extends EntityRenderer<Entity>
 		return new ResourceLocation(APIConfig.PROJECT_ID, "textures/models/stands/projectiles/" + this.texture + ".png");
 	}
 
-	public static class Factory implements IRenderFactory<StandProjectileEntity>
+	public static class Factory implements IRenderFactory<AbilityProjectileEntity>
 	{
 		private final EntityModel model;
 		private final String texture;
@@ -76,7 +76,7 @@ public class GenericProjectileRenderer extends EntityRenderer<Entity>
 		}
 		
 		@Override
-		public EntityRenderer<? super StandProjectileEntity> createRenderFor(EntityRendererManager manager)
+		public EntityRenderer<? super AbilityProjectileEntity> createRenderFor(EntityRendererManager manager)
 		{
 			return new GenericProjectileRenderer(manager, this.model, this.texture, this.scale);
 		}

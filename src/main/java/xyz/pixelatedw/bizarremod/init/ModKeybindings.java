@@ -74,17 +74,11 @@ public class ModKeybindings
 		{
 			Ability first = abilityProps.getEquippedAbility(0);
 			Ability second = abilityProps.getEquippedAbility(1);
-			
+
 			if(event.getButton() == 0 && first != null)
-			{
 				WyNetwork.sendToServer(new CUseAbilityPacket(0));
-				first.use(player);
-			}
 			else if(event.getButton() == 1 && second != null)
-			{
 				WyNetwork.sendToServer(new CUseAbilityPacket(1));
-				second.use(player);
-			}
 		}
 	}
 }

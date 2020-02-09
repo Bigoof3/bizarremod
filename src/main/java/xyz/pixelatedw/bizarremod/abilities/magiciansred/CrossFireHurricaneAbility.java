@@ -41,7 +41,7 @@ public class CrossFireHurricaneAbility extends RepeaterAbility implements IStand
 		AnkhEntity ankh = new AnkhEntity(player, player.world);
 			
 		ankh.setDamage(2 + info.getStandEntity(player).getDestructivePower());
-		ankh.setRange(3 + info.getStandEntity(player).getRange());
+		ankh.setMaxLife(3 + info.getStandEntity(player).getRange());
 
 		player.world.addEntity(ankh);
 		ankh.shoot(player, player.rotationPitch, player.rotationYaw, 0, 2 + info.getStandEntity(player).getSpeed(), 4 - info.getStandEntity(player).getPrecision());

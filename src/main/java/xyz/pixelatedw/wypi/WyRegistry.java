@@ -155,7 +155,13 @@ public class WyRegistry
 	{
 		String name = WyHelper.getResourceName(id);
 
-		EntityType type = EntityType.Builder.create((entityType, world) -> func.apply(world), EntityClassification.MISC).setTrackingRange(128).setShouldReceiveVelocityUpdates(true).setUpdateInterval(3).setCustomClientFactory((entity, world) -> func.apply(world)).size(width, height).build(name).setRegistryName(APIConfig.PROJECT_ID, name);
+		EntityType type = EntityType.Builder.create((entityType, world) -> func.apply(world), EntityClassification.MISC)
+				.setTrackingRange(128)
+				.setShouldReceiveVelocityUpdates(true)
+				.setUpdateInterval(3)
+				.setCustomClientFactory((entity, world) -> func.apply(world))
+				.size(width, height).build(name)
+				.setRegistryName(APIConfig.PROJECT_ID, name);
 
 		StringBuilder builder = new StringBuilder();
 		String[] strs = name.split("_");
