@@ -21,9 +21,9 @@ import xyz.pixelatedw.bizarremod.packets.server.SSyncStandDataPacket;
 import xyz.pixelatedw.wypi.WyHelper;
 import xyz.pixelatedw.wypi.network.WyNetwork;
 
-public class ItemStandArrow extends Item
+public class StandArrowItem extends Item
 {
-	public ItemStandArrow()
+	public StandArrowItem()
 	{
 		super(new Properties().group(ItemGroup.TOOLS).maxStackSize(1));
 	}

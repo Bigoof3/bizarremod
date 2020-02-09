@@ -1,6 +1,8 @@
 package xyz.pixelatedw.bizarremod.entities.stands;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -9,6 +11,7 @@ import xyz.pixelatedw.bizarremod.Consts;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
 import xyz.pixelatedw.bizarremod.init.ModAbilities;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
+import xyz.pixelatedw.bizarremod.init.ModItems;
 import xyz.pixelatedw.wypi.abilities.Ability;
 
 public class SilverChariotEntity extends GenericStandEntity
@@ -63,7 +66,7 @@ public class SilverChariotEntity extends GenericStandEntity
 	
 	@Override
 	public void onCancel(PlayerEntity owner) {}
-	
+
 	public static class SilverChariotStandInfo extends StandInfo
 	{
 		private Ability[] abilities = new Ability[] 
@@ -84,6 +87,8 @@ public class SilverChariotEntity extends GenericStandEntity
 		{
 			GenericStandEntity stand = new SilverChariotEntity(owner.world, owner);
 	
+			stand.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ModItems.SILVER_CHARIOTS_RAPIER));
+
 			return stand;
 		}
 	

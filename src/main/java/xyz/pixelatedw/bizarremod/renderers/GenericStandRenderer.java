@@ -3,6 +3,7 @@ package xyz.pixelatedw.bizarremod.renderers;
 import net.minecraft.client.renderer.entity.BipedRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.layers.BipedArmorLayer;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -28,6 +29,8 @@ public class GenericStandRenderer extends BipedRenderer<GenericStandEntity, Bipe
 		this.model = model;
 		this.scale = scale;
 		this.texture = new ResourceLocation(APIConfig.PROJECT_ID, "textures/models/stands/" + texture + ".png");
+		
+		this.addLayer(new BipedArmorLayer<>(this, new BipedModel(0.5F), new BipedModel(1.0F)));
 	}
 
 	@Override
