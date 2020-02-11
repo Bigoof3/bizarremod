@@ -37,7 +37,7 @@ public class CrossFireHurricaneAbility extends RepeaterAbility implements IStand
 	{
 		IStandData props = StandDataCapability.get(player);
 		StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
-		
+
 		AnkhEntity ankh = new AnkhEntity(player, player.world);
 			
 		ankh.setDamage(2 + info.getStandEntity(player).getDestructivePower());

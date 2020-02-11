@@ -22,6 +22,7 @@ public class CSyncAbilityDataPacket
 
 	public CSyncAbilityDataPacket(IAbilityData props)
 	{
+		System.out.println(props.getEquippedAbility(0));
 		this.data = new CompoundNBT();
 		this.data = AbilityDataCapability.INSTANCE.getStorage().writeNBT(AbilityDataCapability.INSTANCE, props, null);
 	}
@@ -47,8 +48,12 @@ public class CSyncAbilityDataPacket
 				PlayerEntity player = ctx.get().getSender();
 				IAbilityData props = AbilityDataCapability.get(player);
 
+				System.out.println(player);
+				
 				AbilityDataCapability.INSTANCE.getStorage().readNBT(AbilityDataCapability.INSTANCE, props, null, message.data);
 
+				System.out.println(props.getEquippedAbility(0));
+				
 				WyNetwork.sendTo(new SSyncAbilityDataPacket(props), (ServerPlayerEntity) player);
 			});
 		}

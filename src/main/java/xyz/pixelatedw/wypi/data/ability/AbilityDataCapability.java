@@ -1,5 +1,8 @@
 package xyz.pixelatedw.wypi.data.ability;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
@@ -15,6 +18,7 @@ import xyz.pixelatedw.wypi.APIConfig;
 import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
 import xyz.pixelatedw.wypi.WyHelper;
 import xyz.pixelatedw.wypi.abilities.Ability;
+import xyz.pixelatedw.wypi.abilities.PassiveAbility;
 
 public class AbilityDataCapability
 {
@@ -78,15 +82,20 @@ public class AbilityDataCapability
 					{
 						CompoundNBT abilities = unlockedAbilities.getCompound(i);
 						Ability ability = GameRegistry.findRegistry(Ability.class).getValue(new ResourceLocation(APIConfig.PROJECT_ID, abilities.getString("unlocked_ability_" + i)));
-						instance.addUnlockedAbility(ability);
+						instance.addUnlockedAbility(ability.create());
 					}
 	
 					ListNBT equippedAbilities = props.getList("equipped_abilities", Constants.NBT.TAG_COMPOUND);
+					List<Ability> activeAbilitiesUnlocked = instance.getUnlockedAbilities(AbilityCategory.ALL).parallelStream().filter(ability -> !(ability instanceof PassiveAbility)).collect(Collectors.toList());
 					for (int i = 0; i < equippedAbilities.size(); i++)
 					{
 						CompoundNBT abilities = equippedAbilities.getCompound(i);
 						Ability ability = GameRegistry.findRegistry(Ability.class).getValue(new ResourceLocation(APIConfig.PROJECT_ID, abilities.getString("equipped_ability_" + i)));
-						instance.addEquippedAbility(ability);
+						activeAbilitiesUnlocked.forEach(abl -> 
+						{
+							if(abl.equals(ability))
+								instance.addEquippedAbility(abl);
+						});			
 					}
 				}
 				catch(Exception ex)

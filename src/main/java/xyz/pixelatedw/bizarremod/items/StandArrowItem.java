@@ -1,6 +1,7 @@
 package xyz.pixelatedw.bizarremod.items;
 
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -11,13 +12,12 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
-import xyz.pixelatedw.bizarremod.Consts;
-import xyz.pixelatedw.bizarremod.ModMain;
 import xyz.pixelatedw.bizarremod.api.StandInfo;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
 import xyz.pixelatedw.bizarremod.packets.server.SSyncStandDataPacket;
+import xyz.pixelatedw.bizarremod.screens.StandSelectScreen;
 import xyz.pixelatedw.wypi.WyHelper;
 import xyz.pixelatedw.wypi.network.WyNetwork;
 
@@ -31,11 +31,14 @@ public class StandArrowItem extends Item
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand)
     { 
-		if(!world.isRemote)
+		if(world.isRemote)
 		{
 			if(player.isCreative())
-				ModMain.proxy.openScreen(Consts.GUI_CREATIVE_STAND_SELECT, player);
-			else
+				Minecraft.getInstance().displayGuiScreen(new StandSelectScreen(player));
+		}
+		else if(!world.isRemote)
+		{
+			if(!player.isCreative())
 			{
 				IStandData props = StandDataCapability.get(player);
 				int totalStands = ModEntities.getRegisteredStands().size();

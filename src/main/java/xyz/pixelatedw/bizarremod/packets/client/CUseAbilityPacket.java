@@ -44,6 +44,8 @@ public class CUseAbilityPacket
 
 				Ability abl = abilityProps.getEquippedAbility(message.slot);
 				
+				System.out.println(abl);
+				
 				if(abl != null)
 					abl.use(player);
 			});			

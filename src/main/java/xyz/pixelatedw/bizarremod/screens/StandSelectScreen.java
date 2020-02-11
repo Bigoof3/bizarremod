@@ -181,6 +181,8 @@ public class StandSelectScreen extends Screen
 			if(this.getActiveAbilities(currentInfo).size() >= 2)
 				this.abilityProps.setEquippedAbility(1, this.getActiveAbilities(currentInfo).get(1) != null ? this.getActiveAbilities(currentInfo).get(1) : null);
 
+			System.out.println(this.abilityProps.getEquippedAbility(0));
+			
 			this.onClose();
 		});
 				
@@ -267,7 +269,7 @@ public class StandSelectScreen extends Screen
 
 	@Override
 	public void onClose()
-	{
+	{		
 		WyNetwork.sendToServer(new CSyncStandDataPacket(this.standProps));
 		WyNetwork.sendToServer(new CSyncAbilityDataPacket(this.abilityProps));
 		super.onClose();
