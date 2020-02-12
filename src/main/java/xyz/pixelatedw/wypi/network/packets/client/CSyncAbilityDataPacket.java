@@ -22,7 +22,6 @@ public class CSyncAbilityDataPacket
 
 	public CSyncAbilityDataPacket(IAbilityData props)
 	{
-		System.out.println(props.getEquippedAbility(0));
 		this.data = new CompoundNBT();
 		this.data = AbilityDataCapability.INSTANCE.getStorage().writeNBT(AbilityDataCapability.INSTANCE, props, null);
 	}

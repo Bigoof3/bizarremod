@@ -7,12 +7,14 @@ import xyz.pixelatedw.bizarremod.entities.projectiles.BulletEntity;
 import xyz.pixelatedw.bizarremod.entities.projectiles.PunchEntity;
 import xyz.pixelatedw.bizarremod.entities.stands.AerosmithEntity;
 import xyz.pixelatedw.bizarremod.entities.stands.GreenDayEntity;
+import xyz.pixelatedw.bizarremod.entities.stands.HighwayStarEntity;
 import xyz.pixelatedw.bizarremod.entities.stands.MagiciansRedEntity;
 import xyz.pixelatedw.bizarremod.entities.stands.SilverChariotEntity;
 import xyz.pixelatedw.bizarremod.models.AerosmithModel;
 import xyz.pixelatedw.bizarremod.models.AnkhModel;
 import xyz.pixelatedw.bizarremod.models.BulletModel;
 import xyz.pixelatedw.bizarremod.models.GreenDayModel;
+import xyz.pixelatedw.bizarremod.models.HighwayStarModel;
 import xyz.pixelatedw.bizarremod.models.MagiciansRedModel;
 import xyz.pixelatedw.bizarremod.models.SilverChariotModel;
 import xyz.pixelatedw.bizarremod.renderers.GenericStandRenderer;
@@ -33,5 +35,6 @@ public class ModRenderers
 		RenderingRegistry.registerEntityRenderingHandler(AerosmithEntity.class, new GenericStandRenderer.Factory(new AerosmithModel(), 1, "aerosmith"));
 		RenderingRegistry.registerEntityRenderingHandler(MagiciansRedEntity.class, new GenericStandRenderer.Factory(new MagiciansRedModel(), 1, "magician_red"));
 		RenderingRegistry.registerEntityRenderingHandler(SilverChariotEntity.class, new GenericStandRenderer.Factory(new SilverChariotModel(), 1, "silver_chariot"));
+		RenderingRegistry.registerEntityRenderingHandler(HighwayStarEntity.class, new GenericStandRenderer.Factory(new HighwayStarModel(), 1, "highway_star"));
     }
 }

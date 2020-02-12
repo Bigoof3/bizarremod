@@ -17,7 +17,8 @@ public class Consts
 	STAND_ID_MAGICIANS_RED_ALT = "magicians_red_alt",
 	STAND_ID_MAGICIANS_RED_ASB = "magicians_red_asb",
 	STAND_ID_SILVER_CHARIOT = "silver_chariot",
-			
+	STAND_ID_HIGHWAY_STAR = "highway_star",
+
 	CONTROLS_KEY_STAND_CONTROL = "Stand Summon/Cancel",
 	CONTROLS_KEY_ABILITY_WHEEL = "Ability Wheel",
 	CONTROLS_CATEGORY = "Bizzare Controls";

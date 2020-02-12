@@ -17,6 +17,8 @@ import xyz.pixelatedw.bizarremod.entities.stands.AerosmithEntity;
 import xyz.pixelatedw.bizarremod.entities.stands.AerosmithEntity.AerosmithStandInfo;
 import xyz.pixelatedw.bizarremod.entities.stands.GreenDayEntity;
 import xyz.pixelatedw.bizarremod.entities.stands.GreenDayEntity.GreenDayStandInfo;
+import xyz.pixelatedw.bizarremod.entities.stands.HighwayStarEntity;
+import xyz.pixelatedw.bizarremod.entities.stands.HighwayStarEntity.HighwayStarStandInfo;
 import xyz.pixelatedw.bizarremod.entities.stands.MagiciansRedEntity;
 import xyz.pixelatedw.bizarremod.entities.stands.MagiciansRedEntity.MagiciansRedStandInfo;
 import xyz.pixelatedw.bizarremod.entities.stands.SilverChariotEntity;
@@ -35,6 +37,7 @@ public class ModEntities
 	public static final EntityType AEROSMITH = WyRegistry.registerEntityType(Consts.STAND_ID_AEROSMITH, AerosmithEntity::new);
 	public static final EntityType MAGICIAN_RED = WyRegistry.registerEntityType(Consts.STAND_ID_MAGICIANS_RED, MagiciansRedEntity::new);
 	public static final EntityType SILVER_CHARIOT = WyRegistry.registerEntityType(Consts.STAND_ID_SILVER_CHARIOT, SilverChariotEntity::new);
+	public static final EntityType HIGHWAY_STAR = WyRegistry.registerEntityType(Consts.STAND_ID_HIGHWAY_STAR, HighwayStarEntity::new);
 
 	private static HashMap<String, StandInfo> stands = new HashMap<String, StandInfo>();
 	
@@ -49,17 +52,22 @@ public class ModEntities
 			
 			event.getRegistry().registerAll
 			(
-				GREEN_DAY, AEROSMITH, MAGICIAN_RED, SILVER_CHARIOT,
+				registerStand(GREEN_DAY, new GreenDayStandInfo()), 
+				registerStand(AEROSMITH, new AerosmithStandInfo()),
+				registerStand(MAGICIAN_RED, new MagiciansRedStandInfo()),
+				registerStand(SILVER_CHARIOT, new SilverChariotStandInfo()),
+				registerStand(HIGHWAY_STAR, new HighwayStarStandInfo()),
 				
 				PUNCH, BULLET, BOMB, ANKH
 			);
-			
-			stands.put(Consts.STAND_ID_GREEN_DAY, new GreenDayStandInfo());
-			stands.put(Consts.STAND_ID_AEROSMITH, new AerosmithStandInfo());
-			stands.put(Consts.STAND_ID_MAGICIANS_RED, new MagiciansRedStandInfo());
-			stands.put(Consts.STAND_ID_SILVER_CHARIOT, new SilverChariotStandInfo());
 		}
 		
+	}
+	
+	private static EntityType registerStand(EntityType type, StandInfo info)
+	{
+		stands.put(type.getRegistryName().getPath(), info);
+		return type;
 	}
 	
 	public static HashMap<String, StandInfo> getRegisteredStands()
