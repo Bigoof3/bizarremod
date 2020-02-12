@@ -39,7 +39,7 @@ public class ArmorOffAbility extends ContinuousAbility implements IStandAbility
 	{
 		IStandData props = StandDataCapability.get(player);
 		StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
-		
+				
 		for(SilverChariotEntity entity : WyHelper.getEntitiesNear(player.getPosition(), player.world, 20, SilverChariotEntity.class))
 		{
 			if(entity.getOwner() == player)

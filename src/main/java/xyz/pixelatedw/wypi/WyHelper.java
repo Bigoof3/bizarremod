@@ -40,6 +40,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceContext;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -225,6 +227,29 @@ public class WyHelper
 		return list;
 	}
 
+	public static RayTraceResult rayTraceBlocks(Entity source)
+	{
+		float f = 1.0F;
+		float f1 = source.prevRotationPitch + (source.rotationPitch - source.prevRotationPitch) * f;
+		float f2 = source.prevRotationYaw + (source.rotationYaw - source.prevRotationYaw) * f;
+		double d = source.prevPosX + (source.posX - source.prevPosX) * f;
+		double d1 = (source.prevPosY + (source.posY - source.prevPosY) * f + 1.6200000000000001D) - source.getYOffset();
+		double d2 = source.prevPosZ + (source.posZ - source.prevPosZ) * f;
+		Vec3d vec3d = new Vec3d(d, d1, d2);
+		float f3 = MathHelper.cos(-f2 * 0.01745329F - 3.141593F);
+		float f4 = MathHelper.sin(-f2 * 0.01745329F - 3.141593F);
+		float f5 = -MathHelper.cos(-f1 * 0.01745329F);
+		float f6 = MathHelper.sin(-f1 * 0.01745329F);
+		float f7 = f4 * f5;
+		float f9 = f3 * f5;
+		double d3 = 5000D;
+
+		Vec3d vec3 = vec3d.add(f7 * d3, f6 * d3, f9 * d3);
+		RayTraceResult ray = source.world.rayTraceBlocks(new RayTraceContext(vec3d, vec3, RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.ANY, source));
+
+		return ray;
+	}
+	
 	/*
 	 * Date Helpers
 	 */

@@ -180,8 +180,6 @@ public class StandSelectScreen extends Screen
 				this.abilityProps.setEquippedAbility(0, this.getActiveAbilities(currentInfo).get(0) != null ? this.getActiveAbilities(currentInfo).get(0) : null);
 			if(this.getActiveAbilities(currentInfo).size() >= 2)
 				this.abilityProps.setEquippedAbility(1, this.getActiveAbilities(currentInfo).get(1) != null ? this.getActiveAbilities(currentInfo).get(1) : null);
-
-			System.out.println(this.abilityProps.getEquippedAbility(0));
 			
 			this.onClose();
 		});

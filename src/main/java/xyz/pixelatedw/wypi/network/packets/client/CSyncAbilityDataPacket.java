@@ -47,12 +47,8 @@ public class CSyncAbilityDataPacket
 			{
 				PlayerEntity player = ctx.get().getSender();
 				IAbilityData props = AbilityDataCapability.get(player);
-
-				System.out.println(player);
 				
 				AbilityDataCapability.INSTANCE.getStorage().readNBT(AbilityDataCapability.INSTANCE, props, null, message.data);
-
-				System.out.println(props.getEquippedAbility(0));
 				
 				WyNetwork.sendTo(new SSyncAbilityDataPacket(props), (ServerPlayerEntity) player);
 			});
