@@ -1,4 +1,4 @@
-package xyz.pixelatedw.bizarremod.entities.stands;
+package xyz.pixelatedw.bizarremod.api.stands;
 
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
@@ -12,7 +12,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import xyz.pixelatedw.bizarremod.helpers.StandLogicHelper;
+import xyz.pixelatedw.bizarremod.api.StandLogicHelper;
 
 public abstract class GenericStandEntity extends CreatureEntity
 {

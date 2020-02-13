@@ -2,7 +2,7 @@ package xyz.pixelatedw.bizarremod.models;
 
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
-import xyz.pixelatedw.bizarremod.entities.stands.GenericStandEntity;
+import xyz.pixelatedw.bizarremod.api.stands.GenericStandEntity;
 
 public class MagiciansRedModel extends BipedModel<GenericStandEntity>
 {

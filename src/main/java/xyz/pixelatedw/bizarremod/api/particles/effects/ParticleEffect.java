@@ -1,4 +1,4 @@
-package xyz.pixelatedw.bizarremod.particles.effects;
+package xyz.pixelatedw.bizarremod.api.particles.effects;
 
 import net.minecraft.world.World;
 

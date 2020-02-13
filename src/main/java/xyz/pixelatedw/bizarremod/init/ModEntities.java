@@ -8,7 +8,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 import xyz.pixelatedw.bizarremod.Consts;
-import xyz.pixelatedw.bizarremod.api.StandInfo;
+import xyz.pixelatedw.bizarremod.api.stands.StandInfo;
 import xyz.pixelatedw.bizarremod.entities.projectiles.AnkhEntity;
 import xyz.pixelatedw.bizarremod.entities.projectiles.BombEntity;
 import xyz.pixelatedw.bizarremod.entities.projectiles.BulletEntity;

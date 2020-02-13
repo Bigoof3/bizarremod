@@ -1,7 +1,7 @@
-package xyz.pixelatedw.bizarremod.helpers;
+package xyz.pixelatedw.bizarremod.api;
 
 import xyz.pixelatedw.bizarremod.ModMain;
-import xyz.pixelatedw.bizarremod.api.StandInfo;
+import xyz.pixelatedw.bizarremod.api.stands.StandInfo;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
 
 public class StandLogicHelper

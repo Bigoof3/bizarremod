@@ -6,7 +6,8 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.world.World;
 import xyz.pixelatedw.bizarremod.Consts;
-import xyz.pixelatedw.bizarremod.api.StandInfo;
+import xyz.pixelatedw.bizarremod.api.stands.GenericStandEntity;
+import xyz.pixelatedw.bizarremod.api.stands.StandInfo;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
 import xyz.pixelatedw.wypi.abilities.Ability;
 

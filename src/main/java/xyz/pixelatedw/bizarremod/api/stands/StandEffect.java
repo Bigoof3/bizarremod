@@ -1,4 +1,4 @@
-package xyz.pixelatedw.bizarremod.api;
+package xyz.pixelatedw.bizarremod.api.stands;
 
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectType;
