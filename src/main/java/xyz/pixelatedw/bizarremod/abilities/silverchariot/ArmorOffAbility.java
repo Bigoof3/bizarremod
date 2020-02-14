@@ -2,6 +2,7 @@ package xyz.pixelatedw.bizarremod.abilities.silverchariot;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.text.TextFormatting;
 import xyz.pixelatedw.bizarremod.api.StandLogicHelper;
 import xyz.pixelatedw.bizarremod.api.abilities.IStandAbility;
@@ -10,8 +11,11 @@ import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.stands.SilverChariotEntity;
 import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
-import xyz.pixelatedw.wypi.WyHelper;
 import xyz.pixelatedw.wypi.abilities.ContinuousAbility;
+import xyz.pixelatedw.wypi.data.ability.AbilityDataCapability;
+import xyz.pixelatedw.wypi.data.ability.IAbilityData;
+import xyz.pixelatedw.wypi.network.WyNetwork;
+import xyz.pixelatedw.wypi.network.packets.server.SSyncAbilityDataPacket;
 
 public class ArmorOffAbility extends ContinuousAbility implements IStandAbility
 {
@@ -22,7 +26,6 @@ public class ArmorOffAbility extends ContinuousAbility implements IStandAbility
 		this.onStartContinuityEvent = this::onStartContinuityEvent;
 		this.duringContinuity = this::duringContinuity;
 		this.onEndContinuityEvent = this::onEndContinuityEvent;
-
 	}
 	
 	@Override
@@ -39,48 +42,43 @@ public class ArmorOffAbility extends ContinuousAbility implements IStandAbility
 	{
 		IStandData props = StandDataCapability.get(player);
 		StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
-				
-		for(SilverChariotEntity entity : WyHelper.getEntitiesNear(player.getPosition(), player.world, 20, SilverChariotEntity.class))
-		{
-			if(entity.getOwner() == player)
-			{
-				entity.removeArmor();
-				break;
-			}
-		}
+		
+		SilverChariotEntity stand = StandLogicHelper.getStandEntity(player);
+
+		stand.removeArmor();
 		
 		return true;
 	}
 	
 	private void duringContinuity(PlayerEntity player, int passiveTimer)
 	{
-		for(SilverChariotEntity entity : WyHelper.getEntitiesNear(player.getPosition(), player.world, 20, SilverChariotEntity.class))
+		SilverChariotEntity stand = StandLogicHelper.getStandEntity(player);
+
+		if(stand == null)
 		{
-			if(entity.getOwner() == player)
-			{
-				entity.setDestructivePower('B');
-				entity.setRange('B');
-				entity.setPrecision('A');
-				
-				break;
-			}
+			this.continueTime = 0;
+			this.startCooldown();
+			IAbilityData props = AbilityDataCapability.get(player);
+			WyNetwork.sendTo(new SSyncAbilityDataPacket(props), (ServerPlayerEntity) player);
+			return;
 		}
+		
+		stand.setDestructivePower('B');
+		stand.setRange('B');
+		stand.setPrecision('A');
 	}
 	
 	private boolean onEndContinuityEvent(PlayerEntity player)
 	{
-		for(SilverChariotEntity entity : WyHelper.getEntitiesNear(player.getPosition(), player.world, 20, SilverChariotEntity.class))
+		SilverChariotEntity stand = StandLogicHelper.getStandEntity(player);
+	
+		if(stand != null)
 		{
-			if(entity.getOwner() == player)
-			{			
-				entity.setDestructivePower('C');
-				entity.setRange('C');
-				entity.setPrecision('B');
-				
-				break;
-			}
+			stand.setDestructivePower('C');
+			stand.setRange('C');
+			stand.setPrecision('B');
 		}
-		
+
 		return true;
 	}
 }

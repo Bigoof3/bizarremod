@@ -50,6 +50,13 @@ public class SilverChariotEntity extends GenericStandEntity
 	}
 
 	@Override
+	public void tick()
+	{
+		System.out.println(this.getDestructivePower());
+		super.tick();
+	}
+	
+	@Override
 	public String getStandName()
 	{
 		return "Silver Chariot";
@@ -63,6 +70,21 @@ public class SilverChariotEntity extends GenericStandEntity
 	public void removeArmor()
 	{
 		this.dataManager.set(ARMOR_STATE, false);
+	}
+	
+	public void equipArmor()
+	{
+		this.dataManager.set(ARMOR_STATE, true);
+	}
+	
+	@Override
+	public void onSummon(PlayerEntity owner)
+	{
+		this.setDestructivePower('C');
+		this.setRange('C');
+		this.setPrecision('B');
+		
+		super.onSummon(owner);
 	}
 	
 	@Override
@@ -86,10 +108,11 @@ public class SilverChariotEntity extends GenericStandEntity
 		@Override
 		public GenericStandEntity getStandEntity(PlayerEntity owner)
 		{
-			GenericStandEntity stand = new SilverChariotEntity(owner.world, owner);
+			SilverChariotEntity stand = new SilverChariotEntity(owner.world, owner);
 	
 			stand.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ModItems.SILVER_CHARIOTS_RAPIER));
-
+			stand.equipArmor();
+			
 			return stand;
 		}
 	

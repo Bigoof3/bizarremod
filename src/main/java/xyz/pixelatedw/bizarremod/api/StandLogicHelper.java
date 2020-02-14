@@ -25,12 +25,12 @@ public class StandLogicHelper
 			summonedStands.remove(stand);
 	}
 	
-	public static GenericStandEntity getStandEntity(PlayerEntity player)
+	public static <T extends GenericStandEntity> T getStandEntity(PlayerEntity player)
 	{
 		for(GenericStandEntity stand : summonedStands)
 		{
 			if(stand.getOwner() == player)
-				return stand;
+				return (T) stand;
 		}
 		
 		return null;
