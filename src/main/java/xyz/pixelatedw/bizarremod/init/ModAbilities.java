@@ -10,6 +10,7 @@ import xyz.pixelatedw.bizarremod.abilities.aerosmith.BombAbility;
 import xyz.pixelatedw.bizarremod.abilities.aerosmith.CarbonDioxideRadarAbility;
 import xyz.pixelatedw.bizarremod.abilities.aerosmith.MachineGunsAbility;
 import xyz.pixelatedw.bizarremod.abilities.greenday.MoldInfestationAbility;
+import xyz.pixelatedw.bizarremod.abilities.highwaystar.RoomTrapAbility;
 import xyz.pixelatedw.bizarremod.abilities.magiciansred.CrossFireHurricaneAbility;
 import xyz.pixelatedw.bizarremod.abilities.magiciansred.RedBindAbility;
 import xyz.pixelatedw.bizarremod.abilities.silverchariot.ArmorOffAbility;
@@ -23,6 +24,8 @@ import xyz.pixelatedw.wypi.abilities.Ability;
 @ObjectHolder(APIConfig.PROJECT_ID)
 public class ModAbilities
 {
+	public static final Ability ROOM_TRAP = null;
+	
 	public static final Ability RAPIER_STAB = null;
 	public static final Ability SHOOTING_SWORD = null;
 	public static final Ability ARMOR_OFF = null;
@@ -41,6 +44,8 @@ public class ModAbilities
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public static void registerAbilities(final RegistryEvent.Register<Ability> event)
 	{
+		event.getRegistry().register(WyRegistry.registerAbility(new RoomTrapAbility(), "Room Trap"));
+
 		event.getRegistry().register(WyRegistry.registerAbility(new RapierStabAbility(), "Rapier Stab"));
 		event.getRegistry().register(WyRegistry.registerAbility(new ArmorOffAbility(), "Armor Off"));
 		event.getRegistry().register(WyRegistry.registerAbility(new ShootingSwordAbility(), "Shooting Sword"));

@@ -8,6 +8,7 @@ import net.minecraft.world.World;
 import xyz.pixelatedw.bizarremod.Consts;
 import xyz.pixelatedw.bizarremod.api.stands.GenericStandEntity;
 import xyz.pixelatedw.bizarremod.api.stands.StandInfo;
+import xyz.pixelatedw.bizarremod.init.ModAbilities;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
 import xyz.pixelatedw.wypi.abilities.Ability;
 
@@ -68,7 +69,7 @@ public class HighwayStarEntity extends GenericStandEntity
 	{
 		private Ability[] abilities = new Ability[] 
 				{
-
+					ModAbilities.ROOM_TRAP
 				};
 
 		@Override
