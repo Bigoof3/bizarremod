@@ -8,7 +8,7 @@ import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.text.TextFormatting;
 import xyz.pixelatedw.bizarremod.api.StandLogicHelper;
 import xyz.pixelatedw.bizarremod.api.abilities.IStandAbility;
-import xyz.pixelatedw.bizarremod.api.stands.GenericStandEntity;
+import xyz.pixelatedw.bizarremod.entities.stands.SilverChariotEntity;
 import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
 import xyz.pixelatedw.wypi.WyHelper;
 import xyz.pixelatedw.wypi.abilities.Ability;
@@ -36,17 +36,17 @@ public class RapierStabAbility extends Ability implements IStandAbility
 
 	private boolean onUseEvent(PlayerEntity player)
 	{
-		EntityRayTraceResult hit = WyHelper.rayTraceEntities(player, 10);
+		SilverChariotEntity stand = (SilverChariotEntity) StandLogicHelper.getStandEntity(player);
+		
+		EntityRayTraceResult hit = WyHelper.rayTraceEntities(player, stand.hasArmor() ? 10 : 7);
 		Entity target = hit != null ? hit.getEntity() : null;
 
 		if (target == null)
 			return false;
 
-		GenericStandEntity stand = StandLogicHelper.getStandEntity(player);
-
 		stand.setPositionAndUpdate(target.posX, target.posY, target.posZ);
 		
-		target.attackEntityFrom(DamageSource.MAGIC, 2);
+		target.attackEntityFrom(DamageSource.MAGIC, stand.hasArmor() ? 2 : 4);
 
 		return true;
 	}
