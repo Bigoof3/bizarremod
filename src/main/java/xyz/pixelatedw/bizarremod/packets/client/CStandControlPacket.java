@@ -9,6 +9,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkEvent;
 import xyz.pixelatedw.bizarremod.ModMain;
+import xyz.pixelatedw.bizarremod.api.StandLogicHelper;
 import xyz.pixelatedw.bizarremod.api.particles.effects.ParticleEffect;
 import xyz.pixelatedw.bizarremod.api.stands.GenericStandEntity;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
@@ -56,21 +57,20 @@ public class CStandControlPacket
 					stand.onSummon(player);
 					world.addEntity(stand);
 					SUMMON_STAND.spawn(world, stand.posX, stand.posY + 0.7, stand.posZ, 0, 0, 0);
-
+					StandLogicHelper.addSummonedStand(stand);
+					
 					WyNetwork.sendToAll(new SStandExistencePacket(player.getUniqueID(), stand.getEntityId()));
 				}
 				else
 				{
 					try
 					{
-						GenericStandEntity target = WyHelper.<GenericStandEntity>getEntitiesNear(player.getPosition(), player.world, 5, GenericStandEntity.class).get(0);
+						GenericStandEntity target =	StandLogicHelper.getStandEntity(player);
 
-						if (target.getOwner() == player)
-						{
-							props.setStandSummoned(false);
-							target.onCancel(player);
-							target.remove();
-						}
+						props.setStandSummoned(false);
+						StandLogicHelper.removeSummonedStand(target);
+						target.onCancel(player);
+						target.remove();
 					}
 					catch (Exception e)
 					{

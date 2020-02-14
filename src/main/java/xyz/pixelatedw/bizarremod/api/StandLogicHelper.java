@@ -1,11 +1,41 @@
 package xyz.pixelatedw.bizarremod.api;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.entity.player.PlayerEntity;
 import xyz.pixelatedw.bizarremod.ModMain;
+import xyz.pixelatedw.bizarremod.api.stands.GenericStandEntity;
 import xyz.pixelatedw.bizarremod.api.stands.StandInfo;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
 
 public class StandLogicHelper
 {
+	private static List<GenericStandEntity> summonedStands = new ArrayList<GenericStandEntity>();
+	
+	public static void addSummonedStand(GenericStandEntity stand)
+	{
+		if(!summonedStands.contains(stand))
+			summonedStands.add(stand);
+	}
+	
+	public static void removeSummonedStand(GenericStandEntity stand)
+	{
+		if(summonedStands.contains(stand))
+			summonedStands.remove(stand);
+	}
+	
+	public static GenericStandEntity getStandEntity(PlayerEntity player)
+	{
+		for(GenericStandEntity stand : summonedStands)
+		{
+			if(stand.getOwner() == player)
+				return stand;
+		}
+		
+		return null;
+	}
+	
 	public static StandInfo getStandInfo(String standName)
 	{
 		if(ModEntities.getRegisteredStands().containsKey(standName))

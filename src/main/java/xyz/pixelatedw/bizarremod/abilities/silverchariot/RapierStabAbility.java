@@ -3,11 +3,12 @@ package xyz.pixelatedw.bizarremod.abilities.silverchariot;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3i;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.text.TextFormatting;
+import xyz.pixelatedw.bizarremod.api.StandLogicHelper;
 import xyz.pixelatedw.bizarremod.api.abilities.IStandAbility;
+import xyz.pixelatedw.bizarremod.api.stands.GenericStandEntity;
 import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
 import xyz.pixelatedw.wypi.WyHelper;
 import xyz.pixelatedw.wypi.abilities.Ability;
@@ -17,6 +18,8 @@ public class RapierStabAbility extends Ability implements IStandAbility
 	public RapierStabAbility()
 	{
 		super("Rapier Stab", AbilityCategory.ALL);
+
+		this.setMaxCooldown(1);
 
 		this.onUseEvent = this::onUseEvent;
 	}
@@ -33,17 +36,18 @@ public class RapierStabAbility extends Ability implements IStandAbility
 
 	private boolean onUseEvent(PlayerEntity player)
 	{
-		RayTraceResult hit = WyHelper.rayTraceBlocks(player);
+		EntityRayTraceResult hit = WyHelper.rayTraceEntities(player, 10);
+		Entity target = hit != null ? hit.getEntity() : null;
 
-		BlockPos pos = new BlockPos(hit.getHitVec()).subtract(new Vec3i(1, 0, 1));
-		
-		Entity target = WyHelper.getEntitiesNear(pos, player.world, 1.5).stream().findFirst().orElse(null);
-		
-		if(target == null)
+		if (target == null)
 			return false;
+
+		GenericStandEntity stand = StandLogicHelper.getStandEntity(player);
+
+		stand.setPositionAndUpdate(target.posX, target.posY, target.posZ);
 		
-		// Send Silver Chariot at them and damage the entity
-		
+		target.attackEntityFrom(DamageSource.MAGIC, 2);
+
 		return true;
 	}
 }

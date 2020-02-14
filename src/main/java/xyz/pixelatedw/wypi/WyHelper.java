@@ -18,6 +18,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 
 import com.mojang.blaze3d.platform.GLX;
@@ -39,12 +40,14 @@ import net.minecraft.particles.IParticleData;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceContext;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import xyz.pixelatedw.bizarremod.api.stands.GenericStandEntity;
 
 public class WyHelper
 {
@@ -227,7 +230,7 @@ public class WyHelper
 		return list;
 	}
 
-	public static RayTraceResult rayTraceBlocks(Entity source)
+	public static BlockRayTraceResult rayTraceBlocks(Entity source)
 	{
 		float f = 1.0F;
 		float f1 = source.prevRotationPitch + (source.rotationPitch - source.prevRotationPitch) * f;
@@ -245,11 +248,43 @@ public class WyHelper
 		double d3 = 5000D;
 
 		Vec3d vec3 = vec3d.add(f7 * d3, f6 * d3, f9 * d3);
-		RayTraceResult ray = source.world.rayTraceBlocks(new RayTraceContext(vec3d, vec3, RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.ANY, source));
+		BlockRayTraceResult ray = source.world.rayTraceBlocks(new RayTraceContext(vec3d, vec3, RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.ANY, source));
 
 		return ray;
 	}
-	
+
+	public static EntityRayTraceResult rayTraceEntities(Entity source, double distance)
+	{
+		Vec3d lookVec = source.getLook(1.0F);
+		Vec3d startVec = source.getEyePosition(1.0F);
+		Vec3d endVec = startVec.add(lookVec.x * distance, lookVec.y * distance, lookVec.z * distance);
+        AxisAlignedBB boundingBox = source.getBoundingBox().grow(distance);
+
+		for (Entity entity : source.world.getEntitiesInAABBexcluding(source, boundingBox, (entity) -> { return !(entity instanceof GenericStandEntity) && entity != source ;}))
+		{
+			AxisAlignedBB entityBB = entity.getBoundingBox().grow(1);
+			Optional<Vec3d> optional = entityBB.rayTrace(startVec, endVec);
+			
+			if(optional.isPresent())
+			{
+				Vec3d targetVec = optional.get();
+				double distFromSource = MathHelper.sqrt(startVec.squareDistanceTo(targetVec));
+				
+				if(distFromSource < distance)
+				{
+					Optional<Entity> target = WyHelper.getEntitiesNear(new BlockPos(targetVec), source.world, 1.25).parallelStream().findFirst();
+					
+					if(target.isPresent())
+					{
+						return new EntityRayTraceResult(target.get(), endVec);
+					}
+				}
+			}
+		}
+		
+		return null;
+	}
+
 	/*
 	 * Date Helpers
 	 */
