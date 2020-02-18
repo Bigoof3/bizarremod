@@ -14,7 +14,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceContext.BlockMode;
 import net.minecraft.util.math.RayTraceContext.FluidMode;
@@ -56,15 +55,18 @@ public class AbilityProjectileEntity extends ThrowableEntity
 	{
 		super(type, player, world);
 		this.maxLife = life;
-		
-		this.setLocationAndAngles(player.posX, player.posY + player.getEyeHeight(), player.posZ, player.rotationYaw, player.rotationPitch);
+	}
+/*
+	public void shoot(Entity player, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy)
+	{
+		/*this.setLocationAndAngles(player.posX, player.posY + player.getEyeHeight(), player.posZ, player.rotationYaw, player.rotationPitch);
 		double motionX = -MathHelper.sin(this.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float) Math.PI) * 0.4;
 		double motionZ = MathHelper.cos(this.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float) Math.PI) * 0.4;
 		double motionY = -MathHelper.sin((this.rotationPitch) / 180.0F * (float) Math.PI) * 0.4;
 		this.setMotion(new Vec3d(motionX, motionY, motionZ));
 		this.shoot(player, player.rotationPitch, player.rotationYaw, 0, 2f, 1);
 	}
-
+*/
 	@Override
 	public void tick()
 	{

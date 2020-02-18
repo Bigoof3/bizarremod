@@ -40,13 +40,13 @@ public class MachineGunsAbility extends RepeaterAbility implements IStandAbility
 		StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
 		
 		BulletEntity bullet = new BulletEntity(player, player.world);
-		
+		bullet.shoot(player, player.rotationPitch, player.rotationYaw, 0, 2 + info.getStandEntity(player).getSpeed(), 4 - info.getStandEntity(player).getPrecision());
+
 		bullet.setDamage(1 + info.getStandEntity(player).getDestructivePower());
 		bullet.setMaxLife(info.getStandEntity(player).getRange());
 
 		player.world.addEntity(bullet);
-		bullet.shoot(player, player.rotationPitch, player.rotationYaw, 0, 2 + info.getStandEntity(player).getSpeed(), 4 - info.getStandEntity(player).getPrecision());
-		
+
 		return true;
 	}
 }

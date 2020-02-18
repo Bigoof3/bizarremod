@@ -39,7 +39,7 @@ public class BombAbility extends Ability implements IStandAbility
 		
 		BombEntity bomb = new BombEntity(player, player.world);
 		bomb.shoot(player, player.rotationPitch, player.rotationYaw, 0, 2 + info.getStandEntity(player).getSpeed(), 1);
-			
+
 		bomb.setDamage(5 + info.getStandEntity(player).getDestructivePower());
 		bomb.setMaxLife(10 + (info.getStandEntity(player).getRange() * 2));
 		bomb.setGravity(0.05F);

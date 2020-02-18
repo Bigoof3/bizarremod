@@ -48,13 +48,6 @@ public class SilverChariotEntity extends GenericStandEntity
 		
 		this.dataManager.register(ARMOR_STATE, true);
 	}
-
-	@Override
-	public void tick()
-	{
-		System.out.println(this.getDestructivePower());
-		super.tick();
-	}
 	
 	@Override
 	public String getStandName()
