@@ -41,7 +41,7 @@ public class RapierStabAbility extends Ability implements IStandAbility
 		EntityRayTraceResult hit = WyHelper.rayTraceEntities(player, stand.hasArmor() ? 13 : 7);
 		Entity target = hit != null ? hit.getEntity() : null;
 
-		if (target == null)
+		if (target == null || !stand.hasRapier())
 			return false;
 
 		stand.setPositionAndUpdate(target.posX, target.posY, target.posZ);

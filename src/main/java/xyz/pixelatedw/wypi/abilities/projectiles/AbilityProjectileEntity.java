@@ -35,6 +35,7 @@ public class AbilityProjectileEntity extends ThrowableEntity
 	private float gravity = 0.0001F;
 	private boolean isPhysical = false;
 	private boolean canPassThroughBlocks = false;
+	private boolean canGetStuckInGround = false;
 	
 	// Setting the defaults so that no crash occurs and so they will be null safe.
 	public IOnEntityImpact onEntityImpactEvent = (hitEntity) -> { this.onBlockImpactEvent.onImpact(hitEntity.getPosition()); };
@@ -61,6 +62,12 @@ public class AbilityProjectileEntity extends ThrowableEntity
 	@Override
 	public void tick()
 	{
+		if(this.inGround)
+		{
+			this.setMotion(this.getMotion().mul(this.rand.nextFloat() * -0.5F, this.rand.nextFloat() * -0.5F, this.rand.nextFloat() * -0.5F));
+		//	this.setPosition(this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getZ());
+		}
+		
 		super.tick();
 
 		if(!this.world.isRemote)
@@ -154,7 +161,10 @@ public class AbilityProjectileEntity extends ThrowableEntity
 				if (!this.canPassThroughBlocks)
 				{										
 					this.onBlockImpactEvent.onImpact(blockHit.getPos());
-					this.remove();
+					if(!this.canGetStuckInGround)
+						this.remove();
+					else
+						this.inGround = true;
 				}
 			}
 		}
@@ -222,6 +232,11 @@ public class AbilityProjectileEntity extends ThrowableEntity
 		this.canPassThroughBlocks = true;
 	}
 
+	public void setCanGetStuckInGround()
+	{
+		this.canGetStuckInGround = true;
+	}
+	
 	public void setDamage(float damage)
 	{
 		this.damage = damage;

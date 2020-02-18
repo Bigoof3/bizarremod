@@ -13,6 +13,7 @@ import xyz.pixelatedw.bizarremod.entities.projectiles.AnkhEntity;
 import xyz.pixelatedw.bizarremod.entities.projectiles.BombEntity;
 import xyz.pixelatedw.bizarremod.entities.projectiles.BulletEntity;
 import xyz.pixelatedw.bizarremod.entities.projectiles.PunchEntity;
+import xyz.pixelatedw.bizarremod.entities.projectiles.RapierEntity;
 import xyz.pixelatedw.bizarremod.entities.stands.AerosmithEntity;
 import xyz.pixelatedw.bizarremod.entities.stands.AerosmithEntity.AerosmithStandInfo;
 import xyz.pixelatedw.bizarremod.entities.stands.GreenDayEntity;
@@ -32,6 +33,7 @@ public class ModEntities
 	public static final EntityType BULLET = WyRegistry.registerEntityType("bullet", BulletEntity::new, 1, 1);
 	public static final EntityType BOMB = WyRegistry.registerEntityType("bomb", BombEntity::new, 1, 1);
 	public static final EntityType ANKH = WyRegistry.registerEntityType("ankh", AnkhEntity::new, 1, 1);
+	public static final EntityType RAPIER = WyRegistry.registerEntityType("rapier", RapierEntity::new, 2, 2);
 
 	public static final EntityType GREEN_DAY = WyRegistry.registerEntityType(Consts.STAND_ID_GREEN_DAY, GreenDayEntity::new);
 	public static final EntityType AEROSMITH = WyRegistry.registerEntityType(Consts.STAND_ID_AEROSMITH, AerosmithEntity::new);
@@ -58,7 +60,7 @@ public class ModEntities
 				registerStand(SILVER_CHARIOT, new SilverChariotStandInfo()),
 				registerStand(HIGHWAY_STAR, new HighwayStarStandInfo()),
 				
-				PUNCH, BULLET, BOMB, ANKH
+				PUNCH, BULLET, BOMB, ANKH, RAPIER
 			);
 		}
 		

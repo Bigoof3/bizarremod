@@ -104,7 +104,11 @@ public abstract class Ability extends ForgeRegistryEntry<Ability>
 	{
 		return this.state;
 	}
-		
+	
+	/**
+	 * 
+	 * @param cooldown - seconds before the abiltiy can be used again
+	 */
 	public void setMaxCooldown(double cooldown)
 	{
 		this.maxCooldown = cooldown * 20;

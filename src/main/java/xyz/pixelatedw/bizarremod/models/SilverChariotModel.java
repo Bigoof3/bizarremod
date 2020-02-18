@@ -297,7 +297,7 @@ public class SilverChariotModel extends BipedModel<SilverChariotEntity>
 				model.rotateAngleX = 0F;
 			}
 		}
-		
+
 		//this.bipedRightArm.rotateAngleX = this.bipedLeftArm.rotateAngleX * 0.5F - ((float)Math.PI / 10F);
         //this.bipedRightArm.rotateAngleY = 0.0F;
         

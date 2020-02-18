@@ -17,7 +17,8 @@ import xyz.pixelatedw.wypi.abilities.Ability;
 
 public class SilverChariotEntity extends GenericStandEntity
 {
-	protected static final DataParameter<Boolean> ARMOR_STATE = EntityDataManager.createKey(SilverChariotEntity.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> HAS_ARMOR = EntityDataManager.createKey(SilverChariotEntity.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> HAS_RAPIER = EntityDataManager.createKey(SilverChariotEntity.class, DataSerializers.BOOLEAN);
 
 	public SilverChariotEntity(World world, PlayerEntity owner)
 	{
@@ -46,7 +47,8 @@ public class SilverChariotEntity extends GenericStandEntity
 		this.setPrecision('B');
 		this.setDevelopmentPotential('C');
 		
-		this.dataManager.register(ARMOR_STATE, true);
+		this.dataManager.register(HAS_ARMOR, true);
+		this.dataManager.register(HAS_RAPIER, true);
 	}
 	
 	@Override
@@ -57,17 +59,32 @@ public class SilverChariotEntity extends GenericStandEntity
 
 	public boolean hasArmor()
 	{
-		return this.dataManager.get(ARMOR_STATE);
+		return this.dataManager.get(HAS_ARMOR);
 	}
 	
 	public void removeArmor()
 	{
-		this.dataManager.set(ARMOR_STATE, false);
+		this.dataManager.set(HAS_ARMOR, false);
 	}
 	
 	public void equipArmor()
 	{
-		this.dataManager.set(ARMOR_STATE, true);
+		this.dataManager.set(HAS_ARMOR, true);
+	}
+	
+	public boolean hasRapier()
+	{
+		return this.dataManager.get(HAS_RAPIER);
+	}
+	
+	public void removeRapier()
+	{
+		this.dataManager.set(HAS_RAPIER, false);
+	}
+	
+	public void equipRapier()
+	{
+		this.dataManager.set(HAS_RAPIER, true);
 	}
 	
 	@Override
@@ -105,6 +122,7 @@ public class SilverChariotEntity extends GenericStandEntity
 	
 			stand.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ModItems.SILVER_CHARIOTS_RAPIER));
 			stand.equipArmor();
+			stand.equipRapier();
 			
 			return stand;
 		}
