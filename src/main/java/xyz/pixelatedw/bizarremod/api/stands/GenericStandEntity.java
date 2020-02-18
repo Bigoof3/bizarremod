@@ -48,7 +48,7 @@ public abstract class GenericStandEntity extends CreatureEntity
 		this.prevPosY = owner.getPosition().getY();
 		this.prevPosZ = owner.getPosition().getZ();
 
-		this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(this.owner.getMaxHealth());
+		this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(this.owner.getMaxHealth());		
 	}
 
 	@Override

@@ -22,6 +22,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.network.NetworkHooks;
+import xyz.pixelatedw.bizarremod.api.stands.GenericStandEntity;
 import xyz.pixelatedw.wypi.abilities.events.AbilityProjectileEvents;
 import xyz.pixelatedw.wypi.abilities.renderers.AbilityProjectileRenderer;
 
@@ -56,17 +57,7 @@ public class AbilityProjectileEntity extends ThrowableEntity
 		super(type, player, world);
 		this.maxLife = life;
 	}
-/*
-	public void shoot(Entity player, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy)
-	{
-		/*this.setLocationAndAngles(player.posX, player.posY + player.getEyeHeight(), player.posZ, player.rotationYaw, player.rotationPitch);
-		double motionX = -MathHelper.sin(this.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float) Math.PI) * 0.4;
-		double motionZ = MathHelper.cos(this.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float) Math.PI) * 0.4;
-		double motionY = -MathHelper.sin((this.rotationPitch) / 180.0F * (float) Math.PI) * 0.4;
-		this.setMotion(new Vec3d(motionX, motionY, motionZ));
-		this.shoot(player, player.rotationPitch, player.rotationYaw, 0, 2f, 1);
-	}
-*/
+
 	@Override
 	public void tick()
 	{
@@ -105,7 +96,10 @@ public class AbilityProjectileEntity extends ThrowableEntity
 				entity = target;
 			}
 		}
-
+		
+		if(entity instanceof GenericStandEntity && ((GenericStandEntity)entity).getOwner() == this.getThrower())
+			return;
+		
 		if (entity != null)
 			hit = new EntityRayTraceResult(entity);
 
@@ -127,6 +121,9 @@ public class AbilityProjectileEntity extends ThrowableEntity
 				if(entityHit.getEntity() instanceof LivingEntity && this.getThrower() != null)
 				{
 					LivingEntity hitEntity = (LivingEntity) entityHit.getEntity();
+
+					if(hitEntity instanceof GenericStandEntity && ((GenericStandEntity)hitEntity).getOwner() == this.getThrower())
+						return;
 					
 					AbilityProjectileEvents.Hit event = new AbilityProjectileEvents.Hit(this, hit);
 					if(MinecraftForge.EVENT_BUS.post(event))
