@@ -1,0 +1,25 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern":
+	[
+		"f",
+		"s",
+		"s"
+	],
+	"key": 
+	{
+		"f":
+		{
+			"item": "bizarremod:meteorite_fragment"
+		},
+		"s":
+		{
+			"item": "minecraft:stick"
+		}
+	},
+	"result": 
+	{
+		"item": "bizarremod:stand_arrow",
+		"count": 1
+	}
+}

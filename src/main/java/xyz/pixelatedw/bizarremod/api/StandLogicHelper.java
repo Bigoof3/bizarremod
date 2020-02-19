@@ -2,12 +2,17 @@ package xyz.pixelatedw.bizarremod.api;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import net.minecraft.entity.player.PlayerEntity;
 import xyz.pixelatedw.bizarremod.ModMain;
 import xyz.pixelatedw.bizarremod.api.stands.GenericStandEntity;
 import xyz.pixelatedw.bizarremod.api.stands.StandInfo;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
+import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
+import xyz.pixelatedw.wypi.abilities.Ability;
+import xyz.pixelatedw.wypi.abilities.PassiveAbility;
+import xyz.pixelatedw.wypi.data.ability.IAbilityData;
 
 public class StandLogicHelper
 {
@@ -81,6 +86,11 @@ public class StandLogicHelper
 			
 			default: return "?";
 		}
+	}
+	
+	public static List<Ability> getActiveAbilities(IAbilityData abilityProps, StandInfo standInfo)
+	{
+		return abilityProps.getUnlockedAbilities(AbilityCategory.ALL).parallelStream().filter(ability -> !(ability instanceof PassiveAbility)).collect(Collectors.toList());
 	}
 	
 }

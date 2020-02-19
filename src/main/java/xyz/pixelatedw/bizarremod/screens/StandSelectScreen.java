@@ -1,7 +1,6 @@
 package xyz.pixelatedw.bizarremod.screens;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -28,7 +27,6 @@ import xyz.pixelatedw.wypi.APIConfig;
 import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
 import xyz.pixelatedw.wypi.WyHelper;
 import xyz.pixelatedw.wypi.abilities.Ability;
-import xyz.pixelatedw.wypi.abilities.PassiveAbility;
 import xyz.pixelatedw.wypi.data.ability.AbilityDataCapability;
 import xyz.pixelatedw.wypi.data.ability.IAbilityData;
 import xyz.pixelatedw.wypi.network.WyNetwork;
@@ -176,10 +174,12 @@ public class StandSelectScreen extends Screen
 			for(Ability abl : currentInfo.getAbilities())
 				this.abilityProps.addUnlockedAbility(abl);
 			
-			if(this.getActiveAbilities(currentInfo).size() >= 1)
-				this.abilityProps.setEquippedAbility(0, this.getActiveAbilities(currentInfo).get(0) != null ? this.getActiveAbilities(currentInfo).get(0) : null);
-			if(this.getActiveAbilities(currentInfo).size() >= 2)
-				this.abilityProps.setEquippedAbility(1, this.getActiveAbilities(currentInfo).get(1) != null ? this.getActiveAbilities(currentInfo).get(1) : null);
+			List<Ability> activeAbilities = StandLogicHelper.getActiveAbilities(this.abilityProps, currentInfo);
+			
+			if(activeAbilities.size() >= 1)
+				this.abilityProps.setEquippedAbility(0, activeAbilities.get(0) != null ? activeAbilities.get(0) : null);
+			if(activeAbilities.size() >= 2)
+				this.abilityProps.setEquippedAbility(1, activeAbilities.get(1) != null ? activeAbilities.get(1) : null);
 			
 			this.onClose();
 		});
@@ -276,11 +276,6 @@ public class StandSelectScreen extends Screen
 	private ResourceLocation getIcon(StandInfo currentStandInfo)
 	{
 		return new ResourceLocation(APIConfig.PROJECT_ID, "textures/ui/icons/" + currentStandInfo.getStandId() + ".png");
-	}
-	
-	private List<Ability> getActiveAbilities(StandInfo standInfo)
-	{
-		return this.abilityProps.getUnlockedAbilities(AbilityCategory.ALL).parallelStream().filter(ability -> !(ability instanceof PassiveAbility)).collect(Collectors.toList());
 	}
 
 }

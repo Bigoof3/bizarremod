@@ -1,7 +1,6 @@
 package xyz.pixelatedw.bizarremod.screens;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 
@@ -15,10 +14,8 @@ import xyz.pixelatedw.bizarremod.api.StandLogicHelper;
 import xyz.pixelatedw.bizarremod.api.stands.StandInfo;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
-import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
 import xyz.pixelatedw.wypi.WyHelper;
 import xyz.pixelatedw.wypi.abilities.Ability;
-import xyz.pixelatedw.wypi.abilities.PassiveAbility;
 import xyz.pixelatedw.wypi.data.ability.AbilityDataCapability;
 import xyz.pixelatedw.wypi.data.ability.IAbilityData;
 import xyz.pixelatedw.wypi.network.WyNetwork;
@@ -58,7 +55,9 @@ public class AbilityWheelScreen extends Screen
 		int posX = this.width / 2;
 		int posY = this.height / 2;
 
-		if(this.getActiveAbilities().size() > 0)
+		List<Ability> activeAbilities = StandLogicHelper.getActiveAbilities(this.abilityProps, this.standInfo);
+
+		if(activeAbilities.size() > 0)
 			WyHelper.drawCenteredString(this.minecraft.fontRenderer, WyHelper.isNullOrEmpty(this.hoveredAbilityName) ? "" : this.hoveredAbilityName, posX, posY - 20, -1);
 		else
 			WyHelper.drawCenteredString(this.minecraft.fontRenderer, "No active Abilities available", posX, posY - 20, -1);
@@ -74,7 +73,8 @@ public class AbilityWheelScreen extends Screen
 
 		double phi = 0;
 		double radius = 80;
-		int abilities = this.getActiveAbilities().size();
+		List<Ability> activeAbilities = StandLogicHelper.getActiveAbilities(this.abilityProps, this.standInfo);
+		int abilities = activeAbilities.size();
 
 		int i = 0;
 		while (phi < Math.PI)
@@ -92,7 +92,7 @@ public class AbilityWheelScreen extends Screen
 				if (x == 0 && y == 0)
 					continue;
 
-				this.addButton(new AbilityButton((posX + 95) + x, (posY + 95) + y, this.getActiveAbilities().get(i), this.abilityProps,
+				this.addButton(new AbilityButton((posX + 95) + x, (posY + 95) + y, activeAbilities.get(i), this.abilityProps,
 						(button, type) ->
 						{
 							Ability first = this.abilityProps.getEquippedAbility(0);
@@ -129,10 +129,5 @@ public class AbilityWheelScreen extends Screen
 	public boolean isPauseScreen()
 	{
 		return false;
-	}
-
-	private List<Ability> getActiveAbilities()
-	{
-		return this.abilityProps.getUnlockedAbilities(AbilityCategory.ALL).parallelStream().filter(ability -> !(ability instanceof PassiveAbility)).collect(Collectors.toList());
 	}
 }
