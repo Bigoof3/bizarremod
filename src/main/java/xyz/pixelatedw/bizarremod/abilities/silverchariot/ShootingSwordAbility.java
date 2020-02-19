@@ -49,7 +49,7 @@ public class ShootingSwordAbility extends ContinuousAbility implements IStandAbi
 		rapier.setCanGetStuckInGround();
 		rapier.setDamage(6 + stand.getDestructivePower());
 		rapier.setMaxLife(Integer.MAX_VALUE);
-		rapier.setGravity(0.05F);
+		//rapier.setGravity(0.05F);
 
 		player.world.addEntity(rapier);
 		
@@ -67,8 +67,8 @@ public class ShootingSwordAbility extends ContinuousAbility implements IStandAbi
 			return;
 		
 		RapierEntity rapier = WyHelper.getEntitiesNear(player.getPosition(), player.world, stand.hasArmor() ? 2 : 5, RapierEntity.class).parallelStream().findFirst().orElse(null);
-		
-		if(rapier == null)
+
+		if(rapier == null || !rapier.isStuckInGround())
 			return;
 		
 		stand.setPositionAndUpdate(rapier.posX, rapier.posY, rapier.posZ);

@@ -36,6 +36,7 @@ public class AbilityProjectileEntity extends ThrowableEntity
 	private boolean isPhysical = false;
 	private boolean canPassThroughBlocks = false;
 	private boolean canGetStuckInGround = false;
+	protected boolean stuckInGround = false;
 	
 	// Setting the defaults so that no crash occurs and so they will be null safe.
 	public IOnEntityImpact onEntityImpactEvent = (hitEntity) -> { this.onBlockImpactEvent.onImpact(hitEntity.getPosition()); };
@@ -61,13 +62,7 @@ public class AbilityProjectileEntity extends ThrowableEntity
 
 	@Override
 	public void tick()
-	{
-		if(this.inGround)
-		{
-			this.setMotion(this.getMotion().mul(this.rand.nextFloat() * -0.5F, this.rand.nextFloat() * -0.5F, this.rand.nextFloat() * -0.5F));
-		//	this.setPosition(this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getZ());
-		}
-		
+	{		
 		super.tick();
 
 		if(!this.world.isRemote)
@@ -80,7 +75,7 @@ public class AbilityProjectileEntity extends ThrowableEntity
 			else
 				this.life--;
 		}
-
+		
 		Vec3d vec31 = new Vec3d(this.posX, this.posY, this.posZ);
 		Vec3d vec3 = new Vec3d(this.posX + this.getMotion().x, this.posY + this.getMotion().y, this.posZ + this.getMotion().z);
 		RayTraceResult hit = this.world.rayTraceBlocks(new RayTraceContext(vec3, vec31, BlockMode.OUTLINE, FluidMode.ANY, this));
@@ -163,8 +158,6 @@ public class AbilityProjectileEntity extends ThrowableEntity
 					this.onBlockImpactEvent.onImpact(blockHit.getPos());
 					if(!this.canGetStuckInGround)
 						this.remove();
-					else
-						this.inGround = true;
 				}
 			}
 		}
@@ -172,8 +165,7 @@ public class AbilityProjectileEntity extends ThrowableEntity
 	
 	@Override
 	public void remove()
-	{
-		
+	{		
 		super.remove();
 	}
 
@@ -245,6 +237,11 @@ public class AbilityProjectileEntity extends ThrowableEntity
 	public void setGravity(float gravity)
 	{
 		this.gravity = gravity;
+	}
+	
+	public boolean isStuckInGround()
+	{
+		return this.stuckInGround;
 	}
 	
 	/*
