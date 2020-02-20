@@ -4,7 +4,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import xyz.pixelatedw.bizarremod.Consts;
 import xyz.pixelatedw.bizarremod.api.stands.GenericStandEntity;
-import xyz.pixelatedw.bizarremod.api.stands.StandInfo;
 import xyz.pixelatedw.bizarremod.init.ModAbilities;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
 import xyz.pixelatedw.wypi.abilities.Ability;
@@ -58,7 +57,7 @@ public class AerosmithEntity extends GenericStandEntity
 		
 	}
 	
-	public static class AerosmithStandInfo extends StandInfo
+	public static class AerosmithStandInfo extends DefaultStandInfo
 	{
 
 		private Ability[] abilities = new Ability[] 
@@ -68,12 +67,6 @@ public class AerosmithEntity extends GenericStandEntity
 						ModAbilities.CARBON_DIOXIDE_RADAR
 					};
 		
-		@Override
-		public String getStandId()
-		{
-			return Consts.STAND_ID_AEROSMITH;
-		}
-
 		@Override
 		public JoJoPart getStandPart()
 		{
@@ -92,6 +85,16 @@ public class AerosmithEntity extends GenericStandEntity
 		public Ability[] getAbilities()
 		{
 			return this.abilities;
+		}
+		
+		@Override
+		public String[][] getStandTextures()
+		{
+			return new String[][]
+			{
+				{"Standard", Consts.STAND_ID_AEROSMITH },
+				{"Alternative", Consts.STAND_ID_AEROSMITH_ALT }
+			};
 		}
 	}
 }

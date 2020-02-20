@@ -9,7 +9,6 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.world.World;
 import xyz.pixelatedw.bizarremod.Consts;
 import xyz.pixelatedw.bizarremod.api.stands.GenericStandEntity;
-import xyz.pixelatedw.bizarremod.api.stands.StandInfo;
 import xyz.pixelatedw.bizarremod.init.ModAbilities;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
 import xyz.pixelatedw.bizarremod.init.ModItems;
@@ -100,7 +99,7 @@ public class SilverChariotEntity extends GenericStandEntity
 	@Override
 	public void onCancel(PlayerEntity owner) {}
 
-	public static class SilverChariotStandInfo extends StandInfo
+	public static class SilverChariotStandInfo extends DefaultStandInfo
 	{
 		private Ability[] abilities = new Ability[] 
 				{
@@ -109,12 +108,6 @@ public class SilverChariotEntity extends GenericStandEntity
 					ModAbilities.SHOOTING_SWORD
 				};
 
-		@Override
-		public String getStandId()
-		{
-			return Consts.STAND_ID_SILVER_CHARIOT;
-		}
-		
 		@Override
 		public GenericStandEntity getStandEntity(PlayerEntity owner)
 		{
@@ -137,6 +130,15 @@ public class SilverChariotEntity extends GenericStandEntity
 		public JoJoPart getStandPart()
 		{
 			return JoJoPart.STARDUST_CRUSADERS;
+		}
+		
+		@Override
+		public String[][] getStandTextures()
+		{
+			return new String[][]
+			{
+				{ "Default", Consts.STAND_ID_SILVER_CHARIOT }
+			};
 		}
 	}
 }

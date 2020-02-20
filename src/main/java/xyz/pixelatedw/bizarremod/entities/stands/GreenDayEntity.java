@@ -4,7 +4,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import xyz.pixelatedw.bizarremod.Consts;
 import xyz.pixelatedw.bizarremod.api.stands.GenericStandEntity;
-import xyz.pixelatedw.bizarremod.api.stands.StandInfo;
 import xyz.pixelatedw.bizarremod.init.ModAbilities;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
 import xyz.pixelatedw.wypi.abilities.Ability;
@@ -57,7 +56,7 @@ public class GreenDayEntity extends GenericStandEntity
 		
 	}
 	
-	public static class GreenDayStandInfo extends StandInfo
+	public static class GreenDayStandInfo extends DefaultStandInfo
 	{
 		private Ability[] abilities = new Ability[] 
 					{ 
@@ -65,12 +64,6 @@ public class GreenDayEntity extends GenericStandEntity
 						ModAbilities.MOLD_INFESTATION
 					};
 
-		@Override
-		public String getStandId()
-		{
-			return Consts.STAND_ID_GREEN_DAY;
-		}
-		
 		@Override
 		public GenericStandEntity getStandEntity(PlayerEntity owner)
 		{
@@ -89,6 +82,16 @@ public class GreenDayEntity extends GenericStandEntity
 		public JoJoPart getStandPart()
 		{
 			return JoJoPart.VENTO_AUREO;
+		}
+		
+		@Override
+		public String[][] getStandTextures()
+		{
+			return new String[][]
+			{
+				{ "Default", Consts.STAND_ID_GREEN_DAY },
+				{ "Alternative", Consts.STAND_ID_GREEN_DAY_ALT }
+			};
 		}
 	}
 

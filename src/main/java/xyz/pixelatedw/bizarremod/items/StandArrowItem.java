@@ -101,7 +101,7 @@ public class StandArrowItem extends Item
 		if(info == null)
 			return false;
 		
-		props.setStand(info.getStandId());
+		props.setStand(info.getDefaultStandId());
 		
 		abilityProps.clearEquippedAbilities(AbilityCategory.ALL);
 		abilityProps.clearUnlockedAbilities(AbilityCategory.ALL);

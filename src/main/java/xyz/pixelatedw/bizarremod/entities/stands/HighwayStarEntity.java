@@ -7,7 +7,6 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.world.World;
 import xyz.pixelatedw.bizarremod.Consts;
 import xyz.pixelatedw.bizarremod.api.stands.GenericStandEntity;
-import xyz.pixelatedw.bizarremod.api.stands.StandInfo;
 import xyz.pixelatedw.bizarremod.init.ModAbilities;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
 import xyz.pixelatedw.wypi.abilities.Ability;
@@ -65,19 +64,14 @@ public class HighwayStarEntity extends GenericStandEntity
 	@Override
 	public void onCancel(PlayerEntity owner) {}
 
-	public static class HighwayStarStandInfo extends StandInfo
+	public static class HighwayStarStandInfo extends DefaultStandInfo
 	{
 		private Ability[] abilities = new Ability[] 
 				{
 					ModAbilities.ROOM_TRAP
 				};
 
-		@Override
-		public String getStandId()
-		{
-			return Consts.STAND_ID_HIGHWAY_STAR;
-		}
-		
+
 		@Override
 		public GenericStandEntity getStandEntity(PlayerEntity owner)
 		{
@@ -96,6 +90,15 @@ public class HighwayStarEntity extends GenericStandEntity
 		public JoJoPart getStandPart()
 		{
 			return JoJoPart.DIAMOND_IS_UNBREAKABLE;
+		}
+		
+		@Override
+		public String[][] getStandTextures()
+		{
+			return new String[][]
+			{
+				{ "Default", Consts.STAND_ID_HIGHWAY_STAR }
+			};
 		}
 	}
 }

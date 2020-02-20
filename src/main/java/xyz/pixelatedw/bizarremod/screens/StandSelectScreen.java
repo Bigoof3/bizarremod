@@ -43,7 +43,7 @@ public class StandSelectScreen extends Screen
 	private List<Widget> abilityButtons = Lists.newArrayList();
 	private IAbilityData abilityProps;
 	private IStandData standProps;
-
+	private int standSkinId = 0;
 	
 	public StandSelectScreen(PlayerEntity player)
 	{
@@ -131,7 +131,7 @@ public class StandSelectScreen extends Screen
 		}
 		else if(this.page == 2)
 		{
-			
+			WyHelper.drawCenteredString(this.font, info.getStandTextures()[this.standSkinId][0], posX + 163, posY + 60, -1);
 		}
 		
 		super.render(x, y, f);
@@ -143,12 +143,17 @@ public class StandSelectScreen extends Screen
 		this.init(0);
 	}
 	
-	public void init(int ablIndex)
+	public void init(int index)
 	{
 		int posX = (this.width - 256) / 2;
 		int posY = (this.height - 256) / 2;
 		StandInfo info = (StandInfo) ModEntities.getRegisteredStands().values().toArray()[this.currentStand - 1];
 
+		if(info.getStandTextures().length < this.standSkinId + 1)
+			this.standSkinId = 0;
+		
+		info.setStandId(info.getStandTextures()[this.standSkinId][1]);
+		
 		if(this.currentAbility >= info.getAbilities().length)
 			this.currentAbility = 0;
 		
@@ -160,13 +165,13 @@ public class StandSelectScreen extends Screen
 				return;
 			
 			this.currentStand--;
-			this.init();
+			this.init(index);
 		});
 	
 		Button chooseButton = new Button(posX + 90, posY + 200, 90, 20, "Choose", b -> 
 		{
 			StandInfo currentInfo = (StandInfo) ModEntities.getRegisteredStands().values().toArray()[this.currentStand - 1];
-			this.standProps.setStand(currentInfo.getStandId());
+			this.standProps.setStand(currentInfo.getDefaultStandId());
 			
 			this.abilityProps.clearEquippedAbilities(AbilityCategory.ALL);
 			this.abilityProps.clearUnlockedAbilities(AbilityCategory.ALL);
@@ -190,7 +195,7 @@ public class StandSelectScreen extends Screen
 				return;
 			
 			this.currentStand++;
-			this.init();
+			this.init(index);
 		});
 
 		Button abilitiesButton = new Button(posX + 80, posY + 20, 50, 20, "Abilities", b -> 
@@ -215,11 +220,11 @@ public class StandSelectScreen extends Screen
 		{
 			if(!b.active)
 				return;
-			
+		
 			this.page = 2;		
 			this.init();
 		});	
-			
+
 		if(this.currentStand == 1)
 			previousButton.active = false;		
 
@@ -244,7 +249,7 @@ public class StandSelectScreen extends Screen
 						this.init(j);
 					});
 
-					if(ablIndex == i)
+					if(index == i)
 						abilityButton.active = false;
 					this.addButton(abilityButton);
 					i++;
@@ -254,7 +259,28 @@ public class StandSelectScreen extends Screen
 		else if(this.page == 1)
 			statsButton.active = false;
 		else if(this.page == 2)
-			optionsButton.active = false;		
+		{
+			optionsButton.active = false;
+			
+			int i = 0;
+			for(String[] texture : info.getStandTextures())
+			{
+				final int j = i;
+				Button skinButton = new Button(posX + 100 + (i * 30), posY + 80, 20, 20, "", b -> 
+				{
+					if(!b.active)
+						return;
+
+					this.standSkinId = j;
+					this.init(j);
+				});
+
+				if(index == i)
+					skinButton.active = false;
+				this.addButton(skinButton);
+				i++;
+			}
+		}
 		
 		this.addButton(previousButton);
 		this.addButton(chooseButton);

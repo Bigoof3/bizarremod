@@ -4,7 +4,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import xyz.pixelatedw.bizarremod.Consts;
 import xyz.pixelatedw.bizarremod.api.stands.GenericStandEntity;
-import xyz.pixelatedw.bizarremod.api.stands.StandInfo;
 import xyz.pixelatedw.bizarremod.init.ModAbilities;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
 import xyz.pixelatedw.wypi.abilities.Ability;
@@ -49,7 +48,7 @@ public class MagiciansRedEntity extends GenericStandEntity
 	@Override
 	public void onCancel(PlayerEntity owner) {}
 	
-	public static class MagiciansRedStandInfo extends StandInfo
+	public static class MagiciansRedStandInfo extends DefaultStandInfo
 	{
 		private Ability[] abilities = new Ability[] 
 				{
@@ -58,12 +57,6 @@ public class MagiciansRedEntity extends GenericStandEntity
 					ModAbilities.RED_BIND
 				};
 
-		@Override
-		public String getStandId()
-		{
-			return Consts.STAND_ID_MAGICIANS_RED;
-		}
-		
 		@Override
 		public GenericStandEntity getStandEntity(PlayerEntity owner)
 		{
@@ -82,6 +75,17 @@ public class MagiciansRedEntity extends GenericStandEntity
 		public JoJoPart getStandPart()
 		{
 			return JoJoPart.STARDUST_CRUSADERS;
+		}
+		
+		@Override
+		public String[][] getStandTextures()
+		{
+			return new String[][]
+			{
+				{ "Default", Consts.STAND_ID_MAGICIANS_RED },
+				{ "Alternative", Consts.STAND_ID_MAGICIANS_RED_ALT },
+				{ "All Star Battle", Consts.STAND_ID_MAGICIANS_RED_ASB }
+			};
 		}
 	}
 }
