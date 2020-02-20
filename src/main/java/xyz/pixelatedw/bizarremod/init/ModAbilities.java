@@ -5,7 +5,7 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ObjectHolder;
-import xyz.pixelatedw.bizarremod.abilities.PunchProjectileAbility;
+import xyz.pixelatedw.bizarremod.abilities.StandPunchAbility;
 import xyz.pixelatedw.bizarremod.abilities.aerosmith.BombAbility;
 import xyz.pixelatedw.bizarremod.abilities.aerosmith.CarbonDioxideRadarAbility;
 import xyz.pixelatedw.bizarremod.abilities.aerosmith.MachineGunsAbility;
@@ -59,6 +59,6 @@ public class ModAbilities
 		
 		event.getRegistry().register(WyRegistry.registerAbility(new MoldInfestationAbility(), "Mold Infestation"));
 		
-		event.getRegistry().register(WyRegistry.registerAbility(new PunchProjectileAbility(), "Punch"));
+		event.getRegistry().register(WyRegistry.registerAbility(new StandPunchAbility(), "Punch"));
 	}
 }
