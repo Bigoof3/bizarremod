@@ -17,7 +17,7 @@ import xyz.pixelatedw.wypi.debug.WyDebug;
 
 public class WyPatreon
 {
-	private static String urlConnection = "https://pixelatedw.xyz/api";
+	private static String urlConnection = "https://pixelatedw.xyz/api/v1";
 
 	public static boolean isDevBuild()
 	{
@@ -38,32 +38,47 @@ public class WyPatreon
 	{
 		boolean flag = false;
 
-		String apiURL = "/patreon?uuid=" + player.getUniqueID().toString();
+		String apiURL = "/patreon/" + player.getUniqueID().toString();
 		String result = sendGET(apiURL);
-
+		
 		if (!WyHelper.isNullOrEmpty(result))
 		{
-			int patreonLevel = Integer.parseInt(result);
-
+			String[] groups = result.split(",");
+						
+			int patreonLevel = 0;
+			for(String group : groups)
+			{				
+				String formattedGroupName = WyHelper.getResourceName(group);
+				
+				if(formattedGroupName.equalsIgnoreCase("patreon_rookie"))
+					patreonLevel = 1;
+				
+				if(formattedGroupName.equalsIgnoreCase("patreon_supernova"))
+					patreonLevel = 2;
+				
+				if(formattedGroupName.equalsIgnoreCase("patreon_celestial_dragon"))
+					patreonLevel = 3;
+			}
+			
 			return patreonLevel;
 		}
 
-		return 1;
+		return 0;
 	}
 
 	public static boolean isCelestialDragon(PlayerEntity player)
 	{
-		return getPatreonLevel(player) == 4;
+		return getPatreonLevel(player) >= 3;
 	}
 
 	public static boolean isSupernova(PlayerEntity player)
 	{
-		return getPatreonLevel(player) == 3;
+		return getPatreonLevel(player) >= 2;
 	}
 
 	public static boolean isRookie(PlayerEntity player)
 	{
-		return getPatreonLevel(player) == 2;
+		return getPatreonLevel(player) >= 1;
 	}
 	
 	public static boolean hasPatreonAccess(PlayerEntity player)
