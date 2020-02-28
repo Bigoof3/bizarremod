@@ -17,6 +17,9 @@ public class CommonConfig
 	private BooleanValue oneStand;
 	private BooleanValue shounenScream;
 	
+	// Stand Config
+	//private EnumValue aerosmithRadarPosition;
+	
 	public static void init()
 	{
 		Pair<CommonConfig, ForgeConfigSpec> pair = new ForgeConfigSpec.Builder().configure(CommonConfig::new);

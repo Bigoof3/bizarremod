@@ -1,8 +1,14 @@
 package xyz.pixelatedw.bizarremod.abilities.aerosmith;
 
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.TextFormatting;
+import xyz.pixelatedw.bizarremod.api.StandLogicHelper;
 import xyz.pixelatedw.bizarremod.api.abilities.IStandAbility;
+import xyz.pixelatedw.bizarremod.api.stands.StandInfo;
+import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
+import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
+import xyz.pixelatedw.bizarremod.entities.stands.AerosmithEntity;
 import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
 import xyz.pixelatedw.wypi.abilities.ContinuousAbility;
 
@@ -11,6 +17,9 @@ public class CarbonDioxideRadarAbility extends ContinuousAbility implements ISta
 	public CarbonDioxideRadarAbility()
 	{
 		super("Carbon Dioxide Radar", AbilityCategory.ALL);
+		
+		this.onStartContinuityEvent = this::onStartContinuityEvent;
+		this.onEndContinuityEvent = this::onEndContinuityEvent;
 	}
 
 	@Override
@@ -25,4 +34,27 @@ public class CarbonDioxideRadarAbility extends ContinuousAbility implements ISta
 		this.drawLine("on screen showing all targets.", posX + 190, posY + 140);
 	}
 
+	private boolean onStartContinuityEvent(PlayerEntity player)
+	{
+		IStandData props = StandDataCapability.get(player);
+		StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
+		
+		AerosmithEntity stand = StandLogicHelper.getStandEntity(player);
+
+		stand.triggerRadar(true);
+		
+		return true;
+	}
+	
+	private boolean onEndContinuityEvent(PlayerEntity player)
+	{
+		IStandData props = StandDataCapability.get(player);
+		StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
+		
+		AerosmithEntity stand = StandLogicHelper.getStandEntity(player);
+
+		stand.triggerRadar(false);
+		
+		return true;
+	}
 }

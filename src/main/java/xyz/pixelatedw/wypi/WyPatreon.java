@@ -40,26 +40,26 @@ public class WyPatreon
 
 		String apiURL = "/patreon/" + player.getUniqueID().toString();
 		String result = sendGET(apiURL);
-		
+
 		if (!WyHelper.isNullOrEmpty(result))
 		{
 			String[] groups = result.split(",");
-						
+
 			int patreonLevel = 0;
-			for(String group : groups)
-			{				
+			for (String group : groups)
+			{
 				String formattedGroupName = WyHelper.getResourceName(group);
-				
-				if(formattedGroupName.equalsIgnoreCase("patreon_rookie"))
+
+				if (formattedGroupName.equalsIgnoreCase("patreon_rookie"))
 					patreonLevel = 1;
-				
-				if(formattedGroupName.equalsIgnoreCase("patreon_supernova"))
+
+				if (formattedGroupName.equalsIgnoreCase("patreon_supernova"))
 					patreonLevel = 2;
-				
-				if(formattedGroupName.equalsIgnoreCase("patreon_celestial_dragon"))
+
+				if (formattedGroupName.equalsIgnoreCase("patreon_celestial_dragon"))
 					patreonLevel = 3;
 			}
-			
+
 			return patreonLevel;
 		}
 
@@ -80,7 +80,7 @@ public class WyPatreon
 	{
 		return getPatreonLevel(player) >= 1;
 	}
-	
+
 	public static boolean hasPatreonAccess(PlayerEntity player)
 	{
 		int patreon = getPatreonLevel(player);
