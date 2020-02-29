@@ -28,7 +28,7 @@ public abstract class GenericStandEntity extends CreatureEntity
 	protected static final DataParameter<Byte> DEVELOPMENT_POTENTIAL = EntityDataManager.createKey(GenericStandEntity.class, DataSerializers.BYTE);
 
 	private PlayerEntity owner;
-	
+
 	public GenericStandEntity(EntityType type, World world)
 	{
 		super(type, world);
@@ -48,7 +48,7 @@ public abstract class GenericStandEntity extends CreatureEntity
 		this.prevPosY = owner.getPosition().getY();
 		this.prevPosZ = owner.getPosition().getZ();
 
-		this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(this.owner.getMaxHealth());		
+		this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(this.owner.getMaxHealth());
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public abstract class GenericStandEntity extends CreatureEntity
 
 	@Override
 	public void tick()
-	{     
+	{
 		if (!this.world.isRemote)
 		{
 			if (this.owner == null)
@@ -98,7 +98,7 @@ public abstract class GenericStandEntity extends CreatureEntity
 			double distance = this.getDistanceSq(this.owner);
 			if (distance > 1)
 				this.moveStand(distance, this.owner);
-			
+
 			this.setRotation(this.owner.rotationYaw, this.owner.rotationPitch);
 		}
 
@@ -115,16 +115,16 @@ public abstract class GenericStandEntity extends CreatureEntity
 		double distZ = this.posZ - entity.posZ;
 		float speed = 0.4F;
 
-		if(distY > -1 && distY < 1)
+		if (distY > -1 && distY < 1)
 			distY = 0;
 		else
 		{
-			if(distY > 1)
+			if (distY > 1)
 				distY -= 1;
-			else if(distY < -1)
+			else if (distY < -1)
 				distY += 1;
 		}
-		
+
 		double powX = 0, powY = 0, powZ = 0;
 
 		if (distX > 2.0D)
@@ -136,11 +136,11 @@ public abstract class GenericStandEntity extends CreatureEntity
 			powZ -= speed / 2;
 		if (distZ < -2.0D)
 			powZ += speed / 2;
-		
+
 		this.setMotion(this.getMotion().add(powX, 0, powZ));
 		this.setMotion(this.getMotion().getX(), 0, this.getMotion().getZ());
 
-		if(distY != 0)
+		if (distY != 0)
 			this.setPosition(this.posX, entity.posY + 0.3, this.posZ);
 	}
 
