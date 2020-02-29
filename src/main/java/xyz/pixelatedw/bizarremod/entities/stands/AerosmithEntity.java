@@ -1,9 +1,6 @@
 package xyz.pixelatedw.bizarremod.entities.stands;
 
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.world.World;
 import xyz.pixelatedw.bizarremod.Consts;
 import xyz.pixelatedw.bizarremod.api.stands.GenericStandEntity;
@@ -13,8 +10,6 @@ import xyz.pixelatedw.wypi.abilities.Ability;
 
 public class AerosmithEntity extends GenericStandEntity
 {
-	protected static final DataParameter<Boolean> RADAR_ACTIVE = EntityDataManager.createKey(AerosmithEntity.class, DataSerializers.BOOLEAN);
-
 	public AerosmithEntity(World world, PlayerEntity owner)
 	{
 		super(ModEntities.AEROSMITH, world, owner);
@@ -40,9 +35,7 @@ public class AerosmithEntity extends GenericStandEntity
 		this.setRange('B');
 		this.setPersistance('C');
 		this.setPrecision('E');
-		this.setDevelopmentPotential('C');
-		
-		this.dataManager.register(RADAR_ACTIVE, false);
+		this.setDevelopmentPotential('C');	
 	}
 	
 	@Override
@@ -61,16 +54,6 @@ public class AerosmithEntity extends GenericStandEntity
 	public void onCancel(PlayerEntity owner)
 	{
 		
-	}
-	
-	public void triggerRadar(boolean flag)
-	{
-		this.dataManager.set(RADAR_ACTIVE, flag);
-	}
-	
-	public boolean hasRadarActive()
-	{
-		return this.dataManager.get(RADAR_ACTIVE);
 	}
 	
 	public static class AerosmithStandInfo extends DefaultStandInfo

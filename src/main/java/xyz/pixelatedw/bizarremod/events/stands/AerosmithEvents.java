@@ -12,6 +12,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.config.GuiUtils;
 import net.minecraftforge.fml.common.Mod;
+import xyz.pixelatedw.bizarremod.Consts;
 import xyz.pixelatedw.bizarremod.api.StandLogicHelper;
 import xyz.pixelatedw.bizarremod.api.stands.GenericStandEntity;
 import xyz.pixelatedw.bizarremod.api.stands.StandInfo;
@@ -34,6 +35,9 @@ public class AerosmithEvents
 		IStandData props = StandDataCapability.get(player);
 		IAbilityData abilityProps = AbilityDataCapability.get(player);
 		StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
+
+		if(!props.getStand().equalsIgnoreCase(Consts.STAND_ID_AEROSMITH) || !props.hasStandSummoned())
+			return;
 
 		List<LivingEntity> nearbyEnemies = WyHelper.getEntitiesNear(player.getPosition(), player.world, 15);
 		nearbyEnemies = nearbyEnemies.parallelStream().filter(entity -> !(entity instanceof GenericStandEntity)).collect(Collectors.toList());
