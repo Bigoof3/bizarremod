@@ -18,6 +18,8 @@ import xyz.pixelatedw.bizarremod.api.stands.GenericStandEntity;
 import xyz.pixelatedw.bizarremod.api.stands.StandInfo;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
+import xyz.pixelatedw.bizarremod.config.CommonConfig;
+import xyz.pixelatedw.bizarremod.config.CommonConfig.CO2RadarPosition;
 import xyz.pixelatedw.bizarremod.init.ModResourceLocations;
 import xyz.pixelatedw.wypi.APIConfig;
 import xyz.pixelatedw.wypi.WyHelper;
@@ -43,8 +45,19 @@ public class AerosmithEvents
 		nearbyEnemies = nearbyEnemies.parallelStream().filter(entity -> !(entity instanceof GenericStandEntity)).collect(Collectors.toList());
 		nearbyEnemies.remove(player);
 		
-		int posX = (Minecraft.getInstance().mainWindow.getScaledWidth() - 1480) / 13;
-		int posY = (Minecraft.getInstance().mainWindow.getScaledHeight() - 256) / 2;
+		int posX = 0;
+		int posY = 0;
+		
+		if(CommonConfig.instance.getCO2RadarPosition() == CO2RadarPosition.MIDDLE_LEFT)
+		{
+			posX = (Minecraft.getInstance().mainWindow.getScaledWidth() - 1480) / 13;
+			posY = (Minecraft.getInstance().mainWindow.getScaledHeight() - 256) / 2;
+		}
+		else if(CommonConfig.instance.getCO2RadarPosition() == CO2RadarPosition.MIDDLE_RIGHT)
+		{
+			posX = Minecraft.getInstance().mainWindow.getScaledWidth() - 180;
+			posY = (Minecraft.getInstance().mainWindow.getScaledHeight() - 256) / 2;
+		}
 		
 		GlStateManager.pushMatrix();
 		GlStateManager.enableBlend();

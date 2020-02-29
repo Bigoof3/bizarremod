@@ -35,7 +35,7 @@ public class HighwayStarRenderer extends BipedRenderer<HighwayStarEntity, BipedM
 	{
 		GlStateManager.color4f(1, 1, 1, 1);
 		GlStateManager.pushMatrix();
-		GlStateManager.translated(x, y + 1.45, z);
+		GlStateManager.translated(x, y + 1.90, z);
 		
 		Minecraft.getInstance().textureManager.bindTexture(this.getEntityTexture(entity));
 
@@ -61,7 +61,7 @@ public class HighwayStarRenderer extends BipedRenderer<HighwayStarEntity, BipedM
 
 		GlStateManager.popMatrix();
 		
-		//super.doRender(entity, x, y + 0.4F, z, entityYaw, partialTicks);
+		super.doRender(entity, x, y + 0.4F, z, entityYaw, partialTicks);
 	}
 
 	@Override
