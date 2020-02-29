@@ -59,15 +59,25 @@ public class AerosmithEvents
 		for (LivingEntity target : nearbyEnemies)
 		{
 			int targetPosX = target.getPosition().getX();
+			int targetPosY = target.getPosition().getY();
 			int targetPosZ = target.getPosition().getZ();
 			
 			GlStateManager.pushMatrix();
 
 			int xDiff = (player.getPosition().getX() - targetPosX) * 5;
+			double yDiff = player.getPosition().getY() - targetPosY;
 			int zDiff = (player.getPosition().getZ() - targetPosZ) * 5;
 
+			double size = 0.1;
+			if(yDiff >= 5)
+				size = 0.05;
+			else if((yDiff > 0 && yDiff < 5) || (yDiff < 0 && yDiff > -5))
+				size = 0.1;
+			else if(yDiff <= -5)
+				size = 0.15;
+			
 			GlStateManager.translated(115 + xDiff, 115 + zDiff, 100);
-			GlStateManager.scaled(0.1, 0.1, 0);
+			GlStateManager.scaled(size, size, 0);
 						
 			Minecraft.getInstance().getTextureManager().bindTexture(ModResourceLocations.CO_TARGET);
 			GuiUtils.drawTexturedModalRect(0, 0, 0, 0, 256, 256, 0);
