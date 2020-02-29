@@ -18,7 +18,6 @@ import xyz.pixelatedw.wypi.WyHelper;
 @OnlyIn(Dist.CLIENT)
 public class GenericStandRenderer extends BipedRenderer<GenericStandEntity, BipedModel<GenericStandEntity>>
 {
-
 	private BipedModel model;
 	private ResourceLocation texture;
 	private float scale;

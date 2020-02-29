@@ -100,12 +100,14 @@ public class HighwayStarEntity extends GenericStandEntity
 			LivingEntity target = null;
 			if(this.isChasing())
 				target = (LivingEntity) this.world.getEntityByID(this.getChaseTarget());
-			
+						
 			if(target == null || !target.isAlive())
 			{
 				target = null;
+				this.setInvisible(true);
 				this.setChaseTarget(null);
 				this.setIsChasing(false);
+				return;
 			}
 			
 			if(this.getTrapPosition() != null && (!this.isChasing() || target == null))
