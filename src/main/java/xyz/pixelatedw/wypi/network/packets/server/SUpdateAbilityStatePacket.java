@@ -2,8 +2,6 @@ package xyz.pixelatedw.wypi.network.packets.server;
 
 import java.util.function.Supplier;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.network.PacketBuffer;
@@ -49,8 +47,8 @@ public class SUpdateAbilityStatePacket
 		{
 			ctx.get().enqueueWork(() ->
 			{
-				PlayerEntity player = Minecraft.getInstance().player;
-				IAbilityData props = AbilityDataCapability.get(player);
+				//PlayerEntity player = Minecraft.getInstance().player;
+				//IAbilityData props = AbilityDataCapability.get(player);
 				/*Ability sAbl = null;
 
 				try

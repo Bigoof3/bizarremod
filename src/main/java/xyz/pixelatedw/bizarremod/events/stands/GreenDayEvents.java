@@ -5,6 +5,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.entity.LivingEntity;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -13,7 +14,7 @@ import xyz.pixelatedw.bizarremod.init.ModResourceLocations;
 import xyz.pixelatedw.wypi.APIConfig;
 import xyz.pixelatedw.wypi.WyHelper;
 
-@Mod.EventBusSubscriber(modid = APIConfig.PROJECT_ID)
+@Mod.EventBusSubscriber(modid = APIConfig.PROJECT_ID, value = Dist.CLIENT)
 public class GreenDayEvents
 {
 

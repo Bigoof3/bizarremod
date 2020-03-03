@@ -43,13 +43,19 @@ public class StandLogicHelper
 	
 	public static StandInfo getStandInfo(String standName)
 	{
-		if(ModEntities.getRegisteredStands().containsKey(standName))
-			return ModEntities.getRegisteredStands().get(standName);
-		else
+		try
+		{
+			if(ModEntities.getRegisteredStands().containsKey(standName))
+				return ModEntities.getRegisteredStands().get(standName);
+		}
+		catch(Exception e)
 		{
 			ModMain.LOGGER.warn(standName + " is not a registered Stand !");
-			return null;
+			e.printStackTrace();
+			return null;	
 		}
+		
+		return null;
 	}
 
 	public static byte convertStandStat(char value)

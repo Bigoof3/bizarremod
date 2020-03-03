@@ -2,7 +2,6 @@ package xyz.pixelatedw.bizarremod.packets.server;
 
 import java.util.function.Supplier;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
@@ -10,6 +9,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkEvent;
+import xyz.pixelatedw.bizarremod.ModMain;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 
@@ -37,17 +37,17 @@ public class SSyncStandDataPacket
 		return msg;
 	}
 
-	public static void handle(SSyncStandDataPacket message, final Supplier<NetworkEvent.Context> ctx)
+	public static void handle(SSyncStandDataPacket message, Supplier<NetworkEvent.Context> ctx)
 	{
 		if(ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT)
 		{
 			ctx.get().enqueueWork(() ->
 			{
-				PlayerEntity player = Minecraft.getInstance().player;
+				PlayerEntity player = ModMain.PROXY.getPlayer();
 				World world = player.world;
 				IStandData props = StandDataCapability.get(player);
 				
-				StandDataCapability.INSTANCE.getStorage().readNBT(StandDataCapability.INSTANCE, props, null, message.data);				
+				StandDataCapability.INSTANCE.getStorage().readNBT(StandDataCapability.INSTANCE, props, null, message.data);
 			});			
 		}
 		ctx.get().setPacketHandled(true);

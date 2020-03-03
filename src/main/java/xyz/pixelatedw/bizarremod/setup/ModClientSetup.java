@@ -23,7 +23,7 @@ public class ModClientSetup
 	{
 		APIDefaults.initI18n();
 		new ModKeybindings();
-		
+	
 		ModRenderers.registerRenderers();
 				
 		WyJSON.runGenerators(false);

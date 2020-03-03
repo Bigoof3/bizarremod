@@ -7,6 +7,7 @@ import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent.KeyInputEvent;
 import net.minecraftforge.client.event.InputEvent.MouseInputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -24,7 +25,7 @@ import xyz.pixelatedw.wypi.data.ability.AbilityDataCapability;
 import xyz.pixelatedw.wypi.data.ability.IAbilityData;
 import xyz.pixelatedw.wypi.network.WyNetwork;
 
-@Mod.EventBusSubscriber(modid = APIConfig.PROJECT_ID)
+@Mod.EventBusSubscriber(modid = APIConfig.PROJECT_ID, value = Dist.CLIENT)
 public class ModKeybindings
 {
 	private static ModKeybindings instance;

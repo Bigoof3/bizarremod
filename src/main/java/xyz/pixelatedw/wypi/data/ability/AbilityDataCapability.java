@@ -13,6 +13,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import xyz.pixelatedw.wypi.APIConfig;
 import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
@@ -110,5 +111,10 @@ public class AbilityDataCapability
 	public static IAbilityData get(final LivingEntity entity)
 	{
 		return entity.getCapability(INSTANCE, null).orElse(new AbilityDataBase());
+	}
+
+	public static LazyOptional<IAbilityData> getLazy(final LivingEntity entity)
+	{
+		return entity.getCapability(INSTANCE, null);
 	}
 }

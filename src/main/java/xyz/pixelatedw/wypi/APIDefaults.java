@@ -5,6 +5,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import xyz.pixelatedw.wypi.data.ability.AbilityDataBase;
 import xyz.pixelatedw.wypi.data.ability.AbilityDataCapability;
@@ -13,10 +14,14 @@ import xyz.pixelatedw.wypi.network.WyNetwork;
 import xyz.pixelatedw.wypi.network.packets.client.CSyncAbilityDataPacket;
 import xyz.pixelatedw.wypi.network.packets.server.SSyncAbilityDataPacket;
 import xyz.pixelatedw.wypi.network.packets.server.SUpdateAbilityStatePacket;
+import xyz.pixelatedw.wypi.proxy.ClientProxy;
+import xyz.pixelatedw.wypi.proxy.IProxy;
+import xyz.pixelatedw.wypi.proxy.ServerProxy;
 
 public class APIDefaults
 {
-
+	public static final IProxy PROXY = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
+	
 	public static void initI18n()
 	{
 		WyRegistry.registerName("ability.item.empty_stack", "Cannot equip because it's an empty stack!");

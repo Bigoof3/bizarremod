@@ -3,12 +3,12 @@ package xyz.pixelatedw.bizarremod.packets.server;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkEvent;
+import xyz.pixelatedw.bizarremod.ModMain;
 import xyz.pixelatedw.bizarremod.api.stands.GenericStandEntity;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
@@ -47,7 +47,7 @@ public class SStandExistencePacket
 		{
 			ctx.get().enqueueWork(() ->
 			{
-				PlayerEntity player = Minecraft.getInstance().player;
+				PlayerEntity player = ModMain.PROXY.getPlayer();
 				World world = player.world;
 				IStandData observerProps = StandDataCapability.get(player);			
 				IStandData summonerProps = StandDataCapability.get(world.getPlayerByUuid(message.ownerUUID));

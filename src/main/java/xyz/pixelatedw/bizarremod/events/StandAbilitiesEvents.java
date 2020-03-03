@@ -1,25 +1,19 @@
 package xyz.pixelatedw.bizarremod.events;
 
-import com.mojang.blaze3d.platform.GlStateManager;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
-import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.wypi.APIConfig;
 
-@Mod.EventBusSubscriber(modid = APIConfig.PROJECT_ID)
+@Mod.EventBusSubscriber(modid = APIConfig.PROJECT_ID, value = Dist.CLIENT)
 public class StandAbilitiesEvents
 {
 	@SuppressWarnings("resource")
 	@SubscribeEvent
 	public static void onRenderUI(RenderGameOverlayEvent.Pre event)
 	{
-		if (event.getType() == ElementType.CROSSHAIRS)
+		/*if (event.getType() == ElementType.CROSSHAIRS)
 		{
 			Minecraft mc = Minecraft.getInstance();
 			PlayerEntity player = mc.player;
@@ -42,6 +36,6 @@ public class StandAbilitiesEvents
 
 			GlStateManager.disableBlend();
 			GlStateManager.disableAlphaTest();
-		}
+		}*/
 	}
 }

@@ -8,6 +8,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.config.GuiUtils;
@@ -26,7 +27,7 @@ import xyz.pixelatedw.wypi.WyHelper;
 import xyz.pixelatedw.wypi.data.ability.AbilityDataCapability;
 import xyz.pixelatedw.wypi.data.ability.IAbilityData;
 
-@Mod.EventBusSubscriber(modid = APIConfig.PROJECT_ID)
+@Mod.EventBusSubscriber(modid = APIConfig.PROJECT_ID, value = Dist.CLIENT)
 public class AerosmithEvents
 {
 	@SubscribeEvent

@@ -7,6 +7,7 @@ import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.util.LazyOptional;
 
 public class StandDataCapability
 {
@@ -50,4 +51,8 @@ public class StandDataCapability
 		return entity.getCapability(INSTANCE, null).orElse(new StandDataBase());
 	}
 	
+	public static LazyOptional<IStandData> getLazy(final LivingEntity entity)
+	{
+		return entity.getCapability(INSTANCE, null);
+	}
 }

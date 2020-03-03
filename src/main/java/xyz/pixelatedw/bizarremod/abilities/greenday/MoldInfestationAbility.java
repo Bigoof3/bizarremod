@@ -1,5 +1,7 @@
 package xyz.pixelatedw.bizarremod.abilities.greenday;
 
+import java.util.List;
+
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -47,11 +49,12 @@ public class MoldInfestationAbility extends PassiveAbility implements IStandAbil
 		if(!standProps.hasStandSummoned())
 			return;
 		
-		for(LivingEntity entity : WyHelper.getEntitiesNear(user.getPosition(), user.world, 50, LivingEntity.class))
+		List<LivingEntity> targets = WyHelper.getEntitiesNear(user.getPosition(), user.world, 50, LivingEntity.class);
+		targets.remove(user);
+		targets.removeIf(entity -> entity instanceof GenericStandEntity);
+		
+		for(LivingEntity entity : targets)
 		{
-			if(entity instanceof GenericStandEntity || entity == user)
-				continue;
-
 			if(entity.getPosition().compareTo(new Vec3i(entity.posX, entity.prevPosY, entity.posZ)) < 0.0)
 				entity.addPotionEffect(new EffectInstance(ModEffects.GREEN_DAY_MOLD, 300, 0));
 		}

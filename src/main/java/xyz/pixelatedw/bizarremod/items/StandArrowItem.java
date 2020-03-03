@@ -3,7 +3,6 @@ package xyz.pixelatedw.bizarremod.items;
 
 import java.util.List;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -19,8 +18,8 @@ import xyz.pixelatedw.bizarremod.api.stands.StandInfo;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
+import xyz.pixelatedw.bizarremod.packets.server.SOpenScreenPacket;
 import xyz.pixelatedw.bizarremod.packets.server.SSyncStandDataPacket;
-import xyz.pixelatedw.bizarremod.screens.StandSelectScreen;
 import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
 import xyz.pixelatedw.wypi.WyHelper;
 import xyz.pixelatedw.wypi.abilities.Ability;
@@ -39,13 +38,12 @@ public class StandArrowItem extends Item
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand)
     { 
-		if(world.isRemote)
+		if(!world.isRemote)
 		{
 			if(player.isCreative())
-				Minecraft.getInstance().displayGuiScreen(new StandSelectScreen(player));
-		}
-		else if(!world.isRemote)
-		{
+			{
+				WyNetwork.sendTo(new SOpenScreenPacket().openStandSelectScreen(), player);
+			}
 			if(!player.isCreative())
 			{
 				IStandData props = StandDataCapability.get(player);

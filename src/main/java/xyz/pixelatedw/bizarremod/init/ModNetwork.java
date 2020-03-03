@@ -4,6 +4,7 @@ import xyz.pixelatedw.bizarremod.packets.client.CRequestSyncStandDataPacket;
 import xyz.pixelatedw.bizarremod.packets.client.CStandControlPacket;
 import xyz.pixelatedw.bizarremod.packets.client.CSyncStandDataPacket;
 import xyz.pixelatedw.bizarremod.packets.client.CUseAbilityPacket;
+import xyz.pixelatedw.bizarremod.packets.server.SOpenScreenPacket;
 import xyz.pixelatedw.bizarremod.packets.server.SStandExistencePacket;
 import xyz.pixelatedw.bizarremod.packets.server.SSyncStandDataPacket;
 import xyz.pixelatedw.wypi.APIDefaults;
@@ -24,5 +25,6 @@ public class ModNetwork
 		// Server
 		WyNetwork.registerPacket(SSyncStandDataPacket.class, SSyncStandDataPacket::encode, SSyncStandDataPacket::decode, SSyncStandDataPacket::handle);
 		WyNetwork.registerPacket(SStandExistencePacket.class, SStandExistencePacket::encode, SStandExistencePacket::decode, SStandExistencePacket::handle);
+		WyNetwork.registerPacket(SOpenScreenPacket.class, SOpenScreenPacket::encode, SOpenScreenPacket::decode, SOpenScreenPacket::handle);
 	}
 }

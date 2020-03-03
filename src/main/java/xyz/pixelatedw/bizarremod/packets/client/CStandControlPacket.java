@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkEvent;
 import xyz.pixelatedw.bizarremod.ModMain;
@@ -24,9 +24,9 @@ import xyz.pixelatedw.wypi.network.WyNetwork;
 public class CStandControlPacket
 {
 	private static final ParticleEffect SUMMON_STAND = new SummonStandEffect();
-
+	
 	public CStandControlPacket() {}
-
+	
 	public void encode(PacketBuffer buffer) {}
 
 	public static CStandControlPacket decode(PacketBuffer buffer)
@@ -42,17 +42,19 @@ public class CStandControlPacket
 			ctx.get().enqueueWork(() ->
 			{
 				PlayerEntity player = ctx.get().getSender();
-				World world = player.world;
+				ServerWorld world = (ServerWorld) player.world;
 				IStandData props = StandDataCapability.get(player);
 
 				if (WyHelper.isNullOrEmpty(props.getStand()))
 					return;
-
+				
 				if (!props.hasStandSummoned())
 				{
 					GenericStandEntity stand = ModEntities.getRegisteredStands().get(props.getStand()).getStandEntity(player);
 					stand.setRotationYawHead(player.rotationYawHead);
 
+					System.out.println(world);
+					System.out.println(stand);
 					props.setStandSummoned(true);
 					stand.onSummon(player);
 					world.addEntity(stand);

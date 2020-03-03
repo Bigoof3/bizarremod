@@ -19,7 +19,7 @@ import xyz.pixelatedw.wypi.data.ability.IAbilityData;
 
 @Mod.EventBusSubscriber(modid = APIConfig.PROJECT_ID)
 public class AbilityEvents
-{		
+{
 	@SubscribeEvent
 	public static void onLivingUpdate(LivingUpdateEvent event)
 	{
@@ -32,11 +32,11 @@ public class AbilityEvents
 			{
 				if (ability == null)
 					continue;
-				
+
 				if (ability instanceof PassiveAbility)
 					((PassiveAbility) props.getUnlockedAbility(ability)).tick(player);
 			}
-			
+
 			for (Ability ability : props.getEquippedAbilities(AbilityCategory.ALL))
 			{
 				if (ability == null)
