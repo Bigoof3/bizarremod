@@ -159,7 +159,7 @@ public abstract class GenericStandEntity extends CreatureEntity
 
 	public void onSummon(PlayerEntity owner)
 	{
-		owner.sendMessage(this.getName());
+		owner.sendMessage(this.getName());	
 	}
 
 	public abstract void onCancel(PlayerEntity owner);

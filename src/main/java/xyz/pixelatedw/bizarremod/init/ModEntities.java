@@ -1,8 +1,10 @@
 package xyz.pixelatedw.bizarremod.init;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.entity.EntityType;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -24,6 +26,8 @@ import xyz.pixelatedw.bizarremod.entities.stands.MagiciansRedEntity;
 import xyz.pixelatedw.bizarremod.entities.stands.MagiciansRedEntity.MagiciansRedStandInfo;
 import xyz.pixelatedw.bizarremod.entities.stands.SilverChariotEntity;
 import xyz.pixelatedw.bizarremod.entities.stands.SilverChariotEntity.SilverChariotStandInfo;
+import xyz.pixelatedw.wypi.APIConfig;
+import xyz.pixelatedw.wypi.WyHelper;
 import xyz.pixelatedw.wypi.WyRegistry;
 
 public class ModEntities
@@ -36,12 +40,17 @@ public class ModEntities
 	public static final EntityType RAPIER = WyRegistry.registerEntityType("rapier", RapierEntity::new, 2, 2);
 
 	public static final EntityType GREEN_DAY = WyRegistry.registerEntityType(Consts.STAND_ID_GREEN_DAY, GreenDayEntity::new);
+	public static final StandInfo GREEN_DAY_INFO = registerStandInfo(new GreenDayStandInfo(), "Green Day");
 	public static final EntityType AEROSMITH = WyRegistry.registerEntityType(Consts.STAND_ID_AEROSMITH, AerosmithEntity::new);
+	public static final StandInfo AEROSMITH_INFO = registerStandInfo(new AerosmithStandInfo(), "Aerosmith");
 	public static final EntityType MAGICIAN_RED = WyRegistry.registerEntityType(Consts.STAND_ID_MAGICIANS_RED, MagiciansRedEntity::new);
+	public static final StandInfo MAGICIAN_RED_INFO = registerStandInfo(new MagiciansRedStandInfo(), "Magician Red");
 	public static final EntityType SILVER_CHARIOT = WyRegistry.registerEntityType(Consts.STAND_ID_SILVER_CHARIOT, SilverChariotEntity::new);
+	public static final StandInfo SILVER_CHARIOT_INFO = registerStandInfo(new SilverChariotStandInfo(),  "Silver Chariot");
 	public static final EntityType HIGHWAY_STAR = WyRegistry.registerEntityType(Consts.STAND_ID_HIGHWAY_STAR, HighwayStarEntity::new);
+	public static final StandInfo HIGHWAY_STAR_INFO = registerStandInfo(new HighwayStarStandInfo(), "Highway Star");
 
-	private static HashMap<String, StandInfo> stands = new HashMap<String, StandInfo>();
+	public static final List<StandInfo> STANDS = new ArrayList<StandInfo>();
 	
 	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 	public static class Registry
@@ -54,26 +63,32 @@ public class ModEntities
 			
 			event.getRegistry().registerAll
 			(
-				registerStand(GREEN_DAY, new GreenDayStandInfo()), 
-				registerStand(AEROSMITH, new AerosmithStandInfo()),
-				registerStand(MAGICIAN_RED, new MagiciansRedStandInfo()),
-				registerStand(SILVER_CHARIOT, new SilverChariotStandInfo()),
-				registerStand(HIGHWAY_STAR, new HighwayStarStandInfo()),
+				GREEN_DAY, AEROSMITH, MAGICIAN_RED, SILVER_CHARIOT, HIGHWAY_STAR,
 				
 				PUNCH, BULLET, BOMB, ANKH, RAPIER
 			);
 		}
 		
+		@SubscribeEvent
+		public static void registerStandInfos(RegistryEvent.Register<StandInfo> event)
+		{
+			STANDS.add(GREEN_DAY_INFO);
+			STANDS.add(AEROSMITH_INFO);
+			STANDS.add(MAGICIAN_RED_INFO);
+			STANDS.add(SILVER_CHARIOT_INFO);
+			STANDS.add(HIGHWAY_STAR_INFO);
+
+			for(StandInfo info : STANDS)
+				event.getRegistry().register(info);
+		}
 	}
 	
-	private static EntityType registerStand(EntityType type, StandInfo info)
+	private static StandInfo registerStandInfo(StandInfo info, String name)
 	{
-		stands.put(type.getRegistryName().getPath(), info);
-		return type;
+		String resourceName = WyHelper.getResourceName(name);
+		info.setRegistryName(new ResourceLocation(APIConfig.PROJECT_ID, resourceName));
+		return info;
 	}
 	
-	public static HashMap<String, StandInfo> getRegisteredStands()
-	{
-		return stands;
-	}
+	
 }

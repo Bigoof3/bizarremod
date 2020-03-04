@@ -91,9 +91,9 @@ public class StandArrowItem extends Item
 		if(!WyHelper.isNullOrEmpty(props.getStand()))
 			return false;
 		
-		int totalStands = ModEntities.getRegisteredStands().size();
+		int totalStands = ModEntities.STANDS.size();
 		int randomStand = (int) WyHelper.randomWithRange(0, totalStands - 1);
-		StandInfo info = (StandInfo) ModEntities.getRegisteredStands().values().toArray()[randomStand];
+		StandInfo info = (StandInfo) ModEntities.STANDS.toArray()[randomStand];
 		List<Ability> activeAbilities = StandLogicHelper.getActiveAbilities(abilityProps, info);
 
 		if(info == null)

@@ -1,9 +1,10 @@
 package xyz.pixelatedw.bizarremod.api.stands;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraftforge.registries.ForgeRegistryEntry;
 import xyz.pixelatedw.wypi.abilities.Ability;
 
-public abstract class StandInfo
+public abstract class StandInfo extends ForgeRegistryEntry<StandInfo>
 {
 
 	public abstract String getStandId();

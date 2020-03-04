@@ -52,7 +52,7 @@ public class SStandExistencePacket
 				IStandData observerProps = StandDataCapability.get(player);			
 				IStandData summonerProps = StandDataCapability.get(world.getPlayerByUuid(message.ownerUUID));
 				GenericStandEntity stand = (GenericStandEntity) world.getEntityByID(message.standId);
-
+				
 				if(!WyHelper.isNullOrEmpty(observerProps.getStand()) || player.getUniqueID().equals(message.ownerUUID))
 					return;
 				

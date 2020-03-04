@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import net.minecraft.entity.player.PlayerEntity;
-import xyz.pixelatedw.bizarremod.ModMain;
 import xyz.pixelatedw.bizarremod.api.stands.GenericStandEntity;
 import xyz.pixelatedw.bizarremod.api.stands.StandInfo;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
@@ -43,19 +42,7 @@ public class StandLogicHelper
 	
 	public static StandInfo getStandInfo(String standName)
 	{
-		try
-		{
-			if(ModEntities.getRegisteredStands().containsKey(standName))
-				return ModEntities.getRegisteredStands().get(standName);
-		}
-		catch(Exception e)
-		{
-			ModMain.LOGGER.warn(standName + " is not a registered Stand !");
-			e.printStackTrace();
-			return null;	
-		}
-		
-		return null;
+		return ModEntities.STANDS.parallelStream().filter(info -> info.getDefaultStandId().equalsIgnoreCase(standName)).findFirst().orElse(null);
 	}
 
 	public static byte convertStandStat(char value)

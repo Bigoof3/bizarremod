@@ -14,7 +14,6 @@ import xyz.pixelatedw.bizarremod.api.particles.effects.ParticleEffect;
 import xyz.pixelatedw.bizarremod.api.stands.GenericStandEntity;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
-import xyz.pixelatedw.bizarremod.init.ModEntities;
 import xyz.pixelatedw.bizarremod.packets.server.SStandExistencePacket;
 import xyz.pixelatedw.bizarremod.packets.server.SSyncStandDataPacket;
 import xyz.pixelatedw.bizarremod.particles.effects.SummonStandEffect;
@@ -50,11 +49,9 @@ public class CStandControlPacket
 				
 				if (!props.hasStandSummoned())
 				{
-					GenericStandEntity stand = ModEntities.getRegisteredStands().get(props.getStand()).getStandEntity(player);
+					GenericStandEntity stand = StandLogicHelper.getStandInfo(props.getStand()).getStandEntity(player);
 					stand.setRotationYawHead(player.rotationYawHead);
 
-					System.out.println(world);
-					System.out.println(stand);
 					props.setStandSummoned(true);
 					stand.onSummon(player);
 					world.addEntity(stand);
@@ -83,7 +80,7 @@ public class CStandControlPacket
 
 				WyNetwork.sendTo(new SSyncStandDataPacket(props), (ServerPlayerEntity) player);
 			});
+			ctx.get().setPacketHandled(true);
 		}
-		ctx.get().setPacketHandled(true);
 	}
 }

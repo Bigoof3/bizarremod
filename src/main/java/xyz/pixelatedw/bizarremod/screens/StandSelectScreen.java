@@ -49,7 +49,7 @@ public class StandSelectScreen extends Screen
 	{
 		super(new StringTextComponent(""));
 		this.player = player;
-		this.maxStandsInList = ModEntities.getRegisteredStands().size();
+		this.maxStandsInList = ModEntities.STANDS.size();
 		
 		this.abilityProps = AbilityDataCapability.get(this.player);
 		this.standProps = StandDataCapability.get(this.player);
@@ -69,7 +69,7 @@ public class StandSelectScreen extends Screen
 		// #TODO Rotate the model right/left
 		// #TODO Filter by part origin / stats / ?
 		
-		StandInfo info = (StandInfo) ModEntities.getRegisteredStands().values().toArray()[this.currentStand - 1];
+		StandInfo info = (StandInfo) ModEntities.STANDS.toArray()[this.currentStand - 1];
 		GenericStandEntity stand = info.getStandEntity(this.player);
 		InventoryScreen.drawEntityOnScreen(posX + 0, posY + 190, 50, 0.0F, 0.0F, stand);
 		this.drawCenteredString(this.minecraft.fontRenderer, stand.getStandName(), posX, posY + 182, -1);
@@ -147,7 +147,7 @@ public class StandSelectScreen extends Screen
 	{
 		int posX = (this.width - 256) / 2;
 		int posY = (this.height - 256) / 2;
-		StandInfo info = (StandInfo) ModEntities.getRegisteredStands().values().toArray()[this.currentStand - 1];
+		StandInfo info = (StandInfo) ModEntities.STANDS.toArray()[this.currentStand - 1];
 
 		if(info.getStandTextures().length < this.standSkinId + 1)
 			this.standSkinId = 0;
@@ -170,7 +170,7 @@ public class StandSelectScreen extends Screen
 	
 		Button chooseButton = new Button(posX + 90, posY + 200, 90, 20, "Choose", b -> 
 		{
-			StandInfo currentInfo = (StandInfo) ModEntities.getRegisteredStands().values().toArray()[this.currentStand - 1];
+			StandInfo currentInfo = (StandInfo) ModEntities.STANDS.toArray()[this.currentStand - 1];
 			this.standProps.setStand(currentInfo.getDefaultStandId());
 			
 			this.abilityProps.clearEquippedAbilities(AbilityCategory.ALL);

@@ -142,7 +142,7 @@ public class HighwayStarEntity extends GenericStandEntity
 		public GenericStandEntity getStandEntity(PlayerEntity owner)
 		{
 			GenericStandEntity stand = new HighwayStarEntity(owner.world, owner);
-
+			
 			return stand;
 		}
 	

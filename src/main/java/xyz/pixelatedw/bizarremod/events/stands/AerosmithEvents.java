@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import com.mojang.blaze3d.platform.GlStateManager;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.IngameGui;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.api.distmarker.Dist;
@@ -37,10 +38,11 @@ public class AerosmithEvents
 		
 		IStandData props = StandDataCapability.get(player);
 		IAbilityData abilityProps = AbilityDataCapability.get(player);
-		StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
 
 		if(!props.getStand().equalsIgnoreCase(Consts.STAND_ID_AEROSMITH) || !props.hasStandSummoned())
 			return;
+		
+		StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
 
 		List<LivingEntity> nearbyEnemies = WyHelper.getEntitiesNear(player.getPosition(), player.world, 15);
 		nearbyEnemies = nearbyEnemies.parallelStream().filter(entity -> !(entity instanceof GenericStandEntity)).collect(Collectors.toList());
@@ -113,6 +115,8 @@ public class AerosmithEvents
 		GlStateManager.translated(-128, -128, 0);
 		GuiUtils.drawTexturedModalRect(0, 0, 0, 0, 256, 256, 0);
 
+		Minecraft.getInstance().getTextureManager().bindTexture(IngameGui.GUI_ICONS_LOCATION);
+		
 		GlStateManager.popMatrix();
 	}
 
