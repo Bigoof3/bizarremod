@@ -18,41 +18,12 @@ apply plugin: 'maven-publish'
 apply plugin: 'java'
 
 def shortHash = 'git rev-parse --short HEAD'.execute().in.text.trim()
-version = " ${mc_version} - ${mod_version} - ${version_type}#${getVersion()} - ${shortHash}"
+version = " ${mc_version} - ${mod_version} - ${version_type}.${shortHash}"
 group= "${package_group}"
 archivesBaseName = "${mod_name} "
 
 compileJava.options.encoding = 'UTF-8'
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
-
-def getVersion()
-{
-    def versionPropsFile = file('version.properties')
-	String modVersion = "${mod_version_id}"
-
-    if (versionPropsFile.canRead()) 
-	{
-        def Properties versionProps = new Properties()
-
-        versionProps.load(new FileInputStream(versionPropsFile))
-
-		def prop = versionProps['VERSION_CODE_' + modVersion]
-
-		if(prop == null)
-			prop = 0
-
-        int code = prop.toInteger() + 1
-
-        versionProps['VERSION_CODE_' + modVersion] = code.toString()
-        versionProps.store(versionPropsFile.newWriter(), null)
-		
-		return String.format("%02d", code)
-    }
-    else 
-	{
-        throw new GradleException("Could not read version.properties!")
-    }
-}
 
 minecraft 
 {
