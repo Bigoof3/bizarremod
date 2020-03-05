@@ -77,7 +77,7 @@ public class ModEntities
 			STANDS.add(MAGICIAN_RED_INFO);
 			STANDS.add(SILVER_CHARIOT_INFO);
 			STANDS.add(HIGHWAY_STAR_INFO);
-
+			
 			for(StandInfo info : STANDS)
 				event.getRegistry().register(info);
 		}

@@ -10,8 +10,8 @@ import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkEvent;
 import xyz.pixelatedw.bizarremod.ModMain;
 import xyz.pixelatedw.bizarremod.api.stands.GenericStandEntity;
-import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
-import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
+import xyz.pixelatedw.bizarremod.data.entity.standdata.IStandData;
+import xyz.pixelatedw.bizarremod.data.entity.standdata.StandDataCapability;
 import xyz.pixelatedw.wypi.WyHelper;
 
 public class SStandExistencePacket

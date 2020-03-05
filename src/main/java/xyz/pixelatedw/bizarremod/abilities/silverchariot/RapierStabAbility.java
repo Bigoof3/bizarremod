@@ -36,7 +36,7 @@ public class RapierStabAbility extends Ability implements IStandAbility
 
 	private boolean onUseEvent(PlayerEntity player)
 	{
-		SilverChariotEntity stand = (SilverChariotEntity) StandLogicHelper.getStandEntity(player);
+		SilverChariotEntity stand = (SilverChariotEntity) StandLogicHelper.getStandEntityOf(player);
 		
 		EntityRayTraceResult hit = WyHelper.rayTraceEntities(player, stand.hasArmor() ? 13 : 7);
 		Entity target = hit != null ? hit.getEntity() : null;

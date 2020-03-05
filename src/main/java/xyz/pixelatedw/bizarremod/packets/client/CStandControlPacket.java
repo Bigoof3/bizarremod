@@ -12,8 +12,8 @@ import xyz.pixelatedw.bizarremod.ModMain;
 import xyz.pixelatedw.bizarremod.api.StandLogicHelper;
 import xyz.pixelatedw.bizarremod.api.particles.effects.ParticleEffect;
 import xyz.pixelatedw.bizarremod.api.stands.GenericStandEntity;
-import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
-import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
+import xyz.pixelatedw.bizarremod.data.entity.standdata.IStandData;
+import xyz.pixelatedw.bizarremod.data.entity.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.packets.server.SStandExistencePacket;
 import xyz.pixelatedw.bizarremod.packets.server.SSyncStandDataPacket;
 import xyz.pixelatedw.bizarremod.particles.effects.SummonStandEffect;
@@ -64,7 +64,7 @@ public class CStandControlPacket
 				{
 					try
 					{
-						GenericStandEntity target =	StandLogicHelper.getStandEntity(player);
+						GenericStandEntity target =	StandLogicHelper.getStandEntityOf(player);
 
 						props.setStandSummoned(false);
 						StandLogicHelper.removeSummonedStand(target);

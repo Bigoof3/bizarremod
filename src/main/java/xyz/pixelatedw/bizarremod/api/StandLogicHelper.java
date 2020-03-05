@@ -29,7 +29,7 @@ public class StandLogicHelper
 			summonedStands.remove(stand);
 	}
 	
-	public static <T extends GenericStandEntity> T getStandEntity(PlayerEntity player)
+	public static <T extends GenericStandEntity> T getStandEntityOf(PlayerEntity player)
 	{
 		for(GenericStandEntity stand : summonedStands)
 		{

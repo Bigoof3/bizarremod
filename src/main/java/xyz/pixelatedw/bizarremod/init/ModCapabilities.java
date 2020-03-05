@@ -6,9 +6,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataBase;
-import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
-import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataProvider;
+import xyz.pixelatedw.bizarremod.data.entity.standdata.StandDataBase;
+import xyz.pixelatedw.bizarremod.data.entity.standdata.StandDataCapability;
+import xyz.pixelatedw.bizarremod.data.entity.standdata.StandDataProvider;
 import xyz.pixelatedw.wypi.APIConfig;
 import xyz.pixelatedw.wypi.APIDefaults;
 

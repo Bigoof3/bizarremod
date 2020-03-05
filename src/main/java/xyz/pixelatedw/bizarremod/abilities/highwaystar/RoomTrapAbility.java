@@ -13,8 +13,8 @@ import net.minecraft.world.server.ServerWorld;
 import xyz.pixelatedw.bizarremod.api.StandLogicHelper;
 import xyz.pixelatedw.bizarremod.api.abilities.IStandAbility;
 import xyz.pixelatedw.bizarremod.api.stands.StandInfo;
-import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
-import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
+import xyz.pixelatedw.bizarremod.data.entity.standdata.IStandData;
+import xyz.pixelatedw.bizarremod.data.entity.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.stands.HighwayStarEntity;
 import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
 import xyz.pixelatedw.wypi.abilities.Ability;
@@ -52,7 +52,7 @@ public class RoomTrapAbility extends Ability implements IStandAbility
 			IStandData props = StandDataCapability.get(player);
 			StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
 			
-			HighwayStarEntity stand = StandLogicHelper.getStandEntity(player);
+			HighwayStarEntity stand = StandLogicHelper.getStandEntityOf(player);
 		
 			if(player.getPosition().withinDistance(optional.get(), 5) && stand.getTrapPosition() == null)
 			{

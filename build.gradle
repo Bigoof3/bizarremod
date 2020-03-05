@@ -17,7 +17,8 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'java'
 
-version = " ${mc_version} - ${mod_version} - ${version_type}#${getVersion()}"
+def shortHash = 'git rev-parse --short HEAD'.execute().in.text.trim()
+version = " ${mc_version} - ${mod_version} - ${version_type}#${getVersion()} - ${shortHash}"
 group= "${package_group}"
 archivesBaseName = "${mod_name} "
 

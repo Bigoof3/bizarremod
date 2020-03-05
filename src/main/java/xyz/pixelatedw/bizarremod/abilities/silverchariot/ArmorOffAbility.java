@@ -7,8 +7,8 @@ import net.minecraft.util.text.TextFormatting;
 import xyz.pixelatedw.bizarremod.api.StandLogicHelper;
 import xyz.pixelatedw.bizarremod.api.abilities.IStandAbility;
 import xyz.pixelatedw.bizarremod.api.stands.StandInfo;
-import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
-import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
+import xyz.pixelatedw.bizarremod.data.entity.standdata.IStandData;
+import xyz.pixelatedw.bizarremod.data.entity.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.stands.SilverChariotEntity;
 import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
 import xyz.pixelatedw.wypi.abilities.ContinuousAbility;
@@ -43,7 +43,7 @@ public class ArmorOffAbility extends ContinuousAbility implements IStandAbility
 		IStandData props = StandDataCapability.get(player);
 		StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
 		
-		SilverChariotEntity stand = StandLogicHelper.getStandEntity(player);
+		SilverChariotEntity stand = StandLogicHelper.getStandEntityOf(player);
 
 		stand.removeArmor();
 		
@@ -52,7 +52,7 @@ public class ArmorOffAbility extends ContinuousAbility implements IStandAbility
 	
 	private void duringContinuity(PlayerEntity player, int passiveTimer)
 	{
-		SilverChariotEntity stand = StandLogicHelper.getStandEntity(player);
+		SilverChariotEntity stand = StandLogicHelper.getStandEntityOf(player);
 
 		if(stand == null)
 		{
@@ -70,7 +70,7 @@ public class ArmorOffAbility extends ContinuousAbility implements IStandAbility
 	
 	private boolean onEndContinuityEvent(PlayerEntity player)
 	{
-		SilverChariotEntity stand = StandLogicHelper.getStandEntity(player);
+		SilverChariotEntity stand = StandLogicHelper.getStandEntityOf(player);
 	
 		if(stand != null)
 		{

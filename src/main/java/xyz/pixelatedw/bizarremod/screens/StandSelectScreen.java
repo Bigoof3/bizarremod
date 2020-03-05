@@ -19,8 +19,9 @@ import xyz.pixelatedw.bizarremod.api.StandLogicHelper;
 import xyz.pixelatedw.bizarremod.api.abilities.IStandAbility;
 import xyz.pixelatedw.bizarremod.api.stands.GenericStandEntity;
 import xyz.pixelatedw.bizarremod.api.stands.StandInfo;
-import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
-import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
+import xyz.pixelatedw.bizarremod.data.entity.standdata.IStandData;
+import xyz.pixelatedw.bizarremod.data.entity.standdata.StandDataCapability;
+import xyz.pixelatedw.bizarremod.data.world.ExtendedWorldData;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
 import xyz.pixelatedw.bizarremod.packets.client.CSyncStandDataPacket;
 import xyz.pixelatedw.wypi.APIConfig;
@@ -43,6 +44,9 @@ public class StandSelectScreen extends Screen
 	private List<Widget> abilityButtons = Lists.newArrayList();
 	private IAbilityData abilityProps;
 	private IStandData standProps;
+	private ExtendedWorldData worldData;
+	private String currentStandId;
+
 	private int standSkinId = 0;
 	
 	public StandSelectScreen(PlayerEntity player)
@@ -53,6 +57,9 @@ public class StandSelectScreen extends Screen
 		
 		this.abilityProps = AbilityDataCapability.get(this.player);
 		this.standProps = StandDataCapability.get(this.player);
+		this.worldData = ExtendedWorldData.get(this.player.world);
+		
+		this.currentStandId = this.standProps.getStand();
 	}
 
 	@Override
@@ -157,8 +164,8 @@ public class StandSelectScreen extends Screen
 		if(this.currentAbility >= info.getAbilities().length)
 			this.currentAbility = 0;
 		
-		this.buttons.clear();		
-
+		this.buttons.clear();
+		
 		Button previousButton = new Button(posX - 20, posY + 200, 90, 20, "Previous", b -> 
 		{
 			if(this.currentStand == 1)
@@ -171,7 +178,12 @@ public class StandSelectScreen extends Screen
 		Button chooseButton = new Button(posX + 90, posY + 200, 90, 20, "Choose", b -> 
 		{
 			StandInfo currentInfo = (StandInfo) ModEntities.STANDS.toArray()[this.currentStand - 1];
+			
+			//if(this.worldData.isStandUsed(currentInfo))
+			//	return;
+			
 			this.standProps.setStand(currentInfo.getDefaultStandId());
+			//this.worldData.addUsedStand(currentInfo);
 			
 			this.abilityProps.clearEquippedAbilities(AbilityCategory.ALL);
 			this.abilityProps.clearUnlockedAbilities(AbilityCategory.ALL);
@@ -225,6 +237,9 @@ public class StandSelectScreen extends Screen
 			this.init();
 		});	
 
+		//if(this.worldData.isStandUsed(info))
+		//	chooseButton.active = false;
+		
 		if(this.currentStand == 1)
 			previousButton.active = false;		
 

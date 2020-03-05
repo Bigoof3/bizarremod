@@ -15,8 +15,9 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import xyz.pixelatedw.bizarremod.api.StandLogicHelper;
 import xyz.pixelatedw.bizarremod.api.stands.StandInfo;
-import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
-import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
+import xyz.pixelatedw.bizarremod.data.entity.standdata.IStandData;
+import xyz.pixelatedw.bizarremod.data.entity.standdata.StandDataCapability;
+import xyz.pixelatedw.bizarremod.data.world.ExtendedWorldData;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
 import xyz.pixelatedw.bizarremod.packets.server.SOpenScreenPacket;
 import xyz.pixelatedw.bizarremod.packets.server.SSyncStandDataPacket;
@@ -42,6 +43,7 @@ public class StandArrowItem extends Item
 		{
 			if(player.isCreative())
 			{
+				//WyNetwork.sendTo(new SUpdateWorldDataPacket(world, ExtendedWorldData.get(world)), player);
 				WyNetwork.sendTo(new SOpenScreenPacket().openStandSelectScreen(), player);
 			}
 			if(!player.isCreative())
@@ -91,15 +93,32 @@ public class StandArrowItem extends Item
 		if(!WyHelper.isNullOrEmpty(props.getStand()))
 			return false;
 		
-		int totalStands = ModEntities.STANDS.size();
-		int randomStand = (int) WyHelper.randomWithRange(0, totalStands - 1);
-		StandInfo info = (StandInfo) ModEntities.STANDS.toArray()[randomStand];
-		List<Ability> activeAbilities = StandLogicHelper.getActiveAbilities(abilityProps, info);
+		StandInfo info = null;
+		int tries = 0;
+		
+		while(info == null)
+		{
+			StandInfo tempInfo = this.getAvailableStand(player);
+			System.out.println(tempInfo.getDefaultStandId());
+			if(!ExtendedWorldData.get(player.world).isStandUsed(tempInfo))
+			{
+				info = tempInfo;
+				break;
+			}
+			
+			tries++;
+			
+			if(tries >= 3)
+				break;
+		}	
 
 		if(info == null)
 			return false;
 		
+		List<Ability> activeAbilities = StandLogicHelper.getActiveAbilities(abilityProps, info);
+		
 		props.setStand(info.getDefaultStandId());
+		ExtendedWorldData.get(player.world).addUsedStand(info);
 		
 		abilityProps.clearEquippedAbilities(AbilityCategory.ALL);
 		abilityProps.clearUnlockedAbilities(AbilityCategory.ALL);
@@ -115,5 +134,14 @@ public class StandArrowItem extends Item
 		WyNetwork.sendTo(new SSyncAbilityDataPacket(abilityProps), (ServerPlayerEntity)player);
 
 		return true;
+	}
+	
+	private StandInfo getAvailableStand(PlayerEntity player)
+	{
+		int totalStands = ModEntities.STANDS.size();
+		int randomStand = (int) WyHelper.randomWithRange(0, totalStands - 1);
+		StandInfo info = (StandInfo) ModEntities.STANDS.toArray()[randomStand];
+		
+		return info;
 	}
 }

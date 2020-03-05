@@ -10,8 +10,8 @@ import xyz.pixelatedw.bizarremod.api.StandLogicHelper;
 import xyz.pixelatedw.bizarremod.api.abilities.IStandAbility;
 import xyz.pixelatedw.bizarremod.api.stands.GenericStandEntity;
 import xyz.pixelatedw.bizarremod.api.stands.StandInfo;
-import xyz.pixelatedw.bizarremod.capabilities.standdata.IStandData;
-import xyz.pixelatedw.bizarremod.capabilities.standdata.StandDataCapability;
+import xyz.pixelatedw.bizarremod.data.entity.standdata.IStandData;
+import xyz.pixelatedw.bizarremod.data.entity.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.entities.projectiles.PunchEntity;
 import xyz.pixelatedw.wypi.APIConfig.AbilityCategory;
 import xyz.pixelatedw.wypi.WyHelper;
@@ -76,7 +76,7 @@ public class StandPunchAbility extends Ability implements IStandAbility
 		}
 		else
 		{
-			GenericStandEntity stand = StandLogicHelper.getStandEntity(player);
+			GenericStandEntity stand = StandLogicHelper.getStandEntityOf(player);
 			EntityRayTraceResult hit = WyHelper.rayTraceEntities(player, 5 + range);
 			Entity target = hit != null ? hit.getEntity() : null;
 
@@ -127,7 +127,7 @@ public class StandPunchAbility extends Ability implements IStandAbility
 		}
 		else
 		{
-			GenericStandEntity stand = StandLogicHelper.getStandEntity(player);
+			GenericStandEntity stand = StandLogicHelper.getStandEntityOf(player);
 			EntityRayTraceResult hit = WyHelper.rayTraceEntities(player, 5 + range);
 			Entity target = hit != null ? hit.getEntity() : null;
 

@@ -1,4 +1,4 @@
-package xyz.pixelatedw.bizarremod.capabilities.standdata;
+package xyz.pixelatedw.bizarremod.data.entity.standdata;
 
 public interface IStandData
 {

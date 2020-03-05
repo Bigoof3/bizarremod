@@ -38,7 +38,7 @@ public class ShootingSwordAbility extends ContinuousAbility implements IStandAbi
 	
 	private boolean onStartContinuityEvent(PlayerEntity player)
 	{
-		SilverChariotEntity stand = (SilverChariotEntity) StandLogicHelper.getStandEntity(player);
+		SilverChariotEntity stand = (SilverChariotEntity) StandLogicHelper.getStandEntityOf(player);
 
 		if (!stand.hasRapier())
 			return false;		
@@ -61,7 +61,7 @@ public class ShootingSwordAbility extends ContinuousAbility implements IStandAbi
 
 	private void duringContinuity(PlayerEntity player, int timer)
 	{
-		SilverChariotEntity stand = (SilverChariotEntity) StandLogicHelper.getStandEntity(player);
+		SilverChariotEntity stand = (SilverChariotEntity) StandLogicHelper.getStandEntityOf(player);
 		
 		if(stand == null)
 			return;
