@@ -88,9 +88,9 @@ public class WyPatreon
 		if (isDevBuild() && WyDebug.isDebug())
 			return true;
 
-		if (isDevBuild() && patreon >= 4)
+		if (isDevBuild() && patreon >= 3)
 			return true;
-		else if (isEarlyAccessBuild() && patreon >= 3)
+		else if (isEarlyAccessBuild() && patreon >= 2)
 			return true;
 		else
 			return false;
