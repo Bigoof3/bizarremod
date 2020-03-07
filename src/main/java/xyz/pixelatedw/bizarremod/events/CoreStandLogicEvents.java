@@ -2,10 +2,13 @@ package xyz.pixelatedw.bizarremod.events;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraftforge.event.TickEvent.Phase;
+import net.minecraftforge.event.TickEvent.WorldTickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import xyz.pixelatedw.bizarremod.api.PunchBlocksHelper;
 import xyz.pixelatedw.bizarremod.api.StandLogicHelper;
 import xyz.pixelatedw.bizarremod.api.stands.StandInfo;
 import xyz.pixelatedw.bizarremod.data.entity.standdata.IStandData;
@@ -22,6 +25,15 @@ import xyz.pixelatedw.wypi.network.packets.server.SSyncAbilityDataPacket;
 @Mod.EventBusSubscriber(modid = APIConfig.PROJECT_ID)
 public class CoreStandLogicEvents
 {
+	@SubscribeEvent
+	public static void onWorldTick(WorldTickEvent event)
+	{
+		if(event.world.getGameTime() % 100 == 0 && event.phase == Phase.START)
+		{
+			PunchBlocksHelper.tick(event.world);
+		}
+	}
+	
 	@SubscribeEvent
 	public static void onEntityJoinWorld(EntityJoinWorldEvent event)
 	{
