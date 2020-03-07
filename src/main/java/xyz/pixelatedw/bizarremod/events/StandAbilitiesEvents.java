@@ -9,7 +9,6 @@ import xyz.pixelatedw.wypi.APIConfig;
 @Mod.EventBusSubscriber(modid = APIConfig.PROJECT_ID, value = Dist.CLIENT)
 public class StandAbilitiesEvents
 {
-	@SuppressWarnings("resource")
 	@SubscribeEvent
 	public static void onRenderUI(RenderGameOverlayEvent.Pre event)
 	{

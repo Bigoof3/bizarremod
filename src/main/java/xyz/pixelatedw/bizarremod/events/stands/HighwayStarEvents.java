@@ -26,7 +26,7 @@ public class HighwayStarEvents
 			if(stand.getTrapPosition() == null || stand.isChasing())
 				return;
 			
-			List<LivingEntity> nearbyTargets = WyHelper.<LivingEntity>getEntitiesNear(stand.getTrapPosition(), stand.world, 2);
+			List<LivingEntity> nearbyTargets = WyHelper.<LivingEntity>getEntitiesNear(stand.getTrapPosition(), stand.world, 5);
 			nearbyTargets = nearbyTargets.parallelStream().filter(entity -> stand.getOwner() != entity).collect(Collectors.toList());
 			nearbyTargets.remove(stand);
 			

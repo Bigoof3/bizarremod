@@ -107,15 +107,13 @@ public class HighwayStarEntity extends GenericStandEntity
 				this.setInvisible(true);
 				this.setChaseTarget(null);
 				this.setIsChasing(false);
+				
+				if(this.getTrapPosition() != null)
+					this.setPosition(this.getTrapPosition().getX(), this.getTrapPosition().getY() + 0.6, this.getTrapPosition().getZ());
+				
 				return;
 			}
-			
-			if(this.getTrapPosition() != null && (!this.isChasing() || target == null))
-			{
-				this.setPosition(this.getTrapPosition().getX(), this.getTrapPosition().getY() + 0.6, this.getTrapPosition().getZ());
-				this.setInvisible(true);
-			}
-			
+						
 			if(target != null)
 			{
 				this.setInvisible(false);

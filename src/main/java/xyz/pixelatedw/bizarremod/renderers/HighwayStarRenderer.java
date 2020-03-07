@@ -61,7 +61,7 @@ public class HighwayStarRenderer extends BipedRenderer<HighwayStarEntity, BipedM
 
 		GlStateManager.popMatrix();
 		
-		super.doRender(entity, x, y + 0.4F, z, entityYaw, partialTicks);
+		//super.doRender(entity, x, y + 0.4F, z, entityYaw, partialTicks);
 	}
 
 	@Override
