@@ -38,7 +38,7 @@ public class APIConfig
 	 */
 
 	public static final String API_VERSION = "1.0.0";
-	public static final BuildMode BUILD_MODE = BuildMode.EARLY_ACCESS;
+	public static final BuildMode BUILD_MODE = BuildMode.DEV;
 
 	// Build Types
 	public static enum BuildMode

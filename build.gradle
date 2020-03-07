@@ -17,8 +17,9 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'java'
 
+def commits = 'git rev-list --count HEAD'.execute().in.text.trim()
 def shortHash = 'git rev-parse --short HEAD'.execute().in.text.trim()
-version = " ${mc_version} - ${mod_version} - ${version_type}.${shortHash}"
+version = " ${mc_version} - ${mod_version} - ${version_type}.${shortHash}.${commits}"
 group= "${package_group}"
 archivesBaseName = "${mod_name} "
 
