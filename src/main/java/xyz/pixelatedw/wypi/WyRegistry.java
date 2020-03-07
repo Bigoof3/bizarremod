@@ -15,6 +15,7 @@ import net.minecraft.particles.IParticleData.IDeserializer;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.potion.Effect;
 import net.minecraft.world.World;
+import net.minecraftforge.event.RegistryEvent;
 import xyz.pixelatedw.wypi.abilities.Ability;
 import xyz.pixelatedw.wypi.json.loottables.IJSONLootTable;
 import xyz.pixelatedw.wypi.json.models.JSONModelBlock;
@@ -86,12 +87,20 @@ public class WyRegistry
 		langMap.put(key, localizedName);
 	}
 
-	public static Ability registerAbility(Ability ability, String localizedName)
+	public static void registerAbilities(RegistryEvent.Register<Ability> event, Ability... abilities)
 	{
-		String truename = WyHelper.getResourceName(localizedName);
+		for(Ability ability : abilities)
+		{
+			event.getRegistry().register(registerAbility(ability));
+		}
+	}
+	
+	public static Ability registerAbility(Ability ability)
+	{
+		String truename = WyHelper.getResourceName(ability.getName());
 		ability.setRegistryName(APIConfig.PROJECT_ID, truename);
 
-		langMap.put("ability." + APIConfig.PROJECT_ID + "." + truename, localizedName);
+		langMap.put("ability." + APIConfig.PROJECT_ID + "." + truename, ability.getName());
 
 		return ability;
 	}

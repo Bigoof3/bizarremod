@@ -44,21 +44,24 @@ public class ModAbilities
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public static void registerAbilities(final RegistryEvent.Register<Ability> event)
 	{
-		event.getRegistry().register(WyRegistry.registerAbility(new RoomTrapAbility(), "Room Trap"));
-
-		event.getRegistry().register(WyRegistry.registerAbility(new RapierStabAbility(), "Rapier Stab"));
-		event.getRegistry().register(WyRegistry.registerAbility(new ArmorOffAbility(), "Armor Off"));
-		event.getRegistry().register(WyRegistry.registerAbility(new ShootingSwordAbility(), "Shooting Sword"));
-		
-		event.getRegistry().register(WyRegistry.registerAbility(new RedBindAbility(), "Red Bind"));
-		event.getRegistry().register(WyRegistry.registerAbility(new CrossFireHurricaneAbility(), "Cross Fire Hurricane"));
-		
-		event.getRegistry().register(WyRegistry.registerAbility(new BombAbility(), "Bomb"));
-		event.getRegistry().register(WyRegistry.registerAbility(new CarbonDioxideRadarAbility(), "Carbon Dioxide Radar"));
-		event.getRegistry().register(WyRegistry.registerAbility(new MachineGunsAbility(), "Machine Guns"));
-		
-		event.getRegistry().register(WyRegistry.registerAbility(new MoldInfestationAbility(), "Mold Infestation"));
-		
-		event.getRegistry().register(WyRegistry.registerAbility(new StandPunchAbility(), "Punch"));
+		WyRegistry.registerAbilities(event,
+				
+				new RoomTrapAbility(),
+				
+				new RapierStabAbility(),
+				new ArmorOffAbility(),
+				new ShootingSwordAbility(),
+				
+				new RedBindAbility(),
+				new CrossFireHurricaneAbility(),
+				
+				new BombAbility(),
+				new CarbonDioxideRadarAbility(),
+				new MachineGunsAbility(),			
+				
+				new MoldInfestationAbility(),
+				
+				new StandPunchAbility()
+		);
 	}
 }
