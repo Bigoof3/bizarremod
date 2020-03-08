@@ -27,3 +27,4 @@ forge*changelog.txt
 # wypi shit
 *.properties
 *~$*
+.env

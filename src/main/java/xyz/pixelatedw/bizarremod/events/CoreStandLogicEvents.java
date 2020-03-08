@@ -28,7 +28,7 @@ public class CoreStandLogicEvents
 	@SubscribeEvent
 	public static void onWorldTick(WorldTickEvent event)
 	{
-		if(event.world.getGameTime() % 100 == 0 && event.phase == Phase.START)
+		if(event.world.getGameTime() % 20 == 0 && event.phase == Phase.START)
 		{
 			PunchBlocksHelper.tick(event.world);
 		}
