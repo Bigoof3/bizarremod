@@ -35,7 +35,7 @@ public class ModItems
 		(
 			WyRegistry.registerItem(new SilverChariotsRapierItem(), "Silver Chariot's Rapier", new JSONModelSimple3DItem("silver_chariots_rapier").setThirdPersonScales(1.20, 1.20, 1.20).setThirdPersonTranslations(0, 7.5, 0.5)),
 			
-			WyRegistry.registerItem(new StandArrowItem(), "Stand Arrow", new JSONModelSimple3DItem("stand_arrow")),
+			WyRegistry.registerItem(new StandArrowItem(), "Stand Arrow", new JSONModelSimple3DItem("stand_arrow").setThirdPersonScales(0.6, 0.6, 0.6).setFirstPersonScales(0.6, 0.6, 0.6)),
 			
 			WyRegistry.registerItem(new Item(new Properties().group(ItemGroup.MATERIALS)), "Meteorite Fragment")
 		);

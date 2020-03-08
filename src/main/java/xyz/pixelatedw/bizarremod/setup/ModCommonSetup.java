@@ -5,6 +5,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import xyz.pixelatedw.bizarremod.init.ModCapabilities;
+import xyz.pixelatedw.bizarremod.init.ModFeatures;
 import xyz.pixelatedw.bizarremod.init.ModNetwork;
 import xyz.pixelatedw.wypi.APIConfig;
 
@@ -18,6 +19,8 @@ public class ModCommonSetup
 		ModCapabilities.init();
 		
 		ModNetwork.init();
+		
+		ModFeatures.init();
 	}
 	
 }
