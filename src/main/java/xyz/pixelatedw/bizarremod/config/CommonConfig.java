@@ -5,6 +5,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.EnumValue;
+import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
 
@@ -17,6 +18,9 @@ public class CommonConfig
 	private BooleanValue visibleStandsInFirstPerson;
 	private BooleanValue oneStand;
 	private BooleanValue shounenScream;
+	
+	private IntValue chanceOfDying;
+	private IntValue meteoriteRarity;
 
 	// Stand Config
 	private EnumValue co2RadarPosition;
@@ -41,9 +45,22 @@ public class CommonConfig
 		this.oneStand = builder.comment("Stands are unqiue and only one of each can exist\n Default: true").define("One Stand", true);
 		//this.shounenScream = builder.comment("Users will scream (audio + text) the name of their Stand or ability used\n Default: false").define("Shounen Scream", false);
 		
-		this.co2RadarPosition = builder.comment("Defines the position where Aerosmith's CO2 Radar will be placed on screen").defineEnum("CO2 Radar Position", CO2RadarPosition.MIDDLE_LEFT, CO2RadarPosition.values());
+		this.chanceOfDying = builder.comment("Chance of dying when using the Stand Arrow on yourself or another player\n Default: 0%").defineInRange("Chance of Dying", 0, 0, 100);
+		this.meteoriteRarity = builder.comment("Defines how rare Meteorites are\n Default: 1").defineInRange("Meteorite's Rarity", 1, 0, 100);
+		
+		this.co2RadarPosition = builder.comment("Defines the position where Aerosmith's CO2 Radar will be placed on screen\n Default: MIDDLE_LEFT").defineEnum("CO2 Radar Position", CO2RadarPosition.MIDDLE_LEFT, CO2RadarPosition.values());
 	}
 
+	public int getMeteoriteRarity()
+	{
+		return this.meteoriteRarity.get();
+	}
+	
+	public int getChanceOfDying()
+	{
+		return this.chanceOfDying.get();
+	}
+	
 	public boolean isVisibleStandsInFirstPersonEnabled()
 	{
 		return this.visibleStandsInFirstPerson.get();

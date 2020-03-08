@@ -16,6 +16,7 @@ import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
 import net.minecraft.world.gen.placement.Placement;
+import xyz.pixelatedw.bizarremod.config.CommonConfig;
 import xyz.pixelatedw.bizarremod.init.ModBlocks;
 import xyz.pixelatedw.bizarremod.init.ModFeatures;
 import xyz.pixelatedw.wypi.APIConfig;
@@ -71,6 +72,8 @@ public class MeteoriteStructure extends Feature<NoFeatureConfig>
 
 	public static void register(Biome biome)
 	{
-		biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(ModFeatures.METEORITE, IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_EXTRA_HEIGHTMAP, new AtSurfaceWithExtraConfig(0, 0.001F, 1)));
+		int rarity = CommonConfig.instance.getMeteoriteRarity();
+		rarity = rarity == 0 ? 0 : rarity / 1000;
+		biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(ModFeatures.METEORITE, IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_EXTRA_HEIGHTMAP, new AtSurfaceWithExtraConfig(0, rarity, 1)));
 	}
 }
