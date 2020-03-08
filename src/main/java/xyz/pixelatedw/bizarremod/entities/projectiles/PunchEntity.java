@@ -44,19 +44,19 @@ public class PunchEntity extends AbilityProjectileEntity
 		double blockHardness = state.getPlayerRelativeBlockHardness((PlayerEntity) this.getThrower(), this.world, hit);
 		int standDamage = StandLogicHelper.getStandEntityOf((PlayerEntity) this.getThrower()).getDestructivePower();
 		double blockDamage = ((blockHardness * standDamage) * 10);
-		int damage = (int) (PunchBlocksHelper.getDamage(hit) + blockDamage);
-
+		int damage = (int) (PunchBlocksHelper.getDamage(hit) + Math.round(blockDamage));
+		
 		if(damage == 0 && blockDamage >= 1)
 		{
 			PunchBlocksHelper.addDamagedBlock(hit, 1);
-			this.world.sendBlockBreakProgress(this.getEntityId(), hit, 1);
+			this.world.sendBlockBreakProgress(this.getEntityId(), hit, 0);
 		}
 		else if(damage > 0 && damage < 10)
 		{
-			this.world.sendBlockBreakProgress(this.getEntityId(), hit, 0);
+			this.world.sendBlockBreakProgress(this.getEntityId(), hit, -1);
 			damage++;
 			PunchBlocksHelper.setDamage(hit, damage);
-			this.world.sendBlockBreakProgress(this.getEntityId(), hit, damage);
+			this.world.sendBlockBreakProgress(this.getEntityId(), hit, damage - 1);
 		}
 		else if(damage >= 10)
 		{

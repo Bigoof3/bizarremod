@@ -46,7 +46,7 @@ public class WyJSON
 		{
 			Object next = i.next();
 			File jsonModel = null;
-			
+
 			if(next instanceof Block)
 			{
 				Block nextBlock = (Block) next;

@@ -1,0 +1,35 @@
+{
+	"type": "minecraft:block",
+	"pools": 
+	[
+		{
+			"name": "bizarremod:drop_pool",
+			"rolls": 1,
+			"entries": 
+			[
+				{
+					"type": "minecraft:item",
+					"functions": 
+					[
+						{
+							"function": "minecraft:set_count",
+							"count": 
+							{
+								"min": 0,
+								"max": 1,
+								"type": "minecraft:uniform"
+							}
+		                }
+					],
+					"name": "bizarremod:meteorite_fragment"
+				}
+			],
+			"conditions": 
+			[
+				{
+					"condition": "minecraft:survives_explosion"
+				}
+			]
+		}
+	]
+}

@@ -14,6 +14,7 @@ import net.minecraft.item.SpawnEggItem;
 import net.minecraft.particles.IParticleData.IDeserializer;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.potion.Effect;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.event.RegistryEvent;
 import xyz.pixelatedw.wypi.abilities.Ability;
@@ -148,8 +149,9 @@ public class WyRegistry
 	public static Block registerBlock(Block block, String localizedName, JSONModelBlock jsonType)
 	{
 		String truename = WyHelper.getResourceName(localizedName);
+		block.setRegistryName(new ResourceLocation(APIConfig.PROJECT_ID, truename));
+		
 		langMap.put("block." + APIConfig.PROJECT_ID + "." + truename, localizedName);
-
 		blocks.put(block, jsonType);
 
 		return block;

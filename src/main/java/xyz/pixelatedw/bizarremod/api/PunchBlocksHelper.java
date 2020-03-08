@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 
 public class PunchBlocksHelper
 {
@@ -36,7 +35,7 @@ public class PunchBlocksHelper
 		damagedBlocks.put(pos, damage);
 	}
 	
-	public static void tick(World world)
+	public static void tick()
 	{
         for(Iterator<Map.Entry<BlockPos, Integer>> itr = damagedBlocks.entrySet().iterator(); itr.hasNext();)
         {
@@ -45,9 +44,7 @@ public class PunchBlocksHelper
 			if(pair.getValue() > 0)
 				pair.setValue(pair.getValue() - 1);
 			else if(pair.getValue() <= 0 || pair.getValue() >= 10)
-			{
 				itr.remove();
-			}
         }
 	}
 }

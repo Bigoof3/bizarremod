@@ -30,7 +30,7 @@ public class CoreStandLogicEvents
 	{
 		if(event.world.getGameTime() % 20 == 0 && event.phase == Phase.START)
 		{
-			PunchBlocksHelper.tick(event.world);
+			PunchBlocksHelper.tick();
 		}
 	}
 	
@@ -53,7 +53,6 @@ public class CoreStandLogicEvents
 				WyNetwork.sendTo(new SSyncStandDataPacket(standProps), (ServerPlayerEntity) player);
 				WyNetwork.sendTo(new SSyncAbilityDataPacket(abilityProps), (ServerPlayerEntity) player);
 			}
-
 		}
 	}
 	
