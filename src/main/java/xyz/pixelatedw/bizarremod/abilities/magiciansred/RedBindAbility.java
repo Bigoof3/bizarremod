@@ -20,12 +20,12 @@ import xyz.pixelatedw.wypi.abilities.ContinuousAbility;
 public class RedBindAbility extends ContinuousAbility implements IStandAbility
 {
 	private static final RedBindEffect RED_BIND_EFFECT = new RedBindEffect();
-	
+
 	public RedBindAbility()
 	{
 		super("Red Bind", AbilityCategory.ALL);
 		this.setMaxCooldown(20);
-		this.setThreshold(20);
+		this.setThreshold(15);
 
 		this.duringContinuity = this::duringContinuity;
 	}
@@ -36,14 +36,14 @@ public class RedBindAbility extends ContinuousAbility implements IStandAbility
 		this.drawLine("- " + this.getName() + " -", posX + 185, posY + 60);
 		this.drawLine(TextFormatting.YELLOW + " Active (Continuous)", posX + 183, posY + 72);
 
-		this.drawLine("Magician's Red can use his flame to tie his opponent.", posX + 190, posY + 95);
+		this.drawLine("Magician's Red can use his flame to tie his opponents.", posX + 190, posY + 95);
 		this.drawLine("By putting a flame too close to the opponent's face,", posX + 190, posY + 110);
 		this.drawLine("it eventually burns the oxygen around them to the point", posX + 190, posY + 125);
 		this.drawLine("of suffocating them.", posX + 190, posY + 140);
 	}
-	
+
 	@SuppressWarnings("deprecation")
-	protected void duringContinuity(PlayerEntity player, int passiveTimer)
+	private void duringContinuity(PlayerEntity player, int passiveTimer)
 	{
 		IStandData props = StandDataCapability.get(player);
 		StandInfo info = StandLogicHelper.getStandInfo(props.getStand());
@@ -54,13 +54,14 @@ public class RedBindAbility extends ContinuousAbility implements IStandAbility
 
 		for (LivingEntity target : list)
 		{
-			if(target.world.getBlockState(target.getPosition().down(3)).isAir())
+			if (target.world.getBlockState(target.getPosition().down(3)).isAir())
 				continue;
-			
+
 			target.setMotion(0, 0.1, 0);
+			target.velocityChanged = true;
 			target.fallDistance = 0;
-			
-			RED_BIND_EFFECT.spawn(player.world, target.posX, target.posY + 0.5, target.posZ, 0, 0, 0);
+
+			RED_BIND_EFFECT.spawn(player.world, target.posX, target.posY + 1.25, target.posZ, 0, 0, 0);
 		}
 	}
 }
