@@ -60,7 +60,7 @@ public class HighwayStarRenderer extends BipedRenderer<HighwayStarEntity, BipedM
 		else
 		{
 			HUMANOID_MODEL.render(entity, limbSwing, limbSwingAmount, ageInTicks, headYaw - headYawOffset, headPitch, 0.0625F);
-			super.doRender(entity, x, y + 0.4F, z, entityYaw, partialTicks);
+			//super.doRender(entity, x, y + 0.4F, z, entityYaw, partialTicks);
 		}
 
 		GlStateManager.popMatrix();
