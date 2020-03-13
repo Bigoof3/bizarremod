@@ -19,7 +19,7 @@ public class RapierStabAbility extends Ability implements IStandAbility
 	{
 		super("Rapier Stab", AbilityCategory.ALL);
 
-		this.setMaxCooldown(1);
+		this.setMaxCooldown(0.6);
 
 		this.onUseEvent = this::onUseEvent;
 	}
