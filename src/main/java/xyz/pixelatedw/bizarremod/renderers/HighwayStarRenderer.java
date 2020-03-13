@@ -54,14 +54,16 @@ public class HighwayStarRenderer extends BipedRenderer<HighwayStarEntity, BipedM
 		if(entity.isChasing())
 		{
 			GlStateManager.translated(0, -0.45, 0);
-			CHASE_MODEL.render(entity, limbSwing, limbSwingAmount, ageInTicks, headYaw - headYawOffset, headPitch, 0.0625F);
+			if(!entity.isInvisible())
+				CHASE_MODEL.render(entity, limbSwing, limbSwingAmount, ageInTicks, headYaw - headYawOffset, headPitch, 0.0625F);
 		}
 		else
+		{
 			HUMANOID_MODEL.render(entity, limbSwing, limbSwingAmount, ageInTicks, headYaw - headYawOffset, headPitch, 0.0625F);
+			super.doRender(entity, x, y + 0.4F, z, entityYaw, partialTicks);
+		}
 
 		GlStateManager.popMatrix();
-		
-		//super.doRender(entity, x, y + 0.4F, z, entityYaw, partialTicks);
 	}
 
 	@Override

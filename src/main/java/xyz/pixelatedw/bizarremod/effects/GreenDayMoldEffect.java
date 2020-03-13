@@ -1,12 +1,15 @@
 package xyz.pixelatedw.bizarremod.effects;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.EffectType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.Vec3i;
+import xyz.pixelatedw.bizarremod.Consts;
 import xyz.pixelatedw.bizarremod.api.stands.GenericStandEntity;
+import xyz.pixelatedw.bizarremod.data.entity.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.init.ModEffects;
 import xyz.pixelatedw.wypi.WyHelper;
 
@@ -27,6 +30,13 @@ public class GreenDayMoldEffect extends Effect
 	@Override
 	public void performEffect(LivingEntity entity, int amplifier) 
 	{
+		if(entity instanceof PlayerEntity)
+		{
+			boolean isGreenDayMaster = StandDataCapability.get(entity).getStand().equalsIgnoreCase(Consts.STAND_ID_GREEN_DAY);
+			if(isGreenDayMaster)
+				entity.removeActivePotionEffect(this);
+		}
+		
 		entity.attackEntityFrom(DamageSource.MAGIC, 1);
 
 		for(LivingEntity target : WyHelper.getEntitiesNear(entity.getPosition(), entity.world, 20, LivingEntity.class))
