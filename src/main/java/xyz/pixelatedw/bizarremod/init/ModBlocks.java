@@ -1,5 +1,6 @@
 package xyz.pixelatedw.bizarremod.init;
 
+import net.minecraft.block.AirBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Block.Properties;
 import net.minecraft.block.material.Material;
@@ -25,10 +26,11 @@ public class ModBlocks
 	public static void registerBlocks(final RegistryEvent.Register<Block> event)
 	{
 		Block meteorite = WyRegistry.registerBlock(new Block(Properties.create(Material.ROCK).hardnessAndResistance(3)), "Meteorite");
-		
-		event.getRegistry().register(meteorite);
+
+		event.getRegistry().registerAll(meteorite);
 		
 		WyRegistry.registerLootTable(meteorite, new JSONLootTableSimpleBlock("Meteorite Fragment", 0, 1));
+
 	}
 	
 	@SubscribeEvent
@@ -37,6 +39,7 @@ public class ModBlocks
 		event.getRegistry().registerAll
 		(
 			WyRegistry.registerItem(new BlockItem(METEORITE, new Item.Properties().group(ItemGroup.MATERIALS)), "Meteorite", new JSONModelItemBlock("meteorite"))
-		);
+
+				);
 	}
 }

@@ -16,6 +16,8 @@ import xyz.pixelatedw.bizarremod.abilities.magiciansred.RedBindAbility;
 import xyz.pixelatedw.bizarremod.abilities.silverchariot.ArmorOffAbility;
 import xyz.pixelatedw.bizarremod.abilities.silverchariot.RapierStabAbility;
 import xyz.pixelatedw.bizarremod.abilities.silverchariot.ShootingSwordAbility;
+import xyz.pixelatedw.bizarremod.abilities.sun.HeatPassiveAbility;
+import xyz.pixelatedw.bizarremod.abilities.sun.LightRayAbility;
 import xyz.pixelatedw.wypi.APIConfig;
 import xyz.pixelatedw.wypi.WyRegistry;
 import xyz.pixelatedw.wypi.abilities.Ability;
@@ -38,6 +40,9 @@ public class ModAbilities
 	public static final Ability MACHINE_GUNS = null;
 
 	public static final Ability MOLD_INFESTATION = null;
+	
+	public static final Ability HEAT = null;
+	public static final Ability LIGHT_RAYS = null;
 
 	public static final Ability PUNCH = null;
 	
@@ -60,6 +65,9 @@ public class ModAbilities
 				new MachineGunsAbility(),			
 				
 				new MoldInfestationAbility(),
+				
+				new HeatPassiveAbility(),
+				new LightRayAbility(),
 				
 				new StandPunchAbility()
 		);
