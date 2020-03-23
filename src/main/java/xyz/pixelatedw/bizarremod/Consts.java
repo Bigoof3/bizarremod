@@ -18,6 +18,7 @@ public class Consts
 	STAND_ID_MAGICIANS_RED_ASB = "magicians_red_asb",
 	STAND_ID_SILVER_CHARIOT = "silver_chariot",
 	STAND_ID_HIGHWAY_STAR = "highway_star",
+	STAND_ID_SUN = "sun",
 
 	CONTROLS_KEY_STAND_CONTROL = "Stand Summon/Cancel",
 	CONTROLS_KEY_ABILITY_WHEEL = "Ability Wheel",

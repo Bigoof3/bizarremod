@@ -22,6 +22,7 @@ import xyz.pixelatedw.bizarremod.api.stands.StandInfo;
 import xyz.pixelatedw.bizarremod.data.entity.standdata.IStandData;
 import xyz.pixelatedw.bizarremod.data.entity.standdata.StandDataCapability;
 import xyz.pixelatedw.bizarremod.data.world.ExtendedWorldData;
+import xyz.pixelatedw.bizarremod.entities.stands.SunEntity;
 import xyz.pixelatedw.bizarremod.init.ModEntities;
 import xyz.pixelatedw.bizarremod.packets.client.CSyncStandDataPacket;
 import xyz.pixelatedw.wypi.APIConfig;
@@ -78,7 +79,12 @@ public class StandSelectScreen extends Screen
 		
 		StandInfo info = (StandInfo) ModEntities.STANDS.toArray()[this.currentStand - 1];
 		GenericStandEntity stand = info.getStandEntity(this.player);
-		InventoryScreen.drawEntityOnScreen(posX + 0, posY + 190, 50, 0.0F, 0.0F, stand);
+		if(stand instanceof SunEntity) {
+		InventoryScreen.drawEntityOnScreen(posX + 0, posY + 90, 5, 0.0F, 0.0F, stand);
+		} else {
+			InventoryScreen.drawEntityOnScreen(posX + 0, posY + 190, 50, 0.0F, 0.0F, stand);
+
+		}
 		this.drawCenteredString(this.minecraft.fontRenderer, stand.getStandName(), posX, posY + 182, -1);
 		WyHelper.drawIcon(this.getIcon(info), posX - 60, posY + 168, 32, 32);
 		// Stats section	

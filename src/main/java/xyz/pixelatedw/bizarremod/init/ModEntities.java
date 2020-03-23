@@ -14,6 +14,7 @@ import xyz.pixelatedw.bizarremod.api.stands.StandInfo;
 import xyz.pixelatedw.bizarremod.entities.projectiles.AnkhEntity;
 import xyz.pixelatedw.bizarremod.entities.projectiles.BombEntity;
 import xyz.pixelatedw.bizarremod.entities.projectiles.BulletEntity;
+import xyz.pixelatedw.bizarremod.entities.projectiles.LightRayEntity;
 import xyz.pixelatedw.bizarremod.entities.projectiles.PunchEntity;
 import xyz.pixelatedw.bizarremod.entities.projectiles.RapierEntity;
 import xyz.pixelatedw.bizarremod.entities.stands.AerosmithEntity;
@@ -26,6 +27,8 @@ import xyz.pixelatedw.bizarremod.entities.stands.MagiciansRedEntity;
 import xyz.pixelatedw.bizarremod.entities.stands.MagiciansRedEntity.MagiciansRedStandInfo;
 import xyz.pixelatedw.bizarremod.entities.stands.SilverChariotEntity;
 import xyz.pixelatedw.bizarremod.entities.stands.SilverChariotEntity.SilverChariotStandInfo;
+import xyz.pixelatedw.bizarremod.entities.stands.SunEntity;
+import xyz.pixelatedw.bizarremod.entities.stands.SunEntity.SunStandInfo;
 import xyz.pixelatedw.wypi.APIConfig;
 import xyz.pixelatedw.wypi.WyHelper;
 import xyz.pixelatedw.wypi.WyRegistry;
@@ -35,6 +38,7 @@ public class ModEntities
 
 	public static final EntityType PUNCH = WyRegistry.registerEntityType("punch", PunchEntity::new, 1, 1);
 	public static final EntityType BULLET = WyRegistry.registerEntityType("bullet", BulletEntity::new, 1, 1);
+	public static final EntityType LIGHTRAY = WyRegistry.registerEntityType("light_ray", LightRayEntity::new, 1.5f, 1.5f);
 	public static final EntityType BOMB = WyRegistry.registerEntityType("bomb", BombEntity::new, 1, 1);
 	public static final EntityType ANKH = WyRegistry.registerEntityType("ankh", AnkhEntity::new, 1, 1);
 	public static final EntityType RAPIER = WyRegistry.registerEntityType("rapier", RapierEntity::new, 2, 2);
@@ -49,7 +53,8 @@ public class ModEntities
 	public static final StandInfo SILVER_CHARIOT_INFO = registerStandInfo(new SilverChariotStandInfo(),  "Silver Chariot");
 	public static final EntityType HIGHWAY_STAR = WyRegistry.registerEntityType(Consts.STAND_ID_HIGHWAY_STAR, HighwayStarEntity::new);
 	public static final StandInfo HIGHWAY_STAR_INFO = registerStandInfo(new HighwayStarStandInfo(), "Highway Star");
-
+    public static final EntityType SUN = WyRegistry.registerEntityType(Consts.STAND_ID_SUN, SunEntity::new, 35f, 35f);
+    public static final StandInfo SUN_INFO = registerStandInfo(new SunStandInfo(), "Sun");
 	public static final List<StandInfo> STANDS = new ArrayList<StandInfo>();
 	
 	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -63,9 +68,9 @@ public class ModEntities
 			
 			event.getRegistry().registerAll
 			(
-				GREEN_DAY, AEROSMITH, MAGICIAN_RED, SILVER_CHARIOT, HIGHWAY_STAR,
+				GREEN_DAY, AEROSMITH, MAGICIAN_RED, SILVER_CHARIOT, HIGHWAY_STAR, SUN,
 				
-				PUNCH, BULLET, BOMB, ANKH, RAPIER
+				PUNCH, BULLET, BOMB, ANKH, RAPIER, LIGHTRAY
 			);
 		}
 		
@@ -77,6 +82,7 @@ public class ModEntities
 			STANDS.add(MAGICIAN_RED_INFO);
 			STANDS.add(SILVER_CHARIOT_INFO);
 			STANDS.add(HIGHWAY_STAR_INFO);
+			STANDS.add(SUN_INFO);
 			
 			for(StandInfo info : STANDS)
 				event.getRegistry().register(info);

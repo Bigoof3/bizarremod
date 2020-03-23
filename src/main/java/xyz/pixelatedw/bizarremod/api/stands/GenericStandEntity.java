@@ -13,6 +13,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import xyz.pixelatedw.bizarremod.api.StandLogicHelper;
+import xyz.pixelatedw.bizarremod.entities.stands.SunEntity;
 
 public abstract class GenericStandEntity extends CreatureEntity
 {
@@ -73,6 +74,11 @@ public abstract class GenericStandEntity extends CreatureEntity
 	}
 
 	@Override
+	public boolean canDespawn(double d) {
+		return false;
+		
+	}
+	@Override
 	public boolean isNotColliding(IWorldReader world)
 	{
 		return true;
@@ -96,9 +102,11 @@ public abstract class GenericStandEntity extends CreatureEntity
 				this.setHealth(this.owner.getHealth());
 
 			double distance = this.getDistanceSq(this.owner);
+			if(!(this instanceof SunEntity)) {
 			if (distance > 1)
 				this.moveStand(distance, this.owner);
 
+			}
 			this.setRotation(this.owner.rotationYaw, this.owner.rotationPitch);
 		}
 
